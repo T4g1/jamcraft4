@@ -36,12 +36,20 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
+        UpdateVelocity();
+    }
+
+    void UpdateVelocity()
+    {
         moveDirection = new Vector3(
             Input.GetAxisRaw("Horizontal"), 
             Input.GetAxisRaw("Vertical"), 
             0.0f
         );
         moveDirection.Normalize();
+
+        // TODO: Overriding velocity value will remove any other force 
+        // applied to the body. Fix this behavior if outside forces needed
         
         body.velocity = moveDirection * speed * Time.fixedDeltaTime;
     }
