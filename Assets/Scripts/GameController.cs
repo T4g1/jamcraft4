@@ -37,8 +37,6 @@ public class GameController : MonoBehaviour
     {
         Assert.IsNotNull(intensityTween);
 
-        intensityTween.Interpolate(100.0f, 100.0f);
-
         mainTheme = FMODUnity.RuntimeManager.CreateInstance(mainThemeName);
         mainTheme.start();
     }
