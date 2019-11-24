@@ -10,7 +10,6 @@ public class Player : MonoBehaviour
     public float speed = 8.0f;
 
     Vector3 moveDirection = Vector3.zero;
-    bool isDead = false;
     string lastAnimation = "";
 
 
@@ -26,10 +25,12 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
-        moveDirection = new Vector2(
+        moveDirection = new Vector3(
             Input.GetAxisRaw("Horizontal"), 
-            Input.GetAxisRaw("Vertical")
+            Input.GetAxisRaw("Vertical"), 
+            0.0f
         );
+        moveDirection.Normalize();
         
         body.velocity = moveDirection * speed * Time.fixedDeltaTime;
     }

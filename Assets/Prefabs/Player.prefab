@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4401080608842598192}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.3252997, y: 0.44861773, z: -14.568359}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -119,6 +119,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   body: {fileID: 3754272989295686216}
   sprite: {fileID: 2352802003615633258}
+  animator: {fileID: 1341694006770321310}
   speed: 8
 --- !u!95 &1341694006770321310
 Animator:
