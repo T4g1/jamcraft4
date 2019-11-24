@@ -121,7 +121,7 @@ MonoBehaviour:
   body: {fileID: 3754272989295686216}
   sprite: {fileID: 2352802003615633258}
   animator: {fileID: 1341694006770321310}
-  speed: 8
+  speed: 200
 --- !u!95 &1341694006770321310
 Animator:
   serializedVersion: 3

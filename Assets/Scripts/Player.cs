@@ -1,20 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 public class Player : MonoBehaviour
 {
-    [Serialize]
+    [SerializeField]
     private Rigidbody2D body = null;
 
-    [Serialize]
+    [SerializeField]
     private SpriteRenderer sprite = null;
 
-    [Serialize]
+    [SerializeField]
     private Animator animator = null;
 
-    [Serialize]
-    private float speed = 8.0f;
+    [SerializeField]
+    private float speed = 200.0f;
 
     Vector3 moveDirection = Vector3.zero;
     string lastAnimation = "";
