@@ -4,10 +4,17 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public Rigidbody2D body;
-    public SpriteRenderer sprite;
-    public Animator animator;
-    public float speed = 8.0f;
+    [Serialize]
+    private Rigidbody2D body = null;
+
+    [Serialize]
+    private SpriteRenderer sprite = null;
+
+    [Serialize]
+    private Animator animator = null;
+
+    [Serialize]
+    private float speed = 8.0f;
 
     Vector3 moveDirection = Vector3.zero;
     string lastAnimation = "";
@@ -15,6 +22,9 @@ public class Player : MonoBehaviour
 
     void Start() 
     {
+        Assert.IsNotNull(body);
+        Assert.IsNotNull(sprite);
+            
         SetAnimation("idle_down");
     }
 
@@ -69,6 +79,10 @@ public class Player : MonoBehaviour
 
     void SetAnimation(string stateName)
     {
+        if (animator == null) {
+            return;
+        }
+        
         animator.Play(stateName);
         lastAnimation = stateName;
     }
