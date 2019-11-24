@@ -1,13 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 public class Player : MonoBehaviour
 {
-    public Rigidbody2D body;
-    public SpriteRenderer sprite;
-    public Animator animator;
-    public float speed = 8.0f;
+    [SerializeField]
+    private Rigidbody2D body = null;
+
+    [SerializeField]
+    private SpriteRenderer sprite = null;
+
+    [SerializeField]
+    private Animator animator = null;
+
+    [SerializeField]
+    private float speed = 200.0f;
 
     Vector3 moveDirection = Vector3.zero;
     string lastAnimation = "";
@@ -15,6 +23,9 @@ public class Player : MonoBehaviour
 
     void Start() 
     {
+        Assert.IsNotNull(body);
+        Assert.IsNotNull(sprite);
+            
         SetAnimation("idle_down");
     }
 
@@ -25,12 +36,20 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
+        UpdateVelocity();
+    }
+
+    void UpdateVelocity()
+    {
         moveDirection = new Vector3(
             Input.GetAxisRaw("Horizontal"), 
             Input.GetAxisRaw("Vertical"), 
             0.0f
         );
         moveDirection.Normalize();
+
+        // TODO: Overriding velocity value will remove any other force 
+        // applied to the body. Fix this behavior if outside forces needed
         
         body.velocity = moveDirection * speed * Time.fixedDeltaTime;
     }
@@ -69,6 +88,10 @@ public class Player : MonoBehaviour
 
     void SetAnimation(string stateName)
     {
+        if (animator == null) {
+            return;
+        }
+        
         animator.Play(stateName);
         lastAnimation = stateName;
     }
