@@ -174,7 +174,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32bee3a23f63545bc9fe0e5bd680d735, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  agroZone: {fileID: 1161148983929493434}
+  aggroZone: {fileID: 1161148983929493434}
   lostZone: {fileID: 7062443018094338420}
 --- !u!50 &9189348773845476850
 Rigidbody2D:
@@ -209,7 +209,7 @@ GameObject:
   - component: {fileID: 4395149619556599621}
   - component: {fileID: 1161148983929493434}
   m_Layer: 10
-  m_Name: AgroZone
+  m_Name: AggroZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

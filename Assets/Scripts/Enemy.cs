@@ -5,7 +5,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     [SerializeField]
-    private TriggerZone agroZone = null;
+    private TriggerZone aggroZone = null;
 
     [SerializeField]
     private TriggerZone lostZone = null;
@@ -13,13 +13,13 @@ public class Enemy : MonoBehaviour
 
     void Start()
     {
-        agroZone.OnZoneEnter += OnGotTarget;
+        aggroZone.OnZoneEnter += OnGotTarget;
         lostZone.OnZoneExit += OnLostTarget;
     }
 
     void OnDestroy() 
     {
-        agroZone.OnZoneEnter -= OnGotTarget;
+        aggroZone.OnZoneEnter -= OnGotTarget;
         lostZone.OnZoneExit -= OnLostTarget;
     }
 
