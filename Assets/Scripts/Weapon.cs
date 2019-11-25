@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
 
+//[ExecuteInEditMode] // Uncomment to update weapon part position in Editor
 public class Weapon : MonoBehaviour
 {
     // Display settings
@@ -50,6 +51,9 @@ public class Weapon : MonoBehaviour
         Assert.IsNotNull(stringPart);
         Assert.IsNotNull(handlePart);
         Assert.IsNotNull(quiverPart);
+        
+        // Have at least one camera tagged "MainCamera"
+        Assert.IsNotNull(Camera.main);
 
         magazineClip = GetMagazineSize();
 

@@ -4,21 +4,21 @@ using UnityEngine;
 
 public class TriggerZone : MonoBehaviour
 {
-    public event System.Action OnZoneEnter;
-    public event System.Action OnZoneExit;
+    public event System.Action<GameObject> OnZoneEnter;
+    public event System.Action<GameObject> OnZoneExit;
 
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (OnZoneEnter != null) {
-            OnZoneEnter();
+            OnZoneEnter(other.transform.gameObject);
         }
     }
     
     private void OnTriggerExit2D(Collider2D other)
     {
         if (OnZoneExit != null) {
-            OnZoneExit();
+            OnZoneExit(other.transform.gameObject);
         }
     }
 }
