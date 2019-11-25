@@ -11,7 +11,7 @@ public class Enemy : MonoBehaviour
     private TriggerZone lostZone = null;
 
     [SerializeField]
-    private float speed = 200.0f;
+    private float speed = 1.0f;
 
     private Vector3 direction = Vector3.zero;
 
@@ -32,7 +32,7 @@ public class Enemy : MonoBehaviour
      */
     void UpdateMovement()
     {
-        transform.Translate(direction * 1 * Time.deltaTime);
+        transform.Translate(direction * speed * Time.deltaTime);
     }
 
     void OnDestroy() 
