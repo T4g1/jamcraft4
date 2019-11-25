@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -35,7 +36,10 @@ public class Weapon : MonoBehaviour
     [SerializeField]
     private GameObject muzzle = null;
 
-    private float shotCooldown = 0.0f;
+    private float shotCooldown = 0.0f;  // Time before next bullet
+    private uint magazineClip = 0;      // Bullet left
+    private bool reloading = false;
+    private float reloadTime = 0.0f;    // Time before reload complete
 
 
     void Start()
@@ -46,6 +50,8 @@ public class Weapon : MonoBehaviour
         Assert.IsNotNull(stringPart);
         Assert.IsNotNull(handlePart);
         Assert.IsNotNull(quiverPart);
+
+        magazineClip = GetMagazineSize();
 
         transform.rotation = Quaternion.Euler(
             0.0f,
@@ -98,7 +104,14 @@ public class Weapon : MonoBehaviour
 
     void Update()
     {
-        shotCooldown -= Time.deltaTime;
+        shotCooldown = Mathf.Max(0, shotCooldown -Time.deltaTime);
+        reloadTime = Mathf.Max(0, reloadTime -Time.deltaTime);
+
+        if (reloading && reloadTime <= 0) {
+            reloading = false;
+            magazineClip = GetMagazineSize();
+            Debug.Log("Reloaded");
+        }
 
         HandleInputs();
         UpdateRotation();
@@ -147,6 +160,10 @@ public class Weapon : MonoBehaviour
         if (Input.GetButtonDown("Fire1")) {
             Shoot();
         }
+        
+        if (Input.GetButtonDown("Reload")) {
+            Reload();
+        }
     }
 
     /**
@@ -158,12 +175,29 @@ public class Weapon : MonoBehaviour
             return;
         }
 
+        if (magazineClip <= 0) {
+            return;
+        }
+
         Bullet bullet = Instantiate(GetBulletPrefab());
         bullet.transform.position = GetMuzzlePosition();
         bullet.transform.rotation = transform.rotation;
         bullet.lifespan = GetBulletLifeSpan();
 
+        magazineClip -= 1;
+
         shotCooldown = GetShotInterval();
+    }
+
+    void Reload()
+    {
+        if (reloading) {
+            return;
+        }
+
+        Debug.Log("Reloading");
+        reloading = true;
+        reloadTime = GetReloadTime();
     }
 
     /**
@@ -196,5 +230,21 @@ public class Weapon : MonoBehaviour
     float GetBulletLifeSpan()
     {
         return stringPart.lifespan;
+    }
+
+    /**
+     * Get reload time
+     */
+    float GetReloadTime()
+    {
+        return handlePart.reloadTime;
+    }
+
+    /**
+     * Size of magazine clip
+     */
+    uint GetMagazineSize()
+    {
+        return quiverPart.magazineSize;
     }
 }

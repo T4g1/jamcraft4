@@ -96,7 +96,7 @@ MonoBehaviour:
   partType: 0
   sprite: {fileID: 21300000, guid: 087383a6cab574e4d95231d2ccfe4cff, type: 3}
   isQuiver: 1
-  magazineSize: 30
+  magazineSize: 5
   isBarrel: 0
   bulletPrefab: {fileID: 0}
   isSstock: 0
