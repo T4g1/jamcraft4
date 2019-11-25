@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour, IAlive
 {
     [SerializeField]
     private TriggerZone aggroZone = null;
@@ -14,6 +14,20 @@ public class Enemy : MonoBehaviour
     private float speed = 1.0f;
 
     private Vector3 direction = Vector3.zero;
+
+    // Alive interface
+    [SerializeField]
+    private int hitPoints;
+
+    public int HitPoints {
+        get { return hitPoints; }
+        set { hitPoints = value; }
+    }
+    
+    public bool IsAlive {
+        get { return hitPoints > 0; }
+        set {}
+    }
 
 
     void Start()
@@ -67,5 +81,20 @@ public class Enemy : MonoBehaviour
     public void SetDirection(Vector3 value)
     {
         direction = value;
+    }
+    
+    public void TakeDamage(int amount)
+    {
+        Debug.Log("Ouch!");
+        hitPoints -= amount;
+
+        if (!IsAlive) {
+            Die();
+        }
+    }
+
+    public void Die()
+    {
+        Destroy(gameObject);
     }
 }
