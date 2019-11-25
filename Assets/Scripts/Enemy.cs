@@ -23,13 +23,21 @@ public class Enemy : MonoBehaviour
         lostZone.OnZoneExit -= OnLostTarget;
     }
 
-    void OnGotTarget()
+    void OnGotTarget(GameObject other)
     {
-        Debug.Log("GOT TARGET");
+        if (other.tag != "Player") {
+            return;
+        }
+
+        GameController.Instance.EnemyAggro += 1;
     }
 
-    void OnLostTarget()
+    void OnLostTarget(GameObject other)
     {
-        Debug.Log("LOST TARGET");
+        if (other.tag != "Player") {
+            return;
+        }
+
+        GameController.Instance.EnemyAggro -= 1;
     }
 }
