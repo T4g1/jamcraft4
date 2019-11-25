@@ -1,5 +1,22 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8832895166844743141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Level1_Song/Intensity
+  m_EditorClassIdentifier: 
+  Name: Intensity
+  Min: 0
+  Max: 100
+  Default: 0
+  Exists: 0
 --- !u!114 &-7639165003188260227
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14,11 +31,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: Assets/Audio/Music/Level1/Master.strings.bank
   SubDir: 
-  lastModified: 637102371940000000
+  lastModified: 637102957575179062
   LoadResult: 0
   FileSizes:
   - Name: 
     Value: 788
+  Exists: 1
+--- !u!114 &-3896073747637923462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Audio/Music/Level1/Master.bank
+  SubDir: 
+  lastModified: 637102957616605579
+  LoadResult: 0
+  FileSizes: []
   Exists: 1
 --- !u!114 &-2230014284775771884
 MonoBehaviour:
@@ -35,12 +70,12 @@ MonoBehaviour:
   Path: event:/Level1_Song
   guid: 73b530aea6edcc4abfa35ed19bfa7d66
   Banks:
-  - {fileID: 6460351707396558122}
+  - {fileID: -3896073747637923462}
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: -433563963236089067}
+  - {fileID: 70328455217948522}
   MinDistance: 0
   MaxDistance: 0
   Length: 41142
@@ -77,7 +112,7 @@ MonoBehaviour:
   Min: 0
   Max: 100
   Default: 0
-  Exists: 1
+  Exists: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -92,16 +127,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EditorBanks:
   - {fileID: -7639165003188260227}
-  - {fileID: 6460351707396558122}
+  - {fileID: -3896073747637923462}
   EditorEvents:
   - {fileID: -2230014284775771884}
   EditorParameters: []
   MasterBanks:
-  - {fileID: 6460351707396558122}
+  - {fileID: -3896073747637923462}
   StringsBanks:
   - {fileID: -7639165003188260227}
-  stringsBankWriteTime: 637102371940000000
+  stringsBankWriteTime: 637102957575179062
   cacheVersion: 3
+--- !u!114 &70328455217948522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Level1_Song/Intensity
+  m_EditorClassIdentifier: 
+  Name: Intensity
+  Min: 0
+  Max: 100
+  Default: 0
+  Exists: 1
 --- !u!114 &2583878069815596331
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -155,4 +207,22 @@ MonoBehaviour:
   lastModified: 637102371920000000
   LoadResult: 0
   FileSizes: []
-  Exists: 1
+  Exists: 0
+--- !u!114 &8799260524973224961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Audio/Music/Level1/Master.bank
+  SubDir: 
+  lastModified: 637102945029054856
+  LoadResult: 0
+  FileSizes: []
+  Exists: 0
