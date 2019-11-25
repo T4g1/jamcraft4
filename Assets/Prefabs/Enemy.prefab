@@ -72,6 +72,8 @@ GameObject:
   - component: {fileID: 9095042585579640961}
   - component: {fileID: 7249763757001272905}
   - component: {fileID: 9189348773845476850}
+  - component: {fileID: 2734764537308370720}
+  - component: {fileID: 3376752536919371375}
   m_Layer: 10
   m_Name: Enemy
   m_TagString: Enemy
@@ -159,6 +161,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   aggroZone: {fileID: 1161148983929493434}
   lostZone: {fileID: 7062443018094338420}
+  speed: 200
 --- !u!50 &9189348773845476850
 Rigidbody2D:
   serializedVersion: 4
@@ -180,6 +183,41 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!95 &2734764537308370720
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2500378062470952989}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 20005508ea37d1f48a7594c05e148390, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!58 &3376752536919371375
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2500378062470952989}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
 --- !u!1 &7141187303668719595
 GameObject:
   m_ObjectHideFlags: 0

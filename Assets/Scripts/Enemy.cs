@@ -10,11 +10,29 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private TriggerZone lostZone = null;
 
+    [SerializeField]
+    private float speed = 200.0f;
+
+    private Vector3 direction = Vector3.zero;
+
 
     void Start()
     {
         aggroZone.OnZoneEnter += OnGotTarget;
         lostZone.OnZoneExit += OnLostTarget;
+    }
+
+    void Update()
+    {
+        UpdateMovement();
+    }
+
+    /**
+     * Move the enemy
+     */
+    void UpdateMovement()
+    {
+        transform.Translate(direction * 1 * Time.deltaTime);
     }
 
     void OnDestroy() 
@@ -39,5 +57,15 @@ public class Enemy : MonoBehaviour
         }
 
         GameController.Instance.EnemyAggro -= 1;
+    }
+
+    void OnCollisionStay2D(Collision2D other)
+    {
+        GetComponent<Animator>().SetBool("collisionOccured", true);
+    }
+
+    public void SetDirection(Vector3 value)
+    {
+        direction = value;
     }
 }
