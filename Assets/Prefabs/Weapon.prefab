@@ -95,12 +95,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   partType: 0
   sprite: {fileID: 21300000, guid: 087383a6cab574e4d95231d2ccfe4cff, type: 3}
-  quiver: 1
-  size: 0
-  barrel: 0
-  fireRate: 0
-  stock: 0
+  isQuiver: 1
+  magazineSize: 30
+  isBarrel: 0
+  bulletPrefab: {fileID: 0}
+  isSstock: 0
   recoil: 0
+  isSight: 0
+  precision: 0
+  isHandle: 0
+  reloadTime: 0
+  isString: 0
+  fireRate: 0
+  lifespan: 0
 --- !u!1 &987988388945788209
 GameObject:
   m_ObjectHideFlags: 0
@@ -127,7 +134,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 987988388945788209}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.75, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5156399072565790103}
@@ -196,12 +203,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   partType: 5
   sprite: {fileID: 21300000, guid: 9d1287314396ad4459e47f42c2991a1c, type: 3}
-  quiver: 0
-  size: 0
-  barrel: 0
-  fireRate: 0
-  stock: 0
+  isQuiver: 0
+  magazineSize: 0
+  isBarrel: 0
+  bulletPrefab: {fileID: 0}
+  isSstock: 0
   recoil: 0
+  isSight: 0
+  precision: 0
+  isHandle: 1
+  reloadTime: 2
+  isString: 0
+  fireRate: 0
+  lifespan: 0
 --- !u!1 &1549086575936087184
 GameObject:
   m_ObjectHideFlags: 0
@@ -297,12 +311,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   partType: 4
   sprite: {fileID: 21300000, guid: 18c229c19dd0ad848a01ec5bd7604277, type: 3}
-  quiver: 0
-  size: 0
-  barrel: 0
-  fireRate: 0
-  stock: 1
+  isQuiver: 0
+  magazineSize: 0
+  isBarrel: 0
+  bulletPrefab: {fileID: 0}
+  isSstock: 1
   recoil: 0
+  isSight: 0
+  precision: 0
+  isHandle: 0
+  reloadTime: 0
+  isString: 0
+  fireRate: 0
+  lifespan: 0
 --- !u!1 &2618819344076483826
 GameObject:
   m_ObjectHideFlags: 0
@@ -398,12 +419,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   partType: 2
   sprite: {fileID: 21300000, guid: ec215751998817f4e953dcdf6605e4b8, type: 3}
-  quiver: 0
-  size: 0
-  barrel: 1
-  fireRate: 0
-  stock: 0
+  isQuiver: 0
+  magazineSize: 0
+  isBarrel: 1
+  bulletPrefab: {fileID: 7321875105032977819, guid: 751f7445899b4c6419b123827083c098,
+    type: 3}
+  isSstock: 0
   recoil: 0
+  isSight: 0
+  precision: 0
+  isHandle: 0
+  reloadTime: 0
+  isString: 0
+  fireRate: 0
+  lifespan: 0
 --- !u!1 &3631905416901318701
 GameObject:
   m_ObjectHideFlags: 0
@@ -499,12 +528,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   partType: 1
   sprite: {fileID: 21300000, guid: 30e93214bb3a0294ea2c4831bca89090, type: 3}
-  quiver: 0
-  size: 0
-  barrel: 0
-  fireRate: 0
-  stock: 0
+  isQuiver: 0
+  magazineSize: 0
+  isBarrel: 0
+  bulletPrefab: {fileID: 0}
+  isSstock: 0
   recoil: 0
+  isSight: 1
+  precision: 0
+  isHandle: 0
+  reloadTime: 0
+  isString: 0
+  fireRate: 0
+  lifespan: 0
 --- !u!1 &6427756674173938274
 GameObject:
   m_ObjectHideFlags: 0
@@ -600,12 +636,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   partType: 3
   sprite: {fileID: 21300000, guid: f0f41b8c06f793d4b89c313ca1635511, type: 3}
-  quiver: 0
-  size: 0
-  barrel: 0
-  fireRate: 0
-  stock: 0
+  isQuiver: 0
+  magazineSize: 0
+  isBarrel: 0
+  bulletPrefab: {fileID: 0}
+  isSstock: 0
   recoil: 0
+  isSight: 0
+  precision: 0
+  isHandle: 0
+  reloadTime: 0
+  isString: 1
+  fireRate: 0.2
+  lifespan: 2
 --- !u!1 &6653498924248182779
 GameObject:
   m_ObjectHideFlags: 0
@@ -630,7 +673,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6653498924248182779}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0.6847984, w: -0.72873265}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -640,9 +683,10 @@ Transform:
   - {fileID: 7198612882016807204}
   - {fileID: 7937490202335529748}
   - {fileID: 5620823959275759371}
+  - {fileID: 3106125743733177981}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -88.82}
 --- !u!114 &5162149960894103124
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -655,9 +699,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0ff4c9755997594493e46387283cb85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotationOffset: 180
   barrelPart: {fileID: 7764652691856761718}
   stockPart: {fileID: 6275380544632443139}
   sightPart: {fileID: 6621259014422748503}
   stringPart: {fileID: 4275347356378095338}
   handlePart: {fileID: 5095177788547692035}
   quiverPart: {fileID: 3075096487204128907}
+  muzzle: {fileID: 7889903456875506755}
+--- !u!1 &7889903456875506755
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3106125743733177981}
+  m_Layer: 0
+  m_Name: Muzzle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3106125743733177981
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7889903456875506755}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5156399072565790103}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

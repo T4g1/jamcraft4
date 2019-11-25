@@ -8,18 +8,29 @@ public class WeaponPart : MonoBehaviour
     public Sprite sprite;
 
     [Header("Quiver")]
-    public bool quiver;
-    public uint size;
+    public bool isQuiver;
+    public uint magazineSize;
 
     [Header("Barrel")]
-    public bool barrel;
-    public uint fireRate;
+    public bool isBarrel;
+    public Bullet bulletPrefab;
 
     [Header("Stock")]
-    public bool stock;
+    public bool isSstock;
     public uint recoil;
 
-    // TODO: Other systems
+    [Header("Sight")]
+    public bool isSight;
+    public uint precision;
+
+    [Header("Handle")]
+    public bool isHandle;
+    public uint reloadTime;
+
+    [Header("String")]
+    public bool isString;
+    public float fireRate;  // Time between every shot
+    public float lifespan;  // Time before decaying
 
 
     void Start()

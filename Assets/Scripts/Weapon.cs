@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
 
-[ExecuteInEditMode]
 public class Weapon : MonoBehaviour
 {
+    // Display settings
     private Vector3 DEFAULT_SCALE = new Vector3(1, 1, 1);
     private Vector3 FLIPPED_SCALE = new Vector3(1, -1, 1);
 
     [SerializeField]
     private float rotationOffset = 180.0f;
 
+    // Weapon parts
     [SerializeField]
     private WeaponPart barrelPart = null;
 
@@ -29,6 +30,12 @@ public class Weapon : MonoBehaviour
 
     [SerializeField]
     private WeaponPart quiverPart = null;
+
+    // Shooting system
+    [SerializeField]
+    private GameObject muzzle = null;
+
+    private float shotCooldown = 0.0f;
 
 
     void Start()
@@ -80,10 +87,20 @@ public class Weapon : MonoBehaviour
             -barrelPart.GetSize().y,
             0.0f
         ));
+
+        // Place muzzle at the end of barrel
+        muzzle.transform.position = barrelPart.GetPosition() + new Vector3(
+            0.0f,
+            -barrelPart.GetSize().y / 2,
+            0.0f
+        );
     }
 
     void Update()
     {
+        shotCooldown -= Time.deltaTime;
+
+        HandleInputs();
         UpdateRotation();
     }
 
@@ -120,5 +137,64 @@ public class Weapon : MonoBehaviour
         if (rotation < 90.0f && rotation > -90) {
             transform.localScale = FLIPPED_SCALE;
         }
+    }
+
+    /**
+     * Handle player inputs
+     */
+    void HandleInputs()
+    {
+        if (Input.GetButtonDown("Fire1")) {
+            Shoot();
+        }
+    }
+
+    /**
+     * Shoot a projectile
+     */
+    void Shoot()
+    {
+        if (shotCooldown > 0) {
+            return;
+        }
+
+        Bullet bullet = Instantiate(GetBulletPrefab());
+        bullet.transform.position = GetMuzzlePosition();
+        bullet.transform.rotation = transform.rotation;
+        bullet.lifespan = GetBulletLifeSpan();
+
+        shotCooldown = GetShotInterval();
+    }
+
+    /**
+     * Give time between every shoot
+     */
+    float GetShotInterval()
+    {
+        return stringPart.fireRate;
+    }
+
+    /**
+     * Get bullet used when shooting
+     */
+    Bullet GetBulletPrefab()
+    {
+        return barrelPart.bulletPrefab;
+    }
+
+    /**
+     * Where are arrows coming from
+     */
+    Vector3 GetMuzzlePosition()
+    {
+        return muzzle.transform.position;
+    }
+
+    /**
+     * Time before bullet decays
+     */
+    float GetBulletLifeSpan()
+    {
+        return stringPart.lifespan;
     }
 }
