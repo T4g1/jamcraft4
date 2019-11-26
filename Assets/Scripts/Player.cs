@@ -12,6 +12,9 @@ public class Player : MonoBehaviour, IAlive
     private SpriteRenderer sprite = null;
 
     [SerializeField]
+    private GameObject cameraContainer = null;
+
+    [SerializeField]
     private Animator animator = null;
 
     [SerializeField]
@@ -39,13 +42,19 @@ public class Player : MonoBehaviour, IAlive
     {
         Assert.IsNotNull(body);
         Assert.IsNotNull(sprite);
-            
+        Assert.IsNotNull(cameraContainer);
+        
         SetAnimation("idle_down");
     }
 
     void Update()
     {
         UpdateAnimator();
+    }
+
+    void Spawn()
+    {
+        GetCamera().enabled = true;
     }
 
     void FixedUpdate()
@@ -122,6 +131,10 @@ public class Player : MonoBehaviour, IAlive
     public void Die()
     {
         // TODO
-        Debug.Log("Not today!");
+    }
+
+    public Camera GetCamera()
+    {
+        return cameraContainer.GetComponent<Camera>();
     }
 }

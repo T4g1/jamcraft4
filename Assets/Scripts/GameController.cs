@@ -8,6 +8,8 @@ public class GameController : MonoBehaviour
 {
     private FMOD.Studio.EventInstance mainTheme;
 
+    public const uint TILE_SIZE = 16;
+
     [FMODUnity.EventRef]
     public string mainThemeName;
 

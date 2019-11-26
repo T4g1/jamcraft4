@@ -85,7 +85,6 @@ public class Enemy : MonoBehaviour, IAlive
     
     public void TakeDamage(int amount)
     {
-        Debug.Log("Ouch!");
         hitPoints -= amount;
 
         if (!IsAlive) {
