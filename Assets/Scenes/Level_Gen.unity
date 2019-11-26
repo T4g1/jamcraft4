@@ -156,7 +156,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -173,7 +173,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 6.5757504
+  orthographic size: 10
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -197,7 +197,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 315226342}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 10, y: 10, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -232,10 +232,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b91f719d5b94f4df7a4dee680b76f9df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  floorTile: {fileID: 3082039392444800748, guid: 110d3789c1fe8478dbbd54903c97697c,
+  floorPlaceholder: {fileID: 3082039392444800748, guid: 110d3789c1fe8478dbbd54903c97697c,
     type: 3}
-  world_rows: 40
-  world_cols: 40
+  worldRows: 20
+  worldCols: 20
   minRoomSize: 2
   maxRoomSize: 4
 --- !u!4 &864006481
