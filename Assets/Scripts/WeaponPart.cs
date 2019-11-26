@@ -2,7 +2,7 @@
 using UnityEngine.Assertions;
 
 [ExecuteInEditMode]
-public class WeaponPart : MonoBehaviour
+public class WeaponPart : Item
 {
     public PartType partType;
     public Sprite sprite;
