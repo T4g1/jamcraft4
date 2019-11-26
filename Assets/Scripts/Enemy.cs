@@ -94,6 +94,7 @@ public class Enemy : MonoBehaviour, IAlive
 
     public void Die()
     {
+        GameController.Instance.CreatePickUp(transform.position);
         Destroy(gameObject);
     }
 }

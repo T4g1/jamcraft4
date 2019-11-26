@@ -4,7 +4,18 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-    public static Inventory instance;
+    #region Singleton
+    public static Inventory Instance { get; private set; }
+
+    void InitInstance()
+    {
+        if (Instance != null) {
+            Debug.Log("More than on inventory created!");
+        }
+
+        Instance = this;
+    }
+    #endregion
 
     public int space = 20;
 
@@ -12,11 +23,7 @@ public class Inventory : MonoBehaviour
 
     void Awake()
     {
-        if (instance != null) {
-            Debug.Log("More than on inventory created!");
-        }
-
-        instance = this;
+        InitInstance();
     }
 
     public bool Add(Item item)

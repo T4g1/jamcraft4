@@ -7,9 +7,6 @@ using UnityEngine.Tilemaps;
 public class LevelGenerator : MonoBehaviour
 {
     [SerializeField]
-    private GameObject dynamicHolder = null;
-
-    [SerializeField]
     private Tilemap tilemap = null;
 
     [SerializeField]
@@ -35,10 +32,10 @@ public class LevelGenerator : MonoBehaviour
     private List<GameObject> rooms = new List<GameObject>();
     private GameObject startRoom = null;
     private GameObject endRoom = null;
+    private GameObject dynamicHolder;
 
     void Start()
     {
-        Assert.IsNotNull(dynamicHolder);
         Assert.IsNotNull(tilemap);
         Assert.IsNotNull(startRoomContent);
         Assert.IsNotNull(endRoomContent);
@@ -48,6 +45,8 @@ public class LevelGenerator : MonoBehaviour
         foreach (GameObject roomContent in roomContents) {
             Assert.IsNotNull(roomContent);
         }
+
+        dynamicHolder = GameController.Instance.dynamicHolder;
 
         Generate();
     }

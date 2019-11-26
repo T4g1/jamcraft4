@@ -149,7 +149,7 @@ Transform:
   m_Children:
   - {fileID: 313113712}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1839735485 &107500151 stripped
 Tilemap:
@@ -291,6 +291,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainThemeName: event:/Level1_Song
   intensityTween: {fileID: 2146036818}
+  pickUpPrefab: {fileID: 6523152550276114754, guid: 7e5ab56071570ec4ca96a6e3166848cd,
+    type: 3}
+  dynamicHolder: {fileID: 1022476630}
 --- !u!1 &882763264
 GameObject:
   m_ObjectHideFlags: 0
@@ -351,7 +354,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1402042836
 PrefabInstance:
@@ -71577,7 +71580,7 @@ Transform:
   m_Children:
   - {fileID: 1402042837}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2146036816
 GameObject:
