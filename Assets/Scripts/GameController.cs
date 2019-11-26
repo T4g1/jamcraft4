@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -79,10 +80,54 @@ public class GameController : MonoBehaviour
      */
     public void CreatePickUp(Vector3 where)
     {
-        GameObject pickUp = Instantiate(pickUpPrefab);
-        pickUp.transform.parent = dynamicHolder.transform;
-        pickUp.transform.position = where;
+        GameObject pickUpObject = Instantiate(pickUpPrefab);
+        pickUpObject.transform.parent = dynamicHolder.transform;
+        pickUpObject.transform.position = where;
 
-        // TODO: Set item
+        ItemPickup pickUp = pickUpObject.GetComponent<ItemPickup>();
+        pickUp.item = GenerateRandomWeaponPart(PartType.BARREL);
+    }
+
+    public WeaponPart GenerateRandomWeaponPart(
+        PartType forcePart = PartType.NONE
+    )
+    {
+        WeaponPart part = ScriptableObject.CreateInstance<WeaponPart>();
+
+        PartType partType = forcePart;
+        if (partType == PartType.NONE) {
+            partType = (PartType) UnityEngine.Random.Range(
+                1, 
+                Enum.GetValues(typeof(PartType)).Cast<int>().Max()
+            );
+        }
+
+        switch (partType) {
+            case PartType.QUIVER:
+                part.RandomizeQuiver();
+                break;
+                
+            case PartType.BARREL:
+                part.RandomizeBarrel();
+                break;
+                
+            case PartType.STOCK:
+                part.RandomizeStock();
+                break;
+                
+            case PartType.HANDLE:
+                part.RandomizeHandle();
+                break;
+                
+            case PartType.SIGHT:
+                part.RandomizeSight();
+                break;
+                
+            case PartType.STRING:
+                part.RandomizeString();
+                break;
+        }
+
+        return part;
     }
 }
