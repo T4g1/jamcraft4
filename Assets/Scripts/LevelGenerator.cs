@@ -30,11 +30,23 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField]
     private GameObject endRoomContent = null;
     [SerializeField]
+    private GameObject craftRoomContent = null;
+    [SerializeField]
     private GameObject playerPrefab = null;
 
     private List<GameObject> rooms = new List<GameObject>();
     private GameObject startRoom = null;
     private GameObject endRoom = null;
+
+    [SerializeField]
+    private GameObject craftRoom = null;
+
+        [SerializeField]
+    private GameObject teleportIn = null;
+
+    private GameObject teleportOut=null;
+
+
 
     void Start()
     {
@@ -44,11 +56,14 @@ public class LevelGenerator : MonoBehaviour
         Assert.IsNotNull(endRoomContent);
         Assert.IsNotNull(playerPrefab);
         Assert.IsNotNull(roomCollider);
+        Assert.IsNotNull(craftRoomContent);
+        Assert.IsNotNull(teleportIn);
         Assert.IsTrue(roomContents.Count > 0);
         foreach (GameObject roomContent in roomContents) {
             Assert.IsNotNull(roomContent);
         }
 
+        SpawnPlayer();
         Generate();
     }
 
@@ -72,8 +87,16 @@ public class LevelGenerator : MonoBehaviour
         yield return new WaitForSeconds(generationTime);
 
         FillRooms();
-        SpawnPlayer();
+
+        
+
         ClearRooms();
+
+        ActivatePortal(teleportIn);
+        ActivatePortal(teleportOut); //Should Happen when Boss Dies!
+        
+
+        
     }
 
     /**
@@ -103,9 +126,18 @@ public class LevelGenerator : MonoBehaviour
     void ClearDynamic()
     {
         foreach(Transform child in dynamicHolder.transform) {
-            DestroyImmediate(child.gameObject);
+            if(child.tag!="Player") DestroyImmediate(child.gameObject);
         }
     }
+
+    void SetPortalDestination(GameObject portal,Vector2 destination){
+        portal.GetComponent<Teleport>().destinationPosition= destination;
+    }
+    // Activates Portal.
+    void ActivatePortal(GameObject portal){
+        portal.SetActive(true);
+    }
+
 
     /**
      * Add rooms
@@ -119,6 +151,13 @@ public class LevelGenerator : MonoBehaviour
             int index = Random.Range(0, roomContents.Count);
             AddRoom(roomContents[index]);
         }
+        
+        SetPortalDestination(teleportIn,startRoom.GetComponent<Room>().GetPosition());
+        teleportOut=endRoomContent.transform.Find("Content").Find("Teleport").gameObject;
+        teleportOut.GetComponent<Teleport>().levelGenerator=this;
+
+        SetPortalDestination(teleportOut,craftRoom.GetComponent<Room>().GetPosition());
+
     }
 
     GameObject AddRoom(GameObject content)
@@ -155,7 +194,7 @@ public class LevelGenerator : MonoBehaviour
      */
     void SpawnPlayer()
     {
-        Room room = startRoom.GetComponent<Room>();
+        Room room = craftRoom.GetComponent<Room>();
 
         GameObject player = Instantiate(playerPrefab);
         player.transform.parent = dynamicHolder.transform;
