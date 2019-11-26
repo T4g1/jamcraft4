@@ -7,51 +7,67 @@ using UnityEngine.Tilemaps;
 public class Room : MonoBehaviour
 {
     [SerializeField]
-    public TileBase floor = null;
+    private TileBase floor = null;
     
     [SerializeField]
-    public TileBase wall = null;
+    private TileBase wall = null;
 
     [SerializeField]
-    private Vector2Int size = Vector2Int.zero;
-    public Vector2Int Size
-    {
-        get
-        {
-            return size;
-        }
-        set
-        {
-            size = value;
-            transform.localScale = new Vector3(
-                size.x,
-                size.y,
-                0.0f
-            );
-        }
-    }
+    private GameObject body = null;
+
+    [SerializeField]
+    private Tilemap content = null;
 
     void Start()
     {
+        Assert.IsNotNull(body);
         Assert.IsNotNull(floor);
         Assert.IsNotNull(wall);
+        Assert.IsNotNull(content);
     }
 
     public void Generate(Tilemap tilemap)
     {
+        content.CompressBounds();
+
         Vector3Int startCell = tilemap.WorldToCell(GetBottomLeft());
-        for (int x=0; x<size.x; x++) {
-            for (int y=0; y<size.y; y++) {
-                tilemap.SetTile(startCell + new Vector3Int(x, y, 0), floor);
+
+        BoundsInt bounds = content.cellBounds;
+        TileBase[] allTiles = content.GetTilesBlock(bounds);
+
+        for (int x = -1; x < bounds.size.x + 1; x++) {
+            for (int y = -1; y < bounds.size.y + 1; y++) {
+                Vector3Int cellPosition = startCell + new Vector3Int(x, y, 0);
+                
+                if (x < 0 || 
+                    y < 0 || 
+                    x >= bounds.size.x || 
+                    y >= bounds.size.y
+                ) {
+                    if (tilemap.GetTile(cellPosition) == null) {
+                        tilemap.SetTile(cellPosition, wall);
+                    } 
+                } else {
+                    TileBase tile = allTiles[x + y * bounds.size.x];
+                    tilemap.SetTile(cellPosition, tile);
+                }
             }
         }
     }
 
+    public Vector3 GetPosition()
+    {
+        return body.transform.position;
+    }
+
     public Vector3Int GetBottomLeft()
     {
+        Vector3 bodyPosition = body.transform.position;
+        Vector3 bodyScale = body.transform.localScale;
+
         return new Vector3Int(
-            Mathf.FloorToInt(transform.position.x - transform.localScale.x / 2),
-            Mathf.FloorToInt(transform.position.y - transform.localScale.y / 2),
+            Mathf.FloorToInt(bodyPosition.x - bodyScale.x / 2),
+            Mathf.FloorToInt(bodyPosition.y - bodyScale.y / 2),
             0
         );
     }

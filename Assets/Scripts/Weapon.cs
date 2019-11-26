@@ -34,6 +34,8 @@ public class Weapon : MonoBehaviour
     [SerializeField]
     private WeaponPart quiverPart = null;
 
+    private Camera playerCamera;        // Cache player camera
+
     // Shooting system
     [SerializeField]
     private GameObject muzzle = null;
@@ -53,10 +55,9 @@ public class Weapon : MonoBehaviour
         Assert.IsNotNull(handlePart);
         Assert.IsNotNull(quiverPart);
         
-        // Have at least one camera tagged "MainCamera"
-        Assert.IsNotNull(Camera.main);
-
         magazineClip = GetMagazineSize();
+
+        playerCamera = Camera.main;
 
         flippedScale = new Vector3(
             defaultScale.x,
@@ -133,7 +134,7 @@ public class Weapon : MonoBehaviour
      */
     void UpdateRotation()
     {
-        Vector3 target = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0.0f));
+        Vector3 target = playerCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0.0f));
         target.z = 0.0f;
 
         Vector3 origin = new Vector3(

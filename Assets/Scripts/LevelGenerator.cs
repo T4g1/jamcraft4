@@ -27,6 +27,8 @@ public class LevelGenerator : MonoBehaviour
     private GameObject startRoomPrefab = null;
     [SerializeField]
     private GameObject endRoomPrefab = null;
+    [SerializeField]
+    private GameObject playerPrefab = null;
 
     private List<GameObject> rooms = new List<GameObject>();
     private GameObject startRoom = null;
@@ -38,6 +40,7 @@ public class LevelGenerator : MonoBehaviour
         Assert.IsNotNull(tilemap);
         Assert.IsNotNull(startRoomPrefab);
         Assert.IsNotNull(endRoomPrefab);
+        Assert.IsNotNull(playerPrefab);
         Assert.IsTrue(roomPrefabs.Count > 0);
         foreach (GameObject roomPrefab in roomPrefabs) {
             Assert.IsNotNull(roomPrefab);
@@ -66,6 +69,8 @@ public class LevelGenerator : MonoBehaviour
         yield return new WaitForSeconds(generationTime);
 
         FillRooms();
+        SpawnPlayer();
+        ClearRooms();
     }
 
     /**
@@ -75,6 +80,7 @@ public class LevelGenerator : MonoBehaviour
     {
         ClearTilemap();
         ClearRooms();
+        ClearDynamic();
     }
 
     void ClearTilemap()
@@ -89,6 +95,13 @@ public class LevelGenerator : MonoBehaviour
         }
 
         rooms.Clear();
+    }
+
+    void ClearDynamic()
+    {
+        foreach(Transform child in dynamicHolder.transform) {
+            DestroyImmediate(child.gameObject);
+        }
     }
 
     /**
@@ -117,9 +130,6 @@ public class LevelGenerator : MonoBehaviour
 
         rooms.Add(roomObject);
 
-        Room room = roomObject.GetComponent<Room>();
-        room.Size = room.Size;
-
         return roomObject;
     }
 
@@ -129,13 +139,20 @@ public class LevelGenerator : MonoBehaviour
     void FillRooms()
     {
         foreach(GameObject roomObject in rooms) {
-            /*roomObject.transform.position = new Vector3(
-                Mathf.Floor(roomObject.transform.position.x),
-                Mathf.Floor(roomObject.transform.position.y),
-                0.0f
-            );*/
             Room room = roomObject.GetComponent<Room>();
             room.Generate(tilemap);
         }
+    }
+
+    /**
+     * Adds player
+     */
+    void SpawnPlayer()
+    {
+        Room room = startRoom.GetComponent<Room>();
+
+        GameObject player = Instantiate(playerPrefab);
+        player.transform.parent = dynamicHolder.transform;
+        player.transform.position = room.GetPosition();
     }
 }
