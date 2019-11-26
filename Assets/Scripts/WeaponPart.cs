@@ -71,7 +71,12 @@ public class WeaponPart : MonoBehaviour
      */
     public Vector2 GetSize()
     {
-        return GetComponent<SpriteRenderer>().sprite.bounds.size;
+        Vector2 scale = new Vector2(
+            transform.lossyScale.x,
+            transform.lossyScale.y
+        );
+        
+        return GetComponent<SpriteRenderer>().sprite.bounds.size * scale;
     }
 }
 
