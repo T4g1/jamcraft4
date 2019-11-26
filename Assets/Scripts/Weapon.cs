@@ -8,8 +8,9 @@ using UnityEngine.Assertions;
 public class Weapon : MonoBehaviour
 {
     // Display settings
-    private Vector3 DEFAULT_SCALE = new Vector3(1, 1, 1);
-    private Vector3 FLIPPED_SCALE = new Vector3(1, -1, 1);
+    [SerializeField]
+    private Vector3 defaultScale = new Vector3(1, 1, 1);
+    private Vector3 flippedScale;
 
     [SerializeField]
     private float rotationOffset = 180.0f;
@@ -56,6 +57,12 @@ public class Weapon : MonoBehaviour
         Assert.IsNotNull(Camera.main);
 
         magazineClip = GetMagazineSize();
+
+        flippedScale = new Vector3(
+            defaultScale.x,
+            defaultScale.y * -1,
+            defaultScale.z
+        );
 
         transform.rotation = Quaternion.Euler(
             0.0f,
@@ -150,9 +157,9 @@ public class Weapon : MonoBehaviour
         );
 
         // Flip weapon
-        transform.localScale = DEFAULT_SCALE;
+        transform.localScale = defaultScale;
         if (rotation < 90.0f && rotation > -90) {
-            transform.localScale = FLIPPED_SCALE;
+            transform.localScale = flippedScale;
         }
     }
 
