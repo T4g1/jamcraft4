@@ -65,9 +65,6 @@ AnimatorStateMachine:
     m_State: {fileID: -5950826365175736430}
     m_Position: {x: 410, y: -20, z: 0}
   - serializedVersion: 1
-    m_State: {fileID: 6787987870110393737}
-    m_Position: {x: 440, y: 40, z: 0}
-  - serializedVersion: 1
     m_State: {fileID: 6217019746542769842}
     m_Position: {x: 480, y: 110, z: 0}
   - serializedVersion: 1
@@ -79,9 +76,6 @@ AnimatorStateMachine:
   - serializedVersion: 1
     m_State: {fileID: 2006158233880684403}
     m_Position: {x: 550, y: 260, z: 0}
-  - serializedVersion: 1
-    m_State: {fileID: 858003214275161914}
-    m_Position: {x: 580, y: 330, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -2813443033983925773}
     m_Position: {x: 620, y: 390, z: 0}
@@ -117,32 +111,6 @@ AnimatorController:
     m_IKPass: 0
     m_SyncedLayerAffectsTiming: 0
     m_Controller: {fileID: 9100000}
---- !u!1102 &858003214275161914
-AnimatorState:
-  serializedVersion: 5
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: walk_left
-  m_Speed: 1
-  m_CycleOffset: 0
-  m_Transitions: []
-  m_StateMachineBehaviours: []
-  m_Position: {x: 50, y: 50, z: 0}
-  m_IKOnFeet: 0
-  m_WriteDefaultValues: 1
-  m_Mirror: 0
-  m_SpeedParameterActive: 0
-  m_MirrorParameterActive: 0
-  m_CycleOffsetParameterActive: 0
-  m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 2bcbe5df29e5a369780f71b79a48532a, type: 2}
-  m_Tag: 
-  m_SpeedParameter: 
-  m_MirrorParameter: 
-  m_CycleOffsetParameter: 
-  m_TimeParameter: 
 --- !u!1102 &1511070024006113873
 AnimatorState:
   serializedVersion: 5
@@ -242,32 +210,6 @@ AnimatorState:
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
   m_Motion: {fileID: 7400000, guid: ff9d8c5c6855bfb2185ccee20552af51, type: 2}
-  m_Tag: 
-  m_SpeedParameter: 
-  m_MirrorParameter: 
-  m_CycleOffsetParameter: 
-  m_TimeParameter: 
---- !u!1102 &6787987870110393737
-AnimatorState:
-  serializedVersion: 5
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: idle_left
-  m_Speed: 1
-  m_CycleOffset: 0
-  m_Transitions: []
-  m_StateMachineBehaviours: []
-  m_Position: {x: 50, y: 50, z: 0}
-  m_IKOnFeet: 0
-  m_WriteDefaultValues: 1
-  m_Mirror: 0
-  m_SpeedParameterActive: 0
-  m_MirrorParameterActive: 0
-  m_CycleOffsetParameterActive: 0
-  m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: d9d9a43e03a7849f189c2f28e1e3ba63, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
