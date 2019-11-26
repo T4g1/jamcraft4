@@ -289,6 +289,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83c710b52455611c38a7bec5f25e5761, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  handleSprites:
+  - {fileID: 21300000, guid: 9d1287314396ad4459e47f42c2991a1c, type: 3}
+  quiverSprites:
+  - {fileID: 21300000, guid: 087383a6cab574e4d95231d2ccfe4cff, type: 3}
+  stockSprites:
+  - {fileID: 21300000, guid: 18c229c19dd0ad848a01ec5bd7604277, type: 3}
+  sightSprites:
+  - {fileID: 21300000, guid: 30e93214bb3a0294ea2c4831bca89090, type: 3}
+  barrelSprites:
+  - {fileID: 21300000, guid: ec215751998817f4e953dcdf6605e4b8, type: 3}
+  stringSprites:
+  - {fileID: 21300000, guid: f0f41b8c06f793d4b89c313ca1635511, type: 3}
   mainThemeName: event:/Level1_Song
   intensityTween: {fileID: 2146036818}
   pickUpPrefab: {fileID: 6523152550276114754, guid: 7e5ab56071570ec4ca96a6e3166848cd,
@@ -71534,7 +71546,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f85a0cc1278216b4e852db08dc052aab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dynamicHolder: {fileID: 1022476630}
   tilemap: {fileID: 107500151}
   generationTime: 3
   roomCount: 30

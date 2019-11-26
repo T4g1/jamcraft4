@@ -41,10 +41,7 @@ public class LevelGenerator : MonoBehaviour
         Assert.IsNotNull(endRoomContent);
         Assert.IsNotNull(playerPrefab);
         Assert.IsNotNull(roomCollider);
-        Assert.IsTrue(roomContents.Count > 0);
-        foreach (GameObject roomContent in roomContents) {
-            Assert.IsNotNull(roomContent);
-        }
+        Utility.AssertArrayNotNull<GameObject>(roomContents);
 
         dynamicHolder = GameController.Instance.dynamicHolder;
 

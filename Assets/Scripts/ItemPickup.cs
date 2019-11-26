@@ -2,7 +2,15 @@ using UnityEngine;
 
 public class ItemPickup : Interactable 
 {
-    public Item item;
+    private Item item;
+    public Item Item {
+        get { return item; }
+        set 
+        { 
+            item = value;
+            GetComponent<SpriteRenderer>().sprite = item.sprite;
+        }
+    }
 
     public override void Interact()
     {

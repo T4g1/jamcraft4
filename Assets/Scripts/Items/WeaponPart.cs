@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.Assertions;
 
 public enum PartType
@@ -15,8 +17,6 @@ public enum PartType
 [CreateAssetMenu(fileName = "New Part", menuName = "Weapons/New Part")]
 public class WeaponPart : Item
 {
-    public Sprite sprite;
-
     [Header("Quiver")]
     public bool isQuiver;
     public uint magazineSize;
@@ -45,12 +45,15 @@ public class WeaponPart : Item
     public void RandomizeQuiver()
     {
         isQuiver = true;
+        sprite = GetRandomSprite(GameController.Instance.quiverSprites);
+
         magazineSize = (uint) Random.Range(10, 50);
     }
 
     public void RandomizeBarrel()
     {
         isBarrel = true;
+        sprite = GetRandomSprite(GameController.Instance.barrelSprites);
 
         Bullet[] bullets = Resources.LoadAll<Bullet>("Bullets");
         bulletPrefab = bullets[Random.Range(0, bullets.Length)];
@@ -59,23 +62,34 @@ public class WeaponPart : Item
     public void RandomizeStock()
     {
         isStock = true;
+        sprite = GetRandomSprite(GameController.Instance.stockSprites);
     }
 
     public void RandomizeSight()
     {
         isSight = true;
+        sprite = GetRandomSprite(GameController.Instance.sightSprites);
     }
 
     public void RandomizeHandle()
     {
         isHandle = true;
+        sprite = GetRandomSprite(GameController.Instance.handleSprites);
+
         reloadTime = Random.Range(0f, 5f);
     }
 
     public void RandomizeString()
     {
         isString = true;
+        sprite = GetRandomSprite(GameController.Instance.stringSprites);
+
         fireRate = Random.Range(0.1f, 1f);
         lifespan = Random.Range(1f, 10f);
+    }
+
+    private Sprite GetRandomSprite(List<Sprite> sprites)
+    {
+        return sprites[Random.Range(0, sprites.Count)];
     }
 }

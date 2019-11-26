@@ -7,6 +7,15 @@ using UnityEngine.Assertions;
 
 public class GameController : MonoBehaviour
 {
+    #region Weapon Sprites
+    public List<Sprite> handleSprites = new List<Sprite>();
+    public List<Sprite> quiverSprites = new List<Sprite>();
+    public List<Sprite> stockSprites = new List<Sprite>();
+    public List<Sprite> sightSprites = new List<Sprite>();
+    public List<Sprite> barrelSprites = new List<Sprite>();
+    public List<Sprite> stringSprites = new List<Sprite>();
+    #endregion
+
     #region Singleton
     public static GameController Instance { get; private set; }
 
@@ -55,6 +64,12 @@ public class GameController : MonoBehaviour
     {
         Assert.IsNotNull(intensityTween);
         Assert.IsNotNull(pickUpPrefab);
+        Utility.AssertArrayNotNull<Sprite>(handleSprites);
+        Utility.AssertArrayNotNull<Sprite>(quiverSprites);
+        Utility.AssertArrayNotNull<Sprite>(stockSprites);
+        Utility.AssertArrayNotNull<Sprite>(sightSprites);
+        Utility.AssertArrayNotNull<Sprite>(barrelSprites);
+        Utility.AssertArrayNotNull<Sprite>(stringSprites);
 
         mainTheme = FMODUnity.RuntimeManager.CreateInstance(mainThemeName);
         mainTheme.start();
@@ -85,7 +100,7 @@ public class GameController : MonoBehaviour
         pickUpObject.transform.position = where;
 
         ItemPickup pickUp = pickUpObject.GetComponent<ItemPickup>();
-        pickUp.item = GenerateRandomWeaponPart(PartType.BARREL);
+        pickUp.Item = GenerateRandomWeaponPart();
     }
 
     public WeaponPart GenerateRandomWeaponPart(
