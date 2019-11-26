@@ -31,7 +31,7 @@ public class Room : MonoBehaviour
         contentContainer = content.transform.Find("Content").gameObject;
     }
 
-    public void Generate(Tilemap tilemap, GameObject dynamicHolder)
+    public GameObject Generate(Tilemap tilemap, GameObject dynamicHolder)
     {
         contentTilemap.CompressBounds();
 
@@ -62,6 +62,7 @@ public class Room : MonoBehaviour
         GameObject roomContent = Instantiate(contentContainer);
         roomContent.transform.parent = dynamicHolder.transform;
         roomContent.transform.position = GetPosition();
+        return roomContent;
     }
 
     public Vector3 GetPosition()

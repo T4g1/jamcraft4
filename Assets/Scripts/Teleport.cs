@@ -11,11 +11,12 @@ public class Teleport : MonoBehaviour
     [SerializeField]
     private float teleportTime=0.5f;
 
+    [HideInInspector]
     public LevelGenerator levelGenerator;
 
     [SerializeField]
     public bool reGenerates=false;
-    
+
      private void OnTriggerEnter2D(Collider2D other) {
          if(other.gameObject.tag=="Player"){
              StartCoroutine(_Teleport(other.gameObject));
