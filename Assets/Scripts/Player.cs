@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IAlive
 {
     [SerializeField]
     private Rigidbody2D body = null;
@@ -19,6 +19,20 @@ public class Player : MonoBehaviour
 
     Vector3 moveDirection = Vector3.zero;
     string lastAnimation = "";
+
+    // Alive interface
+    [SerializeField]
+    private int hitPoints;
+
+    public int HitPoints {
+        get { return hitPoints; }
+        set { hitPoints = value; }
+    }
+    
+    public bool IsAlive {
+        get { return hitPoints > 0; }
+        set {}
+    }
 
 
     void Start() 
@@ -94,5 +108,20 @@ public class Player : MonoBehaviour
         
         animator.Play(stateName);
         lastAnimation = stateName;
+    }
+    
+    public void TakeDamage(int amount)
+    {
+        hitPoints -= amount;
+
+        if (!IsAlive) {
+            Die();
+        }
+    }
+
+    public void Die()
+    {
+        // TODO
+        Debug.Log("Not today!");
     }
 }

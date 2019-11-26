@@ -212,6 +212,7 @@ MonoBehaviour:
   sprite: {fileID: 2352802003615633258}
   animator: {fileID: 1341694006770321310}
   speed: 200
+  hitPoints: 5
 --- !u!95 &1341694006770321310
 Animator:
   serializedVersion: 3
