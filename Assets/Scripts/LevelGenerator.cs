@@ -22,11 +22,13 @@ public class LevelGenerator : MonoBehaviour
     private float offsetRange = 10.0f;
 
     [SerializeField]
-    private List<GameObject> roomPrefabs = new List<GameObject>();
+    private GameObject roomCollider = null;
     [SerializeField]
-    private GameObject startRoomPrefab = null;
+    private List<GameObject> roomContents = new List<GameObject>();
     [SerializeField]
-    private GameObject endRoomPrefab = null;
+    private GameObject startRoomContent = null;
+    [SerializeField]
+    private GameObject endRoomContent = null;
     [SerializeField]
     private GameObject playerPrefab = null;
 
@@ -38,12 +40,13 @@ public class LevelGenerator : MonoBehaviour
     {
         Assert.IsNotNull(dynamicHolder);
         Assert.IsNotNull(tilemap);
-        Assert.IsNotNull(startRoomPrefab);
-        Assert.IsNotNull(endRoomPrefab);
+        Assert.IsNotNull(startRoomContent);
+        Assert.IsNotNull(endRoomContent);
         Assert.IsNotNull(playerPrefab);
-        Assert.IsTrue(roomPrefabs.Count > 0);
-        foreach (GameObject roomPrefab in roomPrefabs) {
-            Assert.IsNotNull(roomPrefab);
+        Assert.IsNotNull(roomCollider);
+        Assert.IsTrue(roomContents.Count > 0);
+        foreach (GameObject roomContent in roomContents) {
+            Assert.IsNotNull(roomContent);
         }
 
         Generate();
@@ -109,24 +112,27 @@ public class LevelGenerator : MonoBehaviour
      */
     void AddRooms()
     {
-        startRoom = AddRoom(startRoomPrefab);
-        endRoom = AddRoom(endRoomPrefab);
+        startRoom = AddRoom(startRoomContent);
+        endRoom = AddRoom(endRoomContent);
 
         for(uint i=0; i<roomCount; i++) {
-            int index = Random.Range(0, roomPrefabs.Count);
-            AddRoom(roomPrefabs[index]);
+            int index = Random.Range(0, roomContents.Count);
+            AddRoom(roomContents[index]);
         }
     }
 
-    GameObject AddRoom(GameObject prefab)
+    GameObject AddRoom(GameObject content)
     {
-        GameObject roomObject = Instantiate(prefab);
+        GameObject roomObject = Instantiate(roomCollider);
         roomObject.transform.parent = dynamicHolder.transform;
         roomObject.transform.position = new Vector3(
             Random.Range(-offsetRange, offsetRange),
             Random.Range(-offsetRange, offsetRange),
             0.0f
         );
+        
+        Room room = roomObject.GetComponent<Room>();
+        room.SetContent(content);
 
         rooms.Add(roomObject);
 
@@ -140,7 +146,7 @@ public class LevelGenerator : MonoBehaviour
     {
         foreach(GameObject roomObject in rooms) {
             Room room = roomObject.GetComponent<Room>();
-            room.Generate(tilemap);
+            room.Generate(tilemap, dynamicHolder);
         }
     }
 

@@ -120,6 +120,37 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &73662228
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 73662229}
+  m_Layer: 0
+  m_Name: Cameras
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &73662229
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 73662228}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.39991602, y: 0.27770305, z: -14.140625}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 313113712}
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1839735485 &107500151 stripped
 Tilemap:
   m_CorrespondingSourceObject: {fileID: 6700157201015173445, guid: 91f769b8631e84de58f6b1b239a316f9,
@@ -144,14 +175,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &313113710
-AudioListener:
+--- !u!114 &313113710
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 313113709}
   m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ListenerNumber: -1
 --- !u!20 &313113711
 Camera:
   m_ObjectHideFlags: 0
@@ -202,12 +238,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 313113709}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.39991602, y: -0.27770305, z: 4.140625}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_Father: {fileID: 73662229}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &339422121
 GameObject:
@@ -315,7 +351,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1402042836
 PrefabInstance:
@@ -71500,13 +71536,17 @@ MonoBehaviour:
   generationTime: 3
   roomCount: 30
   offsetRange: 10
-  roomPrefabs:
+  roomCollider: {fileID: 5291408200337835934, guid: f3b9c398c61933b4285f6027361c0ed4,
+    type: 3}
+  roomContents:
   - {fileID: 1478878526254021965, guid: c4807b955e16fba4fb7773d241baf434, type: 3}
   - {fileID: 1880977757768200016, guid: 30766b4c8b26c52449ee2f724749c801, type: 3}
   - {fileID: 9114885432609403945, guid: 6736e675d77b0914ebafba99620fdf5d, type: 3}
-  startRoomPrefab: {fileID: 3928819305587070551, guid: b068ab632de689441ae9e6a0b2a08e2d,
+  startRoomContent: {fileID: 3928819305587070551, guid: b068ab632de689441ae9e6a0b2a08e2d,
     type: 3}
-  endRoomPrefab: {fileID: 5905863383223823314, guid: 0ab43a04de1f05a49b9df4fc4752724b,
+  endRoomContent: {fileID: 5905863383223823314, guid: 0ab43a04de1f05a49b9df4fc4752724b,
+    type: 3}
+  playerPrefab: {fileID: 4401080608842598192, guid: ee2f15b163b405c81bcc0fe608877988,
     type: 3}
 --- !u!1 &1846887935
 GameObject:
@@ -71537,7 +71577,7 @@ Transform:
   m_Children:
   - {fileID: 1402042837}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2146036816
 GameObject:

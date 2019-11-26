@@ -131,7 +131,6 @@ public class Player : MonoBehaviour, IAlive
     public void Die()
     {
         // TODO
-        Debug.Log("Not today!");
     }
 
     public Camera GetCamera()
