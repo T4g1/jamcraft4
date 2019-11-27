@@ -12,6 +12,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wanderer
       objectReference: {fileID: 0}
+    - target: {fileID: 7249763757001272905, guid: be4ae40b898abc371a9eea4c816b5149,
+        type: 3}
+      propertyPath: hitPoints
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9180534725695259356, guid: be4ae40b898abc371a9eea4c816b5149,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -66,11 +71,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7249763757001272905, guid: be4ae40b898abc371a9eea4c816b5149,
-        type: 3}
-      propertyPath: hitPoints
-      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2772276691637220937, guid: be4ae40b898abc371a9eea4c816b5149,
         type: 3}

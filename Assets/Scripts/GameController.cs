@@ -42,6 +42,9 @@ public class GameController : MonoBehaviour
     [SerializeField]
     private GameObject pickUpPrefab = null;
     
+    [SerializeField]
+    private GameObject inventoryUI = null;
+    
     public GameObject dynamicHolder = null;
 
     private int enemyCount = 3;
@@ -62,8 +65,10 @@ public class GameController : MonoBehaviour
 
     void Start()
     {
+        Screen.SetResolution(640, 360, false);
         Assert.IsNotNull(intensityTween);
         Assert.IsNotNull(pickUpPrefab);
+        Assert.IsNotNull(inventoryUI);
         Utility.AssertArrayNotNull<Sprite>(handleSprites);
         Utility.AssertArrayNotNull<Sprite>(quiverSprites);
         Utility.AssertArrayNotNull<Sprite>(stockSprites);
@@ -73,6 +78,8 @@ public class GameController : MonoBehaviour
 
         mainTheme = FMODUnity.RuntimeManager.CreateInstance(mainThemeName);
         mainTheme.start();
+        
+        inventoryUI.SetActive(false);
     }
 
     void Update() 
@@ -81,6 +88,10 @@ public class GameController : MonoBehaviour
             "intensity", 
             (float) intensityTween.GetValue()
         );
+
+        if (Input.GetButtonDown("Inventory")) {
+            inventoryUI.SetActive(!inventoryUI.activeSelf);
+        }
     }
 
     void UpdateMainThemeIntensity()

@@ -17,6 +17,8 @@ public class Inventory : MonoBehaviour
     }
     #endregion
 
+    public event System.Action OnItemChanged;
+
     public int space = 20;
 
     public List<Item> items = new List<Item>();
@@ -31,6 +33,10 @@ public class Inventory : MonoBehaviour
         if (items.Count < space) {
             items.Add(item);
 
+            if (OnItemChanged != null) {
+                OnItemChanged();
+            }
+
             return true;
         }
 
@@ -40,5 +46,9 @@ public class Inventory : MonoBehaviour
     public void Remove(Item item)
     {
         items.Remove(item);
+
+        if (OnItemChanged != null) {
+            OnItemChanged();
+        }
     }
 }

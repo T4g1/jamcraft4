@@ -26,8 +26,6 @@ public class LevelGenerator : MonoBehaviour
     private GameObject startRoomContent = null;
     [SerializeField]
     private GameObject endRoomContent = null;
-    [SerializeField]
-    private GameObject playerPrefab = null;
 
     private List<GameObject> rooms = new List<GameObject>();
     private GameObject startRoom = null;
@@ -39,7 +37,6 @@ public class LevelGenerator : MonoBehaviour
         Assert.IsNotNull(tilemap);
         Assert.IsNotNull(startRoomContent);
         Assert.IsNotNull(endRoomContent);
-        Assert.IsNotNull(playerPrefab);
         Assert.IsNotNull(roomCollider);
         Utility.AssertArrayNotNull<GameObject>(roomContents);
 
@@ -153,7 +150,7 @@ public class LevelGenerator : MonoBehaviour
     {
         Room room = startRoom.GetComponent<Room>();
 
-        GameObject player = Instantiate(playerPrefab);
+        GameObject player = GameObject.FindWithTag("Player");
         player.transform.parent = dynamicHolder.transform;
         player.transform.position = room.GetPosition();
     }
