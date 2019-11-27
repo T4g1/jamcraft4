@@ -92,4 +92,35 @@ public class WeaponPart : Item
     {
         return sprites[Random.Range(0, sprites.Count)];
     }
+
+    public override PartType GetPartType()
+    {
+        if (isQuiver) {
+            return PartType.QUIVER;
+        }
+        if (isBarrel) {
+            return PartType.BARREL;
+        }
+        if (isHandle) {
+            return PartType.HANDLE;
+        }
+        if (isSight) {
+            return PartType.SIGHT;
+        }
+        if (isStock) {
+            return PartType.STOCK;
+        }
+        if (isString) {
+            return PartType.STRING;
+        }
+
+        // This should never be possible
+        Assert.IsTrue(false);
+        return PartType.NONE;
+    }
+
+    public override bool Use()
+    {
+        return CraftingUI.Instance.AddItem(this);
+    }
 }

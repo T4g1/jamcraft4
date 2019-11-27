@@ -7,9 +7,14 @@ public class Item : ScriptableObject
     /**
      * Return true is object is consumed
      */
-    public bool Use()
+    public virtual bool Use()
     {
         // TODO: Place in crafting grid
         return false;
+    }
+
+    public virtual PartType GetPartType()
+    {
+        return PartType.NONE;
     }
 }
