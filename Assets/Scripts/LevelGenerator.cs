@@ -77,7 +77,6 @@ public class LevelGenerator : MonoBehaviour
     IEnumerator _Generate()
     {
         ClearEverything();
-        SpawnPlayer();
         AddRooms();
 
         yield return new WaitForSeconds(generationTime);
@@ -187,17 +186,5 @@ public class LevelGenerator : MonoBehaviour
             portal.SetDestination(craftRoom.GetComponent<Room>().GetPosition());
             portal.SetLevelEnd(true);
         }
-    }
-
-    /**
-     * Adds player
-     */
-    void SpawnPlayer()
-    {
-        Room room = craftRoom.GetComponent<Room>();
-
-        GameObject player = Instantiate(playerPrefab);
-        player.transform.parent = dynamicHolder.transform;
-        player.transform.position = room.GetPosition();
     }
 }
