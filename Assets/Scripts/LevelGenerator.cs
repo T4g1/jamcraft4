@@ -87,16 +87,14 @@ public class LevelGenerator : MonoBehaviour
 
         ActivatePortal(portalIn);
 
-        Assert.IsNotNull(portalOut);
-
         // TODO: Should Happen when Boss Dies!
-        ActivatePortal(portalOut); 
+        ActivatePortal(portalOut);
     }
 
     /**
      * Remove any tiles, rooms
      */
-    void ClearEverything()
+    public void ClearEverything()
     {
         ClearTilemap();
         ClearRooms();
@@ -120,7 +118,7 @@ public class LevelGenerator : MonoBehaviour
     void ClearDynamic()
     {
         foreach (Transform child in dynamicHolder.transform) {
-            DestroyImmediate(child.gameObject);
+            GameObject.Destroy(child.gameObject);
         }
     }
 
@@ -129,6 +127,7 @@ public class LevelGenerator : MonoBehaviour
      */
     void ActivatePortal(GameObject portal)
     {
+        Assert.IsNotNull(portal);
         portal.SetActive(true);
     }
 
