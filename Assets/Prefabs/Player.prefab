@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3457085867588780537}
   - component: {fileID: 1341694006770321310}
   - component: {fileID: 5940157486160809032}
+  - component: {fileID: 6632867566762646838}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -161,6 +162,20 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: -0.41}
   m_Size: {x: 0.5, y: 0.0001}
   m_Direction: 0
+--- !u!114 &6632867566762646838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4401080608842598192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 931e341f713de9442aaaf32ec9b60090, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  space: 20
+  items: []
 --- !u!1 &8710513883601704295
 GameObject:
   m_ObjectHideFlags: 0
@@ -220,7 +235,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 20
+  orthographic size: 10
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -256,11 +271,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5659915047984211277}
     m_Modifications:
-    - target: {fileID: 6653498924248182779, guid: 8ee14e7a454b6cb40b073dc981a1c0ce,
-        type: 3}
-      propertyPath: m_Name
-      value: Weapon
-      objectReference: {fileID: 0}
     - target: {fileID: 5156399072565790103, guid: 8ee14e7a454b6cb40b073dc981a1c0ce,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -330,6 +340,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.y
       value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 6653498924248182779, guid: 8ee14e7a454b6cb40b073dc981a1c0ce,
+        type: 3}
+      propertyPath: m_Name
+      value: Weapon
       objectReference: {fileID: 0}
     - target: {fileID: 7937490202335529748, guid: 8ee14e7a454b6cb40b073dc981a1c0ce,
         type: 3}

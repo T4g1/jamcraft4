@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.EventSystems;
 
 //[ExecuteInEditMode] // Uncomment to update weapon part position in Editor
 public class Weapon : MonoBehaviour
@@ -15,24 +16,24 @@ public class Weapon : MonoBehaviour
     [SerializeField]
     private float rotationOffset = 180.0f;
 
-    // Weapon parts
+    // Weapon part holders
     [SerializeField]
-    private WeaponPart barrelPart = null;
+    private WeaponPartHolder barrelHolder = null;
 
     [SerializeField]
-    private WeaponPart stockPart = null;
+    private WeaponPartHolder stockHolder = null;
 
     [SerializeField]
-    private WeaponPart sightPart = null;
+    private WeaponPartHolder sightHolder = null;
 
     [SerializeField]
-    private WeaponPart stringPart = null;
+    private WeaponPartHolder stringHolder = null;
 
     [SerializeField]
-    private WeaponPart handlePart = null;
+    private WeaponPartHolder handleHolder = null;
 
     [SerializeField]
-    private WeaponPart quiverPart = null;
+    private WeaponPartHolder quiverHolder = null;
 
     private Camera playerCamera;        // Cache player camera
 
@@ -48,12 +49,12 @@ public class Weapon : MonoBehaviour
 
     void Start()
     {
-        Assert.IsNotNull(barrelPart);
-        Assert.IsNotNull(stockPart);
-        Assert.IsNotNull(sightPart);
-        Assert.IsNotNull(stringPart);
-        Assert.IsNotNull(handlePart);
-        Assert.IsNotNull(quiverPart);
+        Assert.IsNotNull(barrelHolder);
+        Assert.IsNotNull(stockHolder);
+        Assert.IsNotNull(sightHolder);
+        Assert.IsNotNull(stringHolder);
+        Assert.IsNotNull(handleHolder);
+        Assert.IsNotNull(quiverHolder);
         
         magazineClip = GetMagazineSize();
 
@@ -72,44 +73,44 @@ public class Weapon : MonoBehaviour
         );
 
         // Place barrel left of handle
-        barrelPart.SetPosition(handlePart.GetPosition() + new Vector3(
-            -barrelPart.GetSize().x,
+        barrelHolder.SetPosition(handleHolder.GetPosition() + new Vector3(
+            -barrelHolder.GetSize().x,
             0.0f,
             0.0f
         ));
 
         // Place string left of barrel
-        stringPart.SetPosition(barrelPart.GetPosition() + new Vector3(
+        stringHolder.SetPosition(barrelHolder.GetPosition() + new Vector3(
             0.0f,
-            stringPart.GetSize().y / 2.0f - barrelPart.GetSize().y / 2.0f,
+            stringHolder.GetSize().y / 2.0f - barrelHolder.GetSize().y / 2.0f,
             0.0f
         ));
 
         // Place stock right of handle
-        stockPart.SetPosition(handlePart.GetPosition() + new Vector3(
-            handlePart.GetSize().x,
+        stockHolder.SetPosition(handleHolder.GetPosition() + new Vector3(
+            handleHolder.GetSize().x,
             0.0f,
             0.0f
         ));
 
         // Place sight above handle
-        sightPart.SetPosition(handlePart.GetPosition() + new Vector3(
-            -sightPart.GetSize().x / 2.0f + handlePart.GetSize().x / 2.0f,
-            sightPart.GetSize().y,
+        sightHolder.SetPosition(handleHolder.GetPosition() + new Vector3(
+            -sightHolder.GetSize().x / 2.0f + handleHolder.GetSize().x / 2.0f,
+            sightHolder.GetSize().y,
             0.0f
         ));
 
         // Place quiver under barrel
-        quiverPart.SetPosition(handlePart.GetPosition() + new Vector3(
-            -quiverPart.GetSize().x,
-            -barrelPart.GetSize().y,
+        quiverHolder.SetPosition(handleHolder.GetPosition() + new Vector3(
+            -quiverHolder.GetSize().x,
+            -barrelHolder.GetSize().y,
             0.0f
         ));
 
         // Place muzzle at the end of barrel
-        muzzle.transform.position = barrelPart.GetPosition() + new Vector3(
+        muzzle.transform.position = barrelHolder.GetPosition() + new Vector3(
             0.0f,
-            -barrelPart.GetSize().y / 2,
+            -barrelHolder.GetSize().y / 2,
             0.0f
         );
     }
@@ -124,9 +125,14 @@ public class Weapon : MonoBehaviour
             magazineClip = GetMagazineSize();
             Debug.Log("Reloaded");
         }
+        
+        UpdateRotation();
+
+        if (EventSystem.current.IsPointerOverGameObject()) {
+            return;
+        }
 
         HandleInputs();
-        UpdateRotation();
     }
 
     /**
@@ -217,7 +223,7 @@ public class Weapon : MonoBehaviour
      */
     float GetShotInterval()
     {
-        return stringPart.fireRate;
+        return stringHolder.Part.fireRate;
     }
 
     /**
@@ -225,7 +231,7 @@ public class Weapon : MonoBehaviour
      */
     Bullet GetBulletPrefab()
     {
-        return barrelPart.bulletPrefab;
+        return barrelHolder.Part.bulletPrefab;
     }
 
     /**
@@ -241,7 +247,7 @@ public class Weapon : MonoBehaviour
      */
     float GetBulletLifeSpan()
     {
-        return stringPart.lifespan;
+        return stringHolder.Part.lifespan;
     }
 
     /**
@@ -249,7 +255,7 @@ public class Weapon : MonoBehaviour
      */
     float GetReloadTime()
     {
-        return handlePart.reloadTime;
+        return handleHolder.Part.reloadTime;
     }
 
     /**
@@ -257,6 +263,6 @@ public class Weapon : MonoBehaviour
      */
     uint GetMagazineSize()
     {
-        return quiverPart.magazineSize;
+        return quiverHolder.Part.magazineSize;
     }
 }

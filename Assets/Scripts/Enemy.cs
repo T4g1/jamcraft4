@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour, IAlive
 {
+    [Range (0f, 1f)]
+    [SerializeField]
+    private float dropRate = 0.5f;
+
     [SerializeField]
     private TriggerZone aggroZone = null;
 
@@ -94,6 +98,10 @@ public class Enemy : MonoBehaviour, IAlive
 
     public void Die()
     {
+        if (Random.Range(0f, 1f) <= dropRate) {
+            GameController.Instance.CreatePickUp(transform.position);
+        }
+        
         Destroy(gameObject);
     }
 }

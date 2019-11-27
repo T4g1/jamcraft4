@@ -7,9 +7,6 @@ using UnityEngine.Tilemaps;
 public class LevelGenerator : MonoBehaviour
 {
     [SerializeField]
-    private GameObject dynamicHolder = null;
-
-    [SerializeField]
     private Tilemap tilemap = null;
 
     [SerializeField]
@@ -30,34 +27,28 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField]
     private GameObject endRoomContent = null;
     [SerializeField]
-    private GameObject craftRoomContent = null;
+    private Transform spawn = null;
     [SerializeField]
-    private GameObject playerPrefab = null;
-    [SerializeField]
-    private GameObject craftRoom = null;
-    [SerializeField]
-    private GameObject portalIn = null;
+    private Portal portalIn = null;
 
     private List<GameObject> rooms = new List<GameObject>();
     private GameObject startRoom = null;
     private GameObject endRoom = null;
-    private GameObject portalOut = null;
+    private GameObject dynamicHolder;
+    private Portal portalOut = null;
 
 
     void Start()
     {
-        Assert.IsNotNull(dynamicHolder);
         Assert.IsNotNull(tilemap);
         Assert.IsNotNull(startRoomContent);
         Assert.IsNotNull(endRoomContent);
-        Assert.IsNotNull(playerPrefab);
         Assert.IsNotNull(roomCollider);
-        Assert.IsNotNull(craftRoomContent);
+        Assert.IsNotNull(spawn);
         Assert.IsNotNull(portalIn);
-        Assert.IsTrue(roomContents.Count > 0);
-        foreach (GameObject roomContent in roomContents) {
-            Assert.IsNotNull(roomContent);
-        }
+        Utility.AssertArrayNotNull<GameObject>(roomContents);
+
+        dynamicHolder = GameController.Instance.dynamicHolder;
 
         Generate();
     }
@@ -84,10 +75,10 @@ public class LevelGenerator : MonoBehaviour
         FillRooms();
         ClearRooms();
 
-        ActivatePortal(portalIn);
+        portalIn.Activate();
 
         // TODO: Should Happen when Boss Dies!
-        ActivatePortal(portalOut);
+        portalOut.Activate();
     }
 
     /**
@@ -119,15 +110,6 @@ public class LevelGenerator : MonoBehaviour
         foreach (Transform child in dynamicHolder.transform) {
             GameObject.Destroy(child.gameObject);
         }
-    }
-
-    /**
-     * Activates Portal
-     */
-    void ActivatePortal(GameObject portal)
-    {
-        Assert.IsNotNull(portal);
-        portal.SetActive(true);
     }
 
     /**
@@ -168,9 +150,8 @@ public class LevelGenerator : MonoBehaviour
     void FillRooms()
     {
         // Set destination of entry portal
-        Portal portal = portalIn.GetComponent<Portal>();
-        portal.SetDestination(startRoom.GetComponent<Room>().GetPosition());
-        
+        portalIn.SetDestination(startRoom.GetComponent<Room>().GetPosition());
+
         foreach (GameObject roomObject in rooms) {
             Room room = roomObject.GetComponent<Room>();
             GameObject content = room.Generate(tilemap, dynamicHolder);
@@ -180,11 +161,9 @@ public class LevelGenerator : MonoBehaviour
                 continue;
             }
 
-            portalOut = content.transform.Find("Teleport").gameObject;
-
-            portal = portalOut.GetComponent<Portal>();
-            portal.SetDestination(craftRoom.GetComponent<Room>().GetPosition());
-            portal.SetLevelEnd(true);
+            portalOut = content.transform.GetComponentInChildren<Portal>();
+            portalOut.SetDestination(spawn.position);
+            portalOut.SetLevelEnd(true);
         }
     }
 }

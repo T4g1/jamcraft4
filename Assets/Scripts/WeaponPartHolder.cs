@@ -1,41 +1,30 @@
-﻿using UnityEngine;
-using UnityEngine.Assertions;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-[ExecuteInEditMode]
-public class WeaponPart : MonoBehaviour
+public class WeaponPartHolder : MonoBehaviour
 {
-    public PartType partType;
-    public Sprite sprite;
-
-    [Header("Quiver")]
-    public bool isQuiver;
-    public uint magazineSize;
-
-    [Header("Barrel")]
-    public bool isBarrel;
-    public Bullet bulletPrefab;
-
-    [Header("Stock")]
-    public bool isSstock;
-    public uint recoil;
-
-    [Header("Sight")]
-    public bool isSight;
-    public uint precision;
-
-    [Header("Handle")]
-    public bool isHandle;
-    public uint reloadTime;
-
-    [Header("String")]
-    public bool isString;
-    public float fireRate;  // Time between every shot
-    public float lifespan;  // Time before decaying
+    [SerializeField]
+    private WeaponPart part;
+    public WeaponPart Part {
+        get {
+            return part;
+        }
+        set {
+            part = value;
+            UpdateSpriteRenderer();
+        }
+    }
 
 
     void Start()
     {
-        GetComponent<SpriteRenderer>().sprite = sprite;
+        UpdateSpriteRenderer();
+    }
+
+    void UpdateSpriteRenderer()
+    {
+        GetComponent<SpriteRenderer>().sprite = part.sprite;
     }
 
     /**
@@ -78,14 +67,4 @@ public class WeaponPart : MonoBehaviour
         
         return GetComponent<SpriteRenderer>().sprite.bounds.size * scale;
     }
-}
-
-public enum PartType
-{
-    QUIVER,
-    SIGHT,
-    BARREL,
-    STRING,
-    STOCK,
-    HANDLE
 }

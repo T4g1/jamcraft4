@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4848712727172664050}
   - component: {fileID: 3482823537941717234}
-  - component: {fileID: 3075096487204128907}
+  - component: {fileID: 5141036080124423752}
   m_Layer: 0
   m_Name: Quiver
   m_TagString: Untagged
@@ -81,7 +81,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &3075096487204128907
+--- !u!114 &5141036080124423752
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -90,24 +90,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 397329061526907580}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17d1b9131e29bd84c8df176623f6ef54, type: 3}
+  m_Script: {fileID: 11500000, guid: a37c91d8a4228844abcc868046af6a52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  partType: 0
-  sprite: {fileID: 21300000, guid: 087383a6cab574e4d95231d2ccfe4cff, type: 3}
-  isQuiver: 1
-  magazineSize: 50
-  isBarrel: 0
-  bulletPrefab: {fileID: 0}
-  isSstock: 0
-  recoil: 0
-  isSight: 0
-  precision: 0
-  isHandle: 0
-  reloadTime: 0
-  isString: 0
-  fireRate: 0
-  lifespan: 0
+  part: {fileID: 11400000, guid: cf29d1cb607735c45b0a4021dac07b5f, type: 2}
 --- !u!1 &987988388945788209
 GameObject:
   m_ObjectHideFlags: 0
@@ -118,7 +104,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7198612882016807204}
   - component: {fileID: 140723467759267141}
-  - component: {fileID: 5095177788547692035}
+  - component: {fileID: 1684154042624984992}
   m_Layer: 0
   m_Name: Handle
   m_TagString: Untagged
@@ -189,7 +175,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5095177788547692035
+--- !u!114 &1684154042624984992
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -198,24 +184,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 987988388945788209}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17d1b9131e29bd84c8df176623f6ef54, type: 3}
+  m_Script: {fileID: 11500000, guid: a37c91d8a4228844abcc868046af6a52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  partType: 5
-  sprite: {fileID: 21300000, guid: 9d1287314396ad4459e47f42c2991a1c, type: 3}
-  isQuiver: 0
-  magazineSize: 0
-  isBarrel: 0
-  bulletPrefab: {fileID: 0}
-  isSstock: 0
-  recoil: 0
-  isSight: 0
-  precision: 0
-  isHandle: 1
-  reloadTime: 2
-  isString: 0
-  fireRate: 0
-  lifespan: 0
+  part: {fileID: 11400000, guid: 4d75f6019d9f28640beeb9e66192a01a, type: 2}
 --- !u!1 &1549086575936087184
 GameObject:
   m_ObjectHideFlags: 0
@@ -226,7 +198,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5620823959275759371}
   - component: {fileID: 2558914859688099013}
-  - component: {fileID: 6275380544632443139}
+  - component: {fileID: 3205991373184967746}
   m_Layer: 0
   m_Name: Stock
   m_TagString: Untagged
@@ -297,7 +269,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &6275380544632443139
+--- !u!114 &3205991373184967746
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -306,24 +278,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1549086575936087184}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17d1b9131e29bd84c8df176623f6ef54, type: 3}
+  m_Script: {fileID: 11500000, guid: a37c91d8a4228844abcc868046af6a52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  partType: 4
-  sprite: {fileID: 21300000, guid: 18c229c19dd0ad848a01ec5bd7604277, type: 3}
-  isQuiver: 0
-  magazineSize: 0
-  isBarrel: 0
-  bulletPrefab: {fileID: 0}
-  isSstock: 1
-  recoil: 0
-  isSight: 0
-  precision: 0
-  isHandle: 0
-  reloadTime: 0
-  isString: 0
-  fireRate: 0
-  lifespan: 0
+  part: {fileID: 11400000, guid: 5d7ac0545671af648afefea6682d5601, type: 2}
 --- !u!1 &2618819344076483826
 GameObject:
   m_ObjectHideFlags: 0
@@ -334,7 +292,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5721136529377149515}
   - component: {fileID: 7838562730136664413}
-  - component: {fileID: 7764652691856761718}
+  - component: {fileID: 5421268350319252217}
   m_Layer: 0
   m_Name: Barrel
   m_TagString: Untagged
@@ -405,7 +363,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7764652691856761718
+--- !u!114 &5421268350319252217
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -414,25 +372,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2618819344076483826}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17d1b9131e29bd84c8df176623f6ef54, type: 3}
+  m_Script: {fileID: 11500000, guid: a37c91d8a4228844abcc868046af6a52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  partType: 2
-  sprite: {fileID: 21300000, guid: ec215751998817f4e953dcdf6605e4b8, type: 3}
-  isQuiver: 0
-  magazineSize: 0
-  isBarrel: 1
-  bulletPrefab: {fileID: 7321875105032977819, guid: 751f7445899b4c6419b123827083c098,
-    type: 3}
-  isSstock: 0
-  recoil: 0
-  isSight: 0
-  precision: 0
-  isHandle: 0
-  reloadTime: 0
-  isString: 0
-  fireRate: 0
-  lifespan: 0
+  part: {fileID: 11400000, guid: 947a50e4cd80cd04f8a65c3b4901fc71, type: 2}
 --- !u!1 &3631905416901318701
 GameObject:
   m_ObjectHideFlags: 0
@@ -443,7 +386,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2322291316744285346}
   - component: {fileID: 980720596181573761}
-  - component: {fileID: 6621259014422748503}
+  - component: {fileID: 4569034556145740470}
   m_Layer: 0
   m_Name: Sight
   m_TagString: Untagged
@@ -514,7 +457,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &6621259014422748503
+--- !u!114 &4569034556145740470
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -523,24 +466,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 3631905416901318701}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17d1b9131e29bd84c8df176623f6ef54, type: 3}
+  m_Script: {fileID: 11500000, guid: a37c91d8a4228844abcc868046af6a52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  partType: 1
-  sprite: {fileID: 21300000, guid: 30e93214bb3a0294ea2c4831bca89090, type: 3}
-  isQuiver: 0
-  magazineSize: 0
-  isBarrel: 0
-  bulletPrefab: {fileID: 0}
-  isSstock: 0
-  recoil: 0
-  isSight: 1
-  precision: 0
-  isHandle: 0
-  reloadTime: 0
-  isString: 0
-  fireRate: 0
-  lifespan: 0
+  part: {fileID: 11400000, guid: a3d95433d335d0c478b811d4d2a3e686, type: 2}
 --- !u!1 &6427756674173938274
 GameObject:
   m_ObjectHideFlags: 0
@@ -551,7 +480,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7937490202335529748}
   - component: {fileID: 610895940346607177}
-  - component: {fileID: 4275347356378095338}
+  - component: {fileID: 4423179793231912726}
   m_Layer: 0
   m_Name: String
   m_TagString: Untagged
@@ -622,7 +551,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &4275347356378095338
+--- !u!114 &4423179793231912726
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -631,24 +560,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 6427756674173938274}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17d1b9131e29bd84c8df176623f6ef54, type: 3}
+  m_Script: {fileID: 11500000, guid: a37c91d8a4228844abcc868046af6a52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  partType: 3
-  sprite: {fileID: 21300000, guid: f0f41b8c06f793d4b89c313ca1635511, type: 3}
-  isQuiver: 0
-  magazineSize: 0
-  isBarrel: 0
-  bulletPrefab: {fileID: 0}
-  isSstock: 0
-  recoil: 0
-  isSight: 0
-  precision: 0
-  isHandle: 0
-  reloadTime: 0
-  isString: 1
-  fireRate: 0.2
-  lifespan: 2
+  part: {fileID: 11400000, guid: 6c99faf25c26df44d8b1daecaa73936d, type: 2}
 --- !u!1 &6653498924248182779
 GameObject:
   m_ObjectHideFlags: 0
@@ -699,13 +614,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0ff4c9755997594493e46387283cb85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultScale: {x: 1, y: 1, z: 1}
   rotationOffset: 180
-  barrelPart: {fileID: 7764652691856761718}
-  stockPart: {fileID: 6275380544632443139}
-  sightPart: {fileID: 6621259014422748503}
-  stringPart: {fileID: 4275347356378095338}
-  handlePart: {fileID: 5095177788547692035}
-  quiverPart: {fileID: 3075096487204128907}
+  barrelHolder: {fileID: 5421268350319252217}
+  stockHolder: {fileID: 3205991373184967746}
+  sightHolder: {fileID: 4569034556145740470}
+  stringHolder: {fileID: 4423179793231912726}
+  handleHolder: {fileID: 1684154042624984992}
+  quiverHolder: {fileID: 5141036080124423752}
   muzzle: {fileID: 7889903456875506755}
 --- !u!1 &7889903456875506755
 GameObject:

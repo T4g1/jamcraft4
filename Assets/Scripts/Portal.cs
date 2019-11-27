@@ -42,4 +42,9 @@ public class Portal : MonoBehaviour
     {
         isLevelEnd = value;
     }
+
+    public void Activate()
+    {
+        gameObject.SetActive(true);
+    }
 }
