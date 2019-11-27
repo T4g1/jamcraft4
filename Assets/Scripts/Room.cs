@@ -31,8 +31,9 @@ public class Room : MonoBehaviour
         contentContainer = content.transform.Find("Content").gameObject;
     }
 
-    public void Generate(Tilemap tilemap, GameObject dynamicHolder)
+    public GameObject Generate(Tilemap tilemap, GameObject dynamicHolder)
     {
+        // Place tiles
         contentTilemap.CompressBounds();
 
         Vector3Int startCell = tilemap.WorldToCell(GetBottomLeft());
@@ -59,9 +60,12 @@ public class Room : MonoBehaviour
             }
         }
 
+        // Place dynamic content
         GameObject roomContent = Instantiate(contentContainer);
         roomContent.transform.parent = dynamicHolder.transform;
-        roomContent.transform.position = GetPosition();
+        roomContent.transform.position = GetBottomLeft();
+        
+        return roomContent;
     }
 
     public Vector3 GetPosition()

@@ -28,7 +28,7 @@ public class GameController : MonoBehaviour
         Instance = this;
     }
     #endregion
-    
+
     private FMOD.Studio.EventInstance mainTheme;
 
     public const uint TILE_SIZE = 16;
@@ -38,14 +38,17 @@ public class GameController : MonoBehaviour
 
     [SerializeField]
     private Tween intensityTween = null;
-    
+
     [SerializeField]
     private GameObject pickUpPrefab = null;
-    
+
     [SerializeField]
     private GameObject inventoryUI = null;
-    
+
     public GameObject dynamicHolder = null;
+
+    [SerializeField]
+    private LevelGenerator levelGenerator = null;
 
     private int enemyCount = 3;
     private int enemyAggro = 0;
@@ -69,6 +72,7 @@ public class GameController : MonoBehaviour
         Assert.IsNotNull(intensityTween);
         Assert.IsNotNull(pickUpPrefab);
         Assert.IsNotNull(inventoryUI);
+        Assert.IsNotNull(levelGenerator);
         Utility.AssertArrayNotNull<Sprite>(handleSprites);
         Utility.AssertArrayNotNull<Sprite>(quiverSprites);
         Utility.AssertArrayNotNull<Sprite>(stockSprites);
@@ -80,10 +84,10 @@ public class GameController : MonoBehaviour
         mainTheme.start();
     }
 
-    void Update() 
+    void Update()
     {
         mainTheme.setParameterByName(
-            "intensity", 
+            "intensity",
             (float) intensityTween.GetValue()
         );
 
@@ -121,7 +125,7 @@ public class GameController : MonoBehaviour
         PartType partType = forcePart;
         if (partType == PartType.NONE) {
             partType = (PartType) UnityEngine.Random.Range(
-                1, 
+                1,
                 Enum.GetValues(typeof(PartType)).Cast<int>().Max()
             );
         }
@@ -130,28 +134,33 @@ public class GameController : MonoBehaviour
             case PartType.QUIVER:
                 part.RandomizeQuiver();
                 break;
-                
+
             case PartType.BARREL:
                 part.RandomizeBarrel();
                 break;
-                
+
             case PartType.STOCK:
                 part.RandomizeStock();
                 break;
-                
+
             case PartType.HANDLE:
                 part.RandomizeHandle();
                 break;
-                
+
             case PartType.SIGHT:
                 part.RandomizeSight();
                 break;
-                
+
             case PartType.STRING:
                 part.RandomizeString();
                 break;
         }
 
         return part;
+    }
+
+    public void OnLevelEnds()
+    {
+        levelGenerator.Generate();
     }
 }
