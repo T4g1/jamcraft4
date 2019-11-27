@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2921998266126601899}
   - component: {fileID: 205472503317745106}
   m_Layer: 0
-  m_Name: Teleport
+  m_Name: Portal
   m_TagString: Teleport
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -68,8 +68,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1011108229
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 8581443456466131527, guid: 283a20927d51c5b169fa70d6a488e0c2,
     type: 3}
@@ -121,7 +121,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc9a1ae9443b44ae8b638387a5d1f97c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destinationPosition: {x: 0, y: 0}
   teleportTime: 0.5
-  levelGenerator: {fileID: 0}
-  reGenerates: 0

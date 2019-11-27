@@ -47,6 +47,9 @@ TagManager:
   - name: level
     uniqueID: 1210094349
     locked: 0
+  - name: portal
+    uniqueID: 1011108229
+    locked: 0
   - name: items
     uniqueID: 341093259
     locked: 0
