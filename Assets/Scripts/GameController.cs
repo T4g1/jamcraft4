@@ -16,6 +16,9 @@ public class GameController : MonoBehaviour
     [SerializeField]
     private Tween intensityTween = null;
 
+    [SerializeField]
+    private LevelGenerator levelGenerator = null;
+
     private int enemyCount = 3;
     private int enemyAggro = 0;
     public int EnemyAggro
@@ -38,6 +41,7 @@ public class GameController : MonoBehaviour
     void Start()
     {
         Assert.IsNotNull(intensityTween);
+        Assert.IsNotNull(levelGenerator);
 
         mainTheme = FMODUnity.RuntimeManager.CreateInstance(mainThemeName);
         mainTheme.start();
@@ -56,5 +60,10 @@ public class GameController : MonoBehaviour
         int intensity = (int)(enemyAggro * 100.0f / enemyCount);
 
         intensityTween.Interpolate(intensityTween.GetValue(), intensity);
+    }
+
+    public void OnLevelEnds()
+    {
+        levelGenerator.Generate();
     }
 }

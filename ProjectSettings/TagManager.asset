@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Enemy
   - Level
+  - Teleport
   layers:
   - Default
   - TransparentFX
@@ -45,6 +46,9 @@ TagManager:
     locked: 0
   - name: level
     uniqueID: 1210094349
+    locked: 0
+  - name: portal
+    uniqueID: 1011108229
     locked: 0
   - name: items
     uniqueID: 341093259
