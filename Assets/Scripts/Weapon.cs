@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.EventSystems;
 
 //[ExecuteInEditMode] // Uncomment to update weapon part position in Editor
 public class Weapon : MonoBehaviour
@@ -124,9 +125,14 @@ public class Weapon : MonoBehaviour
             magazineClip = GetMagazineSize();
             Debug.Log("Reloaded");
         }
+        
+        UpdateRotation();
+
+        if (EventSystem.current.IsPointerOverGameObject()) {
+            return;
+        }
 
         HandleInputs();
-        UpdateRotation();
     }
 
     /**

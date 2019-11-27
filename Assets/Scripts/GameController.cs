@@ -78,8 +78,6 @@ public class GameController : MonoBehaviour
 
         mainTheme = FMODUnity.RuntimeManager.CreateInstance(mainThemeName);
         mainTheme.start();
-        
-        inventoryUI.SetActive(false);
     }
 
     void Update() 
