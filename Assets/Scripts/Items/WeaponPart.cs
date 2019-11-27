@@ -121,6 +121,10 @@ public class WeaponPart : Item
 
     public override bool Use()
     {
+        if (!CraftingUI.Instance.IsActive()) {
+            return false;
+        }
+
         return CraftingUI.Instance.AddItem(this);
     }
 }

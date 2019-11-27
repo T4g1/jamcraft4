@@ -52,8 +52,8 @@ public class CraftingUI : MonoBehaviour
             }
 
             Assert.IsFalse(inventory.IsFull());
-
             inventory.Add(slot.Item);
+
             slot.ClearSlot();
         }
     }
@@ -88,5 +88,13 @@ public class CraftingUI : MonoBehaviour
         }
 
         return false;
+    }
+
+    /**
+     * Player has access to crafting grid
+     */
+    public bool IsActive()
+    {
+        return gameObject.activeSelf;
     }
 }
