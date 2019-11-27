@@ -10,7 +10,7 @@ public class InventoryUI : MonoBehaviour
     private InventorySlot[] slots;
 
 
-    void Start()
+    void Awake()
     {
         Assert.IsNotNull(itemsParent);
 
@@ -20,9 +20,14 @@ public class InventoryUI : MonoBehaviour
         slots = itemsParent.GetComponentsInChildren<InventorySlot>();
     }
 
+    void OnEnable()
+    {
+        UpdateUI();
+    }
+
     void UpdateUI()
     {
-        for (int i=0; i<slots.Length; i++) {
+        for (int i = 0; i < slots.Length; i++) {
             if (i < inventory.items.Count) {
                 slots[i].AddItem(inventory.items[i]);
             } 

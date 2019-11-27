@@ -119,8 +119,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 17ca8d4b6cd401267accdf2efc145960, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   body: {fileID: 3754272989295686216}
   sprite: {fileID: 2352802003615633258}
   cameraContainer: {fileID: 8710513883601704295}
@@ -142,7 +142,7 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
-  m_WarningMessage:
+  m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
@@ -172,8 +172,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 931e341f713de9442aaaf32ec9b60090, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   space: 20
   items: []
 --- !u!1 &8710513883601704295
@@ -235,7 +235,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 20
+  orthographic size: 10
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -261,8 +261,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   ListenerNumber: -1
 --- !u!1001 &7523753020974414327
 PrefabInstance:
@@ -271,11 +271,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5659915047984211277}
     m_Modifications:
-    - target: {fileID: 6653498924248182779, guid: 8ee14e7a454b6cb40b073dc981a1c0ce,
-        type: 3}
-      propertyPath: m_Name
-      value: Weapon
-      objectReference: {fileID: 0}
     - target: {fileID: 5156399072565790103, guid: 8ee14e7a454b6cb40b073dc981a1c0ce,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -346,6 +341,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 0.75
       objectReference: {fileID: 0}
+    - target: {fileID: 6653498924248182779, guid: 8ee14e7a454b6cb40b073dc981a1c0ce,
+        type: 3}
+      propertyPath: m_Name
+      value: Weapon
+      objectReference: {fileID: 0}
     - target: {fileID: 7937490202335529748, guid: 8ee14e7a454b6cb40b073dc981a1c0ce,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -394,7 +394,7 @@ PrefabInstance:
     - target: {fileID: 7838562730136664413, guid: 8ee14e7a454b6cb40b073dc981a1c0ce,
         type: 3}
       propertyPath: m_Sprite
-      value:
+      value: 
       objectReference: {fileID: 21300000, guid: ec215751998817f4e953dcdf6605e4b8,
         type: 3}
     - target: {fileID: 7838562730136664413, guid: 8ee14e7a454b6cb40b073dc981a1c0ce,
@@ -415,7 +415,7 @@ PrefabInstance:
     - target: {fileID: 2558914859688099013, guid: 8ee14e7a454b6cb40b073dc981a1c0ce,
         type: 3}
       propertyPath: m_Sprite
-      value:
+      value: 
       objectReference: {fileID: 21300000, guid: 18c229c19dd0ad848a01ec5bd7604277,
         type: 3}
     - target: {fileID: 2558914859688099013, guid: 8ee14e7a454b6cb40b073dc981a1c0ce,
@@ -436,7 +436,7 @@ PrefabInstance:
     - target: {fileID: 3482823537941717234, guid: 8ee14e7a454b6cb40b073dc981a1c0ce,
         type: 3}
       propertyPath: m_Sprite
-      value:
+      value: 
       objectReference: {fileID: 21300000, guid: 087383a6cab574e4d95231d2ccfe4cff,
         type: 3}
     - target: {fileID: 3482823537941717234, guid: 8ee14e7a454b6cb40b073dc981a1c0ce,
@@ -457,7 +457,7 @@ PrefabInstance:
     - target: {fileID: 610895940346607177, guid: 8ee14e7a454b6cb40b073dc981a1c0ce,
         type: 3}
       propertyPath: m_Sprite
-      value:
+      value: 
       objectReference: {fileID: 21300000, guid: f0f41b8c06f793d4b89c313ca1635511,
         type: 3}
     - target: {fileID: 610895940346607177, guid: 8ee14e7a454b6cb40b073dc981a1c0ce,
@@ -478,7 +478,7 @@ PrefabInstance:
     - target: {fileID: 980720596181573761, guid: 8ee14e7a454b6cb40b073dc981a1c0ce,
         type: 3}
       propertyPath: m_Sprite
-      value:
+      value: 
       objectReference: {fileID: 21300000, guid: 30e93214bb3a0294ea2c4831bca89090,
         type: 3}
     - target: {fileID: 980720596181573761, guid: 8ee14e7a454b6cb40b073dc981a1c0ce,
@@ -499,7 +499,7 @@ PrefabInstance:
     - target: {fileID: 140723467759267141, guid: 8ee14e7a454b6cb40b073dc981a1c0ce,
         type: 3}
       propertyPath: m_Sprite
-      value:
+      value: 
       objectReference: {fileID: 21300000, guid: 9d1287314396ad4459e47f42c2991a1c,
         type: 3}
     - target: {fileID: 140723467759267141, guid: 8ee14e7a454b6cb40b073dc981a1c0ce,
