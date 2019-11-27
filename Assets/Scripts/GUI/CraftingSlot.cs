@@ -24,11 +24,11 @@ public class CraftingSlot : InventorySlot
         return result;
     }
 
-    public override void ClearSlot()
+    public void ClearSlotToInventory()
     {
         Assert.IsFalse(Inventory.Instance.IsFull());
         Inventory.Instance.Add(Item);
 
-        base.ClearSlot();
+        ClearSlot();
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System.Linq;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -126,5 +127,13 @@ public class WeaponPart : Item
         }
 
         return CraftingUI.Instance.AddItem(this);
+    }
+
+    /**
+     * How many different part type exists
+     */
+    public static int GetPartTypeCount()
+    {
+        return System.Enum.GetValues(typeof(PartType)).Cast<int>().Max();
     }
 }

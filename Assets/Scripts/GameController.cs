@@ -124,10 +124,10 @@ public class GameController : MonoBehaviour
 
         PartType partType = forcePart;
         if (partType == PartType.NONE) {
-            partType = (PartType) UnityEngine.Random.Range(
-                1,
-                Enum.GetValues(typeof(PartType)).Cast<int>().Max()
-            );
+            partType = (PartType) (UnityEngine.Random.Range(
+                0,
+                WeaponPart.GetPartTypeCount()
+            ) + 1);
         }
 
         switch (partType) {

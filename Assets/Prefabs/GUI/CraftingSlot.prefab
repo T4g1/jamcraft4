@@ -282,7 +282,7 @@ PrefabInstance:
     - target: {fileID: 810523463802360758, guid: 58c37a54af48c1048a0c03ceaaa86460,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ClearSlot
+      value: ClearSlotToInventory
       objectReference: {fileID: 0}
     - target: {fileID: 810523463947648571, guid: 58c37a54af48c1048a0c03ceaaa86460,
         type: 3}

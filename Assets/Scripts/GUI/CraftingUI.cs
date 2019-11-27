@@ -51,10 +51,7 @@ public class CraftingUI : MonoBehaviour
                 continue;
             }
 
-            Assert.IsFalse(inventory.IsFull());
-            inventory.Add(slot.Item);
-
-            slot.ClearSlot();
+            slot.ClearSlotToInventory();
         }
     }
 
@@ -69,10 +66,24 @@ public class CraftingUI : MonoBehaviour
         }
     }
 
-    void OnCraft()
+    public void OnCraft()
     {
-        // TODO
-        //ConsumeItems();
+        // Check the grid is complete
+        foreach (CraftingSlot slot in slots) {
+            if (slot.IsFree()) {
+                return;
+            }
+        }
+
+        Player player = GameObject.FindWithTag("Player").GetComponent<Player>();
+        Weapon weapon = player.transform.GetComponentInChildren<Weapon>();
+        
+        // Check the grid is complete
+        foreach (CraftingSlot slot in slots) {
+            weapon.SetPart((WeaponPart) slot.Item);
+        }
+
+        ConsumeItems();
     }
 
     /**
