@@ -44,6 +44,8 @@ public class GameController : MonoBehaviour
 
     [SerializeField]
     private GameObject inventoryUI = null;
+    [SerializeField]
+    private GameObject craftingUI = null;
 
     public GameObject dynamicHolder = null;
 
@@ -72,6 +74,7 @@ public class GameController : MonoBehaviour
         Assert.IsNotNull(intensityTween);
         Assert.IsNotNull(pickUpPrefab);
         Assert.IsNotNull(inventoryUI);
+        Assert.IsNotNull(craftingUI);
         Assert.IsNotNull(levelGenerator);
         Utility.AssertArrayNotNull<Sprite>(handleSprites);
         Utility.AssertArrayNotNull<Sprite>(quiverSprites);
@@ -92,7 +95,7 @@ public class GameController : MonoBehaviour
         );
 
         if (Input.GetButtonDown("Inventory")) {
-            inventoryUI.SetActive(!inventoryUI.activeSelf);
+            ToggleInventory();
         }
     }
 
@@ -162,5 +165,51 @@ public class GameController : MonoBehaviour
     public void OnLevelEnds()
     {
         levelGenerator.Generate();
+    }
+
+    public void ToggleCraftingUI()
+    {
+        if (craftingUI.activeSelf) {
+            CloseCraftingUI();
+        } else {
+            OpenCraftingUI();
+        }
+    }
+
+    public void OpenCraftingUI()
+    {
+        craftingUI.SetActive(true);
+        OpenInventory();
+    }
+
+    public void CloseCraftingUI()
+    {
+        craftingUI.SetActive(false);
+        CloseInventory();
+    }
+
+    public void ToggleInventory()
+    {
+        if (inventoryUI.activeSelf) {
+            CloseInventory();
+        } else {
+            OpenInventory();
+        }
+    }
+
+    public void OpenInventory()
+    {
+        inventoryUI.SetActive(true);
+    }
+
+    public void CloseInventory()
+    {
+        inventoryUI.SetActive(false);
+    }
+
+    public void CloseUI()
+    {
+        CloseCraftingUI();
+        CloseInventory();
     }
 }
