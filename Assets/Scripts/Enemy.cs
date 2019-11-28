@@ -98,6 +98,9 @@ public class Enemy : MonoBehaviour, IAlive
     public void TakeDamage(int amount)
     {
         hitPoints -= amount;
+        
+        SetAnimation("hurt");
+        GetComponent<Rigidbody2D>().velocity = Vector2.zero;
 
         if (!IsAlive) {
             Die();
