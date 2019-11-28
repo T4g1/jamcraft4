@@ -1726,6 +1726,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2936112416103543546, guid: ecabb8f16b57742c79d70f926342fe2d,
+        type: 3}
+      propertyPath: barrelHolder
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ecabb8f16b57742c79d70f926342fe2d, type: 3}
 --- !u!224 &546456263 stripped
@@ -75620,6 +75625,7 @@ MonoBehaviour:
     type: 3}
   spawn: {fileID: 1406427245}
   portalIn: {fileID: 1942375589}
+  corridor: {fileID: 0}
 --- !u!224 &1709614824 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 810523462649530869, guid: 58c37a54af48c1048a0c03ceaaa86460,

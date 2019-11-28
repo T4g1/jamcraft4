@@ -30,6 +30,8 @@ public class LevelGenerator : MonoBehaviour
     private Transform spawn = null;
     [SerializeField]
     private Portal portalIn = null;
+    [SerializeField]
+    private TileBase corridor = null;
 
     private List<Room> rooms = new List<Room>();
     private List<Room> paths = new List<Room>();
@@ -48,6 +50,7 @@ public class LevelGenerator : MonoBehaviour
         Assert.IsNotNull(roomCollider);
         Assert.IsNotNull(spawn);
         Assert.IsNotNull(portalIn);
+        Assert.IsNotNull(corridor);
 
         Utility.AssertArrayNotNull<GameObject>(roomContents);
 
@@ -60,10 +63,6 @@ public class LevelGenerator : MonoBehaviour
     {
         if (Input.GetButtonDown("Submit")) {
             Generate();
-        }
-
-        if (paths.Count > 0) {
-            DrawPath();
         }
     }
 
@@ -79,15 +78,18 @@ public class LevelGenerator : MonoBehaviour
 
         yield return new WaitForSeconds(generationTime);
 
+        FixRoomPositions();
+
         FindPaths();
+        MakeCorridors();
+        
+        FillRooms();
+        ClearRooms();
 
-        // FillRooms();
-        // ClearRooms();
-
-        // portalIn.Activate();
+        portalIn.Activate();
 
         // TODO: Should Happen when Boss Dies!
-        // portalOut.Activate();
+        portalOut.Activate();
     }
 
     /**
@@ -140,6 +142,13 @@ public class LevelGenerator : MonoBehaviour
         }
 
         endRoom = AddRoom(endRoomContent, "end");
+    }
+
+    void FixRoomPositions()
+    {
+        foreach (Room room in rooms) {
+            room.DisableCollider();
+        }
     }
 
     GameObject AddRoom(GameObject content, string name = "New Room")
@@ -204,7 +213,7 @@ public class LevelGenerator : MonoBehaviour
                 }
             }
 
-            Debug.Log(current.gameObject.name + "->" + next.gameObject.name);
+            //Debug.Log(current.gameObject.name + "->" + next.gameObject.name);
 
             current.connectedTo.Add(next);
 
@@ -242,6 +251,81 @@ public class LevelGenerator : MonoBehaviour
         }
     }
 
+    void MakeCorridors()
+    {
+        foreach (Room origin in paths) {
+            if (origin.connectedTo.Count <= 0) {
+                continue;
+            }
+
+            Vector3 originPosition = new Vector3(
+                origin.GetPosition().x,
+                origin.GetPosition().y,
+                0.0f
+            );
+
+            foreach (Room destination in origin.connectedTo) {
+                Vector3 destinationPosition = new Vector3(
+                    destination.GetPosition().x,
+                    destination.GetPosition().y,
+                    0.0f
+                );
+                
+                MakeCorridor(originPosition, destinationPosition);
+            }
+        }
+    }
+
+    void MakeCorridor(Vector3 origin, Vector3 destination)
+    {
+        Vector3Int originCell = tilemap.WorldToCell(origin);
+        Vector3Int destinationCell = tilemap.WorldToCell(destination);
+
+        Vector3Int delta = destinationCell - originCell;
+        delta.x = System.Math.Sign(delta.x);
+        delta.y = System.Math.Sign(delta.y);
+
+        if (delta.x == 0) {
+            delta.x = (int) System.Math.Pow(-1, Random.Range(0, 1));
+        }
+        if (delta.y == 0) {
+            delta.y = (int) System.Math.Pow(-1, Random.Range(0, 1));
+        }
+
+        Vector3Int offset = new Vector3Int(2, 2, 0) * delta;
+
+        for (
+            int x = originCell.x - offset.x; 
+            x != destinationCell.x + offset.x; 
+            x += delta.x
+        ) {
+            PlaceCorridorSection(
+                new Vector3Int(x, originCell.y, 0),
+                new Vector3Int(0, delta.y, 0)
+            );
+        }
+
+        for (
+            int y = originCell.y - offset.y; 
+            y != destinationCell.y + offset.y; 
+            y += delta.y
+        ) {
+            PlaceCorridorSection(
+                new Vector3Int(destinationCell.x, y, 0), 
+                new Vector3Int(delta.x, 0, 0)
+            );
+        }
+    }
+
+    void PlaceCorridorSection(
+        Vector3Int position, Vector3Int delta)
+    {
+        tilemap.SetTile(position - delta, corridor);
+        tilemap.SetTile(position, corridor);
+        tilemap.SetTile(position + delta, corridor);
+        tilemap.SetTile(position + delta + delta, corridor);
+    }
+
     /**
      * Set tiles for every rooms
      */
@@ -251,7 +335,9 @@ public class LevelGenerator : MonoBehaviour
         portalIn.SetDestination(startRoom.GetComponent<Room>().GetPosition());
 
         foreach (Room room in rooms) {
-            GameObject content = room.Generate(tilemap, dynamicHolder);
+            GameObject content = room.Generate(
+                tilemap, dynamicHolder, corridor 
+            );
 
             // Check for exit portal
             if (content.transform.Find("Teleport") == null) {
