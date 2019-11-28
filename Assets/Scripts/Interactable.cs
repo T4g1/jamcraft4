@@ -14,6 +14,14 @@ public class Interactable : MonoBehaviour
         // To be overrided
     }
 
+    /**
+     * When no longer in range
+     */
+    public virtual void UnInteract()
+    {
+        // To be overrided
+    }
+
     void UpdateRadius()
     {
         CircleCollider2D collider = GetComponent<CircleCollider2D>();
@@ -33,5 +41,15 @@ public class Interactable : MonoBehaviour
         }
 
         Interact();
+    }
+
+    void OnTriggerExit2D(Collider2D other) 
+    {
+        Player player = other.gameObject.GetComponent<Player>();
+        if (!player) {
+            return;
+        }
+
+        UnInteract();
     }
 }

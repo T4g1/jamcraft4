@@ -5,6 +5,12 @@ using UnityEngine;
 public class WeaponPartHolder : MonoBehaviour
 {
     [SerializeField]
+    private PartType type = PartType.NONE;
+    public PartType Type {
+        get { return type; }
+    }
+
+    [SerializeField]
     private WeaponPart part;
     public WeaponPart Part {
         get {

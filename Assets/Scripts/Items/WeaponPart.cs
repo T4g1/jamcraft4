@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System.Linq;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -91,5 +92,48 @@ public class WeaponPart : Item
     private Sprite GetRandomSprite(List<Sprite> sprites)
     {
         return sprites[Random.Range(0, sprites.Count)];
+    }
+
+    public override PartType GetPartType()
+    {
+        if (isQuiver) {
+            return PartType.QUIVER;
+        }
+        if (isBarrel) {
+            return PartType.BARREL;
+        }
+        if (isHandle) {
+            return PartType.HANDLE;
+        }
+        if (isSight) {
+            return PartType.SIGHT;
+        }
+        if (isStock) {
+            return PartType.STOCK;
+        }
+        if (isString) {
+            return PartType.STRING;
+        }
+
+        // This should never be possible
+        Assert.IsTrue(false);
+        return PartType.NONE;
+    }
+
+    public override bool Use()
+    {
+        if (!CraftingUI.Instance.IsActive()) {
+            return false;
+        }
+
+        return CraftingUI.Instance.AddItem(this);
+    }
+
+    /**
+     * How many different part type exists
+     */
+    public static int GetPartTypeCount()
+    {
+        return System.Enum.GetValues(typeof(PartType)).Cast<int>().Max();
     }
 }

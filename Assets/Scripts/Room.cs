@@ -34,8 +34,7 @@ public class Room : MonoBehaviour
         contentContainer = content.transform.Find("Content").gameObject;
     }
 
-    public GameObject Generate(
-        Tilemap tilemap, GameObject dynamicHolder, TileBase corridor)
+    public GameObject Generate(Tilemap tilemap, GameObject dynamicHolder)
     {
         // Place tiles
         contentTilemap.CompressBounds();
@@ -59,9 +58,7 @@ public class Room : MonoBehaviour
                     y >= bounds.size.y
                 ) {
                     TileBase currentTile = tilemap.GetTile(cellPosition);
-                    if (overrideTiles.Contains(currentTile) &&
-                        currentTile != corridor) 
-                    {
+                    if (overrideTiles.Contains(currentTile)) {
                         tilemap.SetTile(cellPosition, wall);
                     } 
                 } else {

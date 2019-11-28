@@ -31,7 +31,9 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField]
     private Portal portalIn = null;
     [SerializeField]
-    private TileBase corridor = null;
+    private TileBase floor = null;
+    [SerializeField]
+    private TileBase wall = null;
 
     private List<Room> rooms = new List<Room>();
     private List<Room> paths = new List<Room>();
@@ -50,7 +52,7 @@ public class LevelGenerator : MonoBehaviour
         Assert.IsNotNull(roomCollider);
         Assert.IsNotNull(spawn);
         Assert.IsNotNull(portalIn);
-        Assert.IsNotNull(corridor);
+        Assert.IsNotNull(floor);
 
         Utility.AssertArrayNotNull<GameObject>(roomContents);
 
@@ -85,6 +87,8 @@ public class LevelGenerator : MonoBehaviour
         
         FillRooms();
         ClearRooms();
+
+        AddWalls();
 
         portalIn.Activate();
 
@@ -292,7 +296,7 @@ public class LevelGenerator : MonoBehaviour
             delta.y = (int) System.Math.Pow(-1, Random.Range(0, 1));
         }
 
-        Vector3Int offset = new Vector3Int(2, 2, 0) * delta;
+        Vector3Int offset = new Vector3Int(0, 0, 0) * delta;
 
         for (
             int x = originCell.x - offset.x; 
@@ -320,10 +324,51 @@ public class LevelGenerator : MonoBehaviour
     void PlaceCorridorSection(
         Vector3Int position, Vector3Int delta)
     {
-        tilemap.SetTile(position - delta, corridor);
-        tilemap.SetTile(position, corridor);
-        tilemap.SetTile(position + delta, corridor);
-        tilemap.SetTile(position + delta + delta, corridor);
+        tilemap.SetTile(position, floor);
+        tilemap.SetTile(position + delta, floor);
+    }
+
+    /**
+     * Add wals to every null tile adjacent to something that isnt a wall
+     */
+    void AddWalls()
+    {
+        tilemap.CompressBounds();
+        
+        BoundsInt bounds = tilemap.cellBounds;
+        TileBase[] allTiles = tilemap.GetTilesBlock(bounds);
+
+        for (int x = 0; x < bounds.size.x; x++) {
+            for (int y = 0; y < bounds.size.y; y++) {
+                TileBase tile = allTiles[x + y * bounds.size.x];
+                if (tile == wall || tile == null) {
+                    continue;
+                }
+                
+                Vector3Int[] neighbours = {
+                    new Vector3Int(x - 1, y, 0),
+                    new Vector3Int(x + 1, y, 0),
+                    new Vector3Int(x, y - 1, 0),
+                    new Vector3Int(x, y + 1, 0),
+                    new Vector3Int(x - 1, y - 1, 0),
+                    new Vector3Int(x + 1, y + 1, 0),
+                    new Vector3Int(x + 1, y - 1, 0),
+                    new Vector3Int(x - 1, y + 1, 0)
+                };
+
+                foreach (Vector3Int neighbour in neighbours) {
+                    int index = neighbour.x + neighbour.y * bounds.size.x;
+                    if (neighbour.x < 0 || 
+                        neighbour.y < 0 || 
+                        neighbour.x >= bounds.size.x || 
+                        neighbour.y >= bounds.size.y ||
+                        allTiles[index] == null
+                    ) {
+                        tilemap.SetTile(bounds.position + neighbour, wall);
+                    }
+                }
+            }
+        }
     }
 
     /**
@@ -335,9 +380,7 @@ public class LevelGenerator : MonoBehaviour
         portalIn.SetDestination(startRoom.GetComponent<Room>().GetPosition());
 
         foreach (Room room in rooms) {
-            GameObject content = room.Generate(
-                tilemap, dynamicHolder, corridor 
-            );
+            GameObject content = room.Generate(tilemap, dynamicHolder);
 
             // Check for exit portal
             if (content.transform.Find("Teleport") == null) {

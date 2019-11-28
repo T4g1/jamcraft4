@@ -16,24 +16,7 @@ public class Weapon : MonoBehaviour
     [SerializeField]
     private float rotationOffset = 180.0f;
 
-    // Weapon part holders
-    [SerializeField]
-    private WeaponPartHolder barrelHolder = null;
-
-    [SerializeField]
-    private WeaponPartHolder stockHolder = null;
-
-    [SerializeField]
-    private WeaponPartHolder sightHolder = null;
-
-    [SerializeField]
-    private WeaponPartHolder stringHolder = null;
-
-    [SerializeField]
-    private WeaponPartHolder handleHolder = null;
-
-    [SerializeField]
-    private WeaponPartHolder quiverHolder = null;
+    private WeaponPartHolder[] partHolders;
 
     private Camera playerCamera;        // Cache player camera
 
@@ -45,10 +28,29 @@ public class Weapon : MonoBehaviour
     private uint magazineClip = 0;      // Bullet left
     private bool reloading = false;
     private float reloadTime = 0.0f;    // Time before reload complete
+    
+    private WeaponPartHolder barrelHolder;
+    private WeaponPartHolder stockHolder;
+    private WeaponPartHolder sightHolder;
+    private WeaponPartHolder stringHolder;
+    private WeaponPartHolder handleHolder;
+    private WeaponPartHolder quiverHolder;
 
 
     void Start()
     {
+        partHolders = gameObject.GetComponentsInChildren<WeaponPartHolder>();
+        
+        Assert.IsNotNull(partHolders);
+        Assert.IsTrue(partHolders.Length == WeaponPart.GetPartTypeCount());
+
+        barrelHolder = GetHolder(PartType.BARREL);
+        stockHolder = GetHolder(PartType.STOCK);
+        sightHolder = GetHolder(PartType.SIGHT);
+        stringHolder = GetHolder(PartType.STRING);
+        handleHolder = GetHolder(PartType.HANDLE);
+        quiverHolder = GetHolder(PartType.QUIVER);
+
         Assert.IsNotNull(barrelHolder);
         Assert.IsNotNull(stockHolder);
         Assert.IsNotNull(sightHolder);
@@ -72,6 +74,14 @@ public class Weapon : MonoBehaviour
             0.0f
         );
 
+        UpdateLayout();
+    }
+
+    /**
+     * Compute position of every part of the weapon
+     */
+    public void UpdateLayout()
+    {
         // Place barrel left of handle
         barrelHolder.SetPosition(handleHolder.GetPosition() + new Vector3(
             -barrelHolder.GetSize().x,
@@ -264,5 +274,30 @@ public class Weapon : MonoBehaviour
     uint GetMagazineSize()
     {
         return quiverHolder.Part.magazineSize;
+    }
+
+    /**
+     * Set a part of the weapon
+     */
+    public void SetPart(WeaponPart part)
+    {
+        WeaponPartHolder holder = GetHolder(part.GetPartType());
+        holder.Part = part;
+
+        UpdateLayout();
+    }
+
+    WeaponPartHolder GetHolder(PartType type)
+    {
+        foreach (WeaponPartHolder holder in partHolders) {
+            if (holder.Type == type) {
+                return holder;
+            }
+        }
+
+        // This should never happen. If this happen, Weapon prefab is missing
+        // one PartType holder (or something requested a NONE part holder)
+        Assert.IsTrue(false);
+        return null;
     }
 }

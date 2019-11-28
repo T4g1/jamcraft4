@@ -17,7 +17,7 @@ MonoBehaviour:
   magazineSize: 0
   isBarrel: 0
   bulletPrefab: {fileID: 0}
-  isSstock: 1
+  isStock: 1
   recoil: 2
   isSight: 0
   precision: 0
