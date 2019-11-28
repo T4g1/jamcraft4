@@ -31,8 +31,8 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField]
     private Portal portalIn = null;
 
-    private List<GameObject> rooms = new List<GameObject>();
-    private List<Room> path = new List<Room>();
+    private List<Room> rooms = new List<Room>();
+    private List<Room> paths = new List<Room>();
 
     private GameObject startRoom = null;
     private GameObject endRoom = null;
@@ -58,18 +58,13 @@ public class LevelGenerator : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetButtonDown("Submit"))
-        {
+        if (Input.GetButtonDown("Submit")) {
             Generate();
         }
-        if (path != null)
-        {
-            if (path.Count != 0)
-            {
-                DrawPath();
-            }
-        }
 
+        if (paths.Count > 0) {
+            DrawPath();
+        }
     }
 
     public void Generate()
@@ -82,11 +77,9 @@ public class LevelGenerator : MonoBehaviour
         ClearEverything();
         AddRooms();
 
-
         yield return new WaitForSeconds(generationTime);
 
-        path = FindPath(rooms);
-
+        FindPaths();
 
         // FillRooms();
         // ClearRooms();
@@ -107,9 +100,10 @@ public class LevelGenerator : MonoBehaviour
         ClearDynamic();
         ClearPath();
     }
+
     void ClearPath()
     {
-        path = null;
+        paths.Clear();
     }
 
     void ClearTilemap()
@@ -119,9 +113,8 @@ public class LevelGenerator : MonoBehaviour
 
     void ClearRooms()
     {
-        foreach (GameObject room in rooms)
-        {
-            DestroyImmediate(room);
+        foreach (Room room in rooms) {
+            DestroyImmediate(room.gameObject);
         }
 
         rooms.Clear();
@@ -129,8 +122,7 @@ public class LevelGenerator : MonoBehaviour
 
     void ClearDynamic()
     {
-        foreach (Transform child in dynamicHolder.transform)
-        {
+        foreach (Transform child in dynamicHolder.transform) {
             GameObject.Destroy(child.gameObject);
         }
     }
@@ -142,98 +134,110 @@ public class LevelGenerator : MonoBehaviour
     {
         startRoom = AddRoom(startRoomContent, "start");
 
-        for (uint i = 0; i < roomCount; i++)
-        {
+        for (uint i = 0; i < roomCount; i++) {
             int index = Random.Range(0, roomContents.Count);
-            AddRoom(roomContents[index], i.ToString());
+            AddRoom(roomContents[index], "Room " + i.ToString());
         }
+
         endRoom = AddRoom(endRoomContent, "end");
     }
 
-
-    GameObject AddRoom(GameObject content, string i)
+    GameObject AddRoom(GameObject content, string name = "New Room")
     {
-        int offSet = (int)offsetRange;
-        if (content == endRoomContent)
-        {
-            offSet = (int)offsetRange + 20;
+        float offset = offsetRange;
+        if (content == endRoomContent) {
+            offset = offsetRange + 20.0f;
         }
+
         GameObject roomObject = Instantiate(roomCollider);
+        roomObject.name = name;
         roomObject.transform.parent = dynamicHolder.transform;
         roomObject.transform.position = new Vector3(
-            Random.Range(-offSet, offSet),
-            Random.Range(-offSet, offSet),
+            Random.Range(-offset, offset),
+            Random.Range(-offset, offset),
             0.0f
         );
 
         Room room = roomObject.GetComponent<Room>();
         room.SetContent(content);
 
-        rooms.Add(roomObject);
-        roomObject.name = "Room " + i;
+        rooms.Add(room);
 
         return roomObject;
     }
 
-    List<Room> FindPath(List<GameObject> roomList)
+    /** 
+     * Prim's Algorithm
+     */
+    void FindPaths()
     {
-        List<Room> pathList = new List<Room>();
-        // Prim's Algorithm
-        pathList.Add(roomList[0].GetComponent<Room>());
-        roomList.Remove(roomList[0]);
+        Assert.IsTrue(rooms.Count > 0);
 
-        while (roomList.Count != 0)
-        {
-            float min_dist = Mathf.Infinity;
+        ClearPath();
+
+        List<Room> unprocessedRooms = new List<Room>(rooms);
+
+        paths.Add(unprocessedRooms[0]);
+        unprocessedRooms.Remove(unprocessedRooms[0]);
+
+        while (unprocessedRooms.Count > 0) {
+            float minimalDistance = Mathf.Infinity;
+
             Room current = null;
-            GameObject next = null;
-            Room nextRoom = null;
-            foreach (Room r in pathList)
-            {
-                Vector2 rPos = r.GetPosition();
-                foreach (GameObject gameObject2 in roomList)
-                {
-                    Room r2 = gameObject2.GetComponent<Room>();
-                    Vector2 r2Pos = r2.GetPosition();
-                    float dist = Vector2.Distance(rPos, r2Pos);
-                    if (dist < min_dist)
-                    {
-                        current = r;
-                        nextRoom = r2;
-                        next = gameObject2;
-                        min_dist = dist;
+            Room next = null;
+
+            // Find the smallest distance between any two room
+            foreach (Room room1 in paths) {
+                Vector2 room1Position = room1.GetPosition();
+
+                foreach (Room room2 in unprocessedRooms) {
+                    float distance = Vector2.Distance(
+                        room1Position, 
+                        room2.GetPosition()
+                    );
+
+                    if (distance < minimalDistance) {
+                        minimalDistance = distance;
+                        current = room1;
+                        next = room2;
                     }
                 }
             }
-            Debug.Log(current.name + "->" + nextRoom.name);
+
+            Debug.Log(current.gameObject.name + "->" + next.gameObject.name);
 
             current.connectedTo.Add(next);
 
-            pathList.Add(nextRoom);
-            roomList.Remove(next);
+            paths.Add(next);
+            unprocessedRooms.Remove(next);
         }
-        return pathList;
     }
+
     void DrawPath()
     {
-        foreach (Room room in path)
-        {
-            if (room.connectedTo.Count != 0)
-            {
-                Vector3 fromPos = new Vector3(
-                    room.GetPosition().x
-                    , room.GetPosition().y
-                    , -1);
-                foreach (GameObject toObj in room.connectedTo)
-                {
-                    Room toRoom = toObj.GetComponent<Room>();
-                    Vector3 toPos = new Vector3(toRoom.GetPosition().x,
-                    toRoom.GetPosition().y,
-                    -1);
-                    Debug.DrawLine(fromPos, toPos, Color.green);
+        foreach (Room origin in paths) {
+            if (origin.connectedTo.Count <= 0) {
+                continue;
+            }
 
-                }
+            Vector3 originPosition = new Vector3(
+                origin.GetPosition().x,
+                origin.GetPosition().y,
+                0.0f
+            );
 
+            foreach (Room destination in origin.connectedTo) {
+                Vector3 destinationPosition = new Vector3(
+                    destination.GetPosition().x,
+                    destination.GetPosition().y,
+                    0.0f
+                );
+
+                Debug.DrawLine(
+                    originPosition, 
+                    destinationPosition, 
+                    Color.green
+                );
             }
         }
     }
@@ -246,14 +250,11 @@ public class LevelGenerator : MonoBehaviour
         // Set destination of entry portal
         portalIn.SetDestination(startRoom.GetComponent<Room>().GetPosition());
 
-        foreach (GameObject roomObject in rooms)
-        {
-            Room room = roomObject.GetComponent<Room>();
+        foreach (Room room in rooms) {
             GameObject content = room.Generate(tilemap, dynamicHolder);
 
             // Check for exit portal
-            if (content.transform.Find("Teleport") == null)
-            {
+            if (content.transform.Find("Teleport") == null) {
                 continue;
             }
 

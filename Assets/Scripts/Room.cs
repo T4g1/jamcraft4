@@ -13,13 +13,12 @@ public class Room : MonoBehaviour
     private Tilemap contentTilemap;
     private GameObject contentContainer;
 
-    public List<GameObject> connectedTo=new List<GameObject>();
+    public List<Room> connectedTo = new List<Room>();
 
 
     void Start()
     {
         Assert.IsNotNull(wall);
-
     }
 
     public void SetContent(GameObject content)
