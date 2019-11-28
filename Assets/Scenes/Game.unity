@@ -7655,7 +7655,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   heartContainer: {fileID: 1413132988}
-  magazineClipText: {fileID: 0}
+  magazineClipText: {fileID: 1789236844}
 --- !u!114 &1667021128
 MonoBehaviour:
   m_ObjectHideFlags: 0
