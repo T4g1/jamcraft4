@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 public class Enemy : MonoBehaviour, IAlive
 {
@@ -16,6 +17,9 @@ public class Enemy : MonoBehaviour, IAlive
 
     [SerializeField]
     private float speed = 1.0f;
+
+    [SerializeField]
+    private Animator behaviour = null;
 
     private Vector3 direction = Vector3.zero;
 
@@ -36,6 +40,10 @@ public class Enemy : MonoBehaviour, IAlive
 
     void Start()
     {
+        Assert.IsNotNull(behaviour);
+        Assert.IsNotNull(aggroZone);
+        Assert.IsNotNull(lostZone);
+
         aggroZone.OnZoneEnter += OnGotTarget;
         lostZone.OnZoneExit += OnLostTarget;
     }
@@ -79,7 +87,7 @@ public class Enemy : MonoBehaviour, IAlive
 
     void OnCollisionStay2D(Collision2D other)
     {
-        GetComponent<Animator>().SetBool("collisionOccured", true);
+        behaviour.SetBool("collisionOccured", true);
     }
 
     public void SetDirection(Vector3 value)
@@ -90,6 +98,9 @@ public class Enemy : MonoBehaviour, IAlive
     public void TakeDamage(int amount)
     {
         hitPoints -= amount;
+        
+        SetAnimation("hurt");
+        GetComponent<Rigidbody2D>().velocity = Vector2.zero;
 
         if (!IsAlive) {
             Die();
@@ -103,5 +114,10 @@ public class Enemy : MonoBehaviour, IAlive
         }
         
         Destroy(gameObject);
+    }
+
+    public void SetAnimation(string animationName)
+    {
+        GetComponent<Animator>().Play(animationName);
     }
 }

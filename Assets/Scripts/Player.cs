@@ -5,6 +5,8 @@ using UnityEngine.Assertions;
 
 public class Player : MonoBehaviour, IAlive
 {
+    public event System.Action<int> OnHitPointsChanged;
+
     [SerializeField]
     private Rigidbody2D body = null;
 
@@ -25,11 +27,18 @@ public class Player : MonoBehaviour, IAlive
 
     // Alive interface
     [SerializeField]
-    private int hitPoints;
+    private int maxHitPoints = 3;
+    private int hitPoints = 0;
 
     public int HitPoints {
         get { return hitPoints; }
-        set { hitPoints = value; }
+        set { 
+            hitPoints = value; 
+
+            if (OnHitPointsChanged != null) {
+                OnHitPointsChanged(hitPoints);
+            }
+        }
     }
     
     public bool IsAlive {
@@ -45,11 +54,17 @@ public class Player : MonoBehaviour, IAlive
         Assert.IsNotNull(cameraContainer);
         
         SetAnimation("idle_down");
+
+        HitPoints = maxHitPoints;
     }
 
     void Update()
     {
         UpdateAnimator();
+
+        if (Input.GetButtonDown("Use")) {
+            HitPoints -= 1;
+        }
     }
 
     void Spawn()

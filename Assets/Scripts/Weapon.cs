@@ -8,6 +8,8 @@ using UnityEngine.EventSystems;
 //[ExecuteInEditMode] // Uncomment to update weapon part position in Editor
 public class Weapon : MonoBehaviour
 {
+    public event System.Action<uint> OnMagazineClipChanged;
+
     // Display settings
     [SerializeField]
     private Vector3 defaultScale = new Vector3(1, 1, 1);
@@ -25,9 +27,19 @@ public class Weapon : MonoBehaviour
     private GameObject muzzle = null;
 
     private float shotCooldown = 0.0f;  // Time before next bullet
-    private uint magazineClip = 0;      // Bullet left
     private bool reloading = false;
     private float reloadTime = 0.0f;    // Time before reload complete
+    private uint magazineClip = 0;      // Bullet left
+    private uint MagazineClip {
+        get { return magazineClip; }
+        set {
+            magazineClip = value;
+
+            if (OnMagazineClipChanged != null) {
+                OnMagazineClipChanged(magazineClip);
+            }
+        }
+    }
     
     private WeaponPartHolder barrelHolder;
     private WeaponPartHolder stockHolder;
@@ -58,7 +70,7 @@ public class Weapon : MonoBehaviour
         Assert.IsNotNull(handleHolder);
         Assert.IsNotNull(quiverHolder);
         
-        magazineClip = GetMagazineSize();
+        MagazineClip = GetMagazineSize();
 
         playerCamera = Camera.main;
 
@@ -132,7 +144,7 @@ public class Weapon : MonoBehaviour
 
         if (reloading && reloadTime <= 0) {
             reloading = false;
-            magazineClip = GetMagazineSize();
+            MagazineClip = GetMagazineSize();
             Debug.Log("Reloaded");
         }
         
@@ -203,7 +215,7 @@ public class Weapon : MonoBehaviour
             return;
         }
 
-        if (magazineClip <= 0) {
+        if (MagazineClip <= 0) {
             return;
         }
 
@@ -212,7 +224,7 @@ public class Weapon : MonoBehaviour
         bullet.transform.rotation = transform.rotation;
         bullet.lifespan = GetBulletLifeSpan();
 
-        magazineClip -= 1;
+        MagazineClip -= 1;
 
         shotCooldown = GetShotInterval();
     }

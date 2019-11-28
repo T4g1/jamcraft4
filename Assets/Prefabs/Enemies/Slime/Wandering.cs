@@ -17,8 +17,10 @@ public class Wandering : StateMachineBehaviour
     override public void OnStateEnter(
         Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        enemy = animator.gameObject.GetComponent<Enemy>();
+        enemy = animator.gameObject.GetComponentInParent<Enemy>();
         directionChangeDelay = 0.0f;
+
+        enemy.SetAnimation("walk");
     }
 
     override public void OnStateUpdate(
