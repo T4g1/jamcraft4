@@ -15,7 +15,7 @@ PrefabInstance:
     - target: {fileID: 7249763757001272905, guid: be4ae40b898abc371a9eea4c816b5149,
         type: 3}
       propertyPath: hitPoints
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 9180534725695259356, guid: be4ae40b898abc371a9eea4c816b5149,
         type: 3}
@@ -78,6 +78,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -3527056022417232336, guid: 4340946c414c5ca459227a8bf3f7f129,
         type: 3}
+    - target: {fileID: 2734764537308370720, guid: be4ae40b898abc371a9eea4c816b5149,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: a4a35c45878c03d4aa2d0df4029203d0, type: 2}
     - target: {fileID: 2772276691637220937, guid: be4ae40b898abc371a9eea4c816b5149,
         type: 3}
       propertyPath: m_Radius
@@ -93,5 +98,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 20005508ea37d1f48a7594c05e148390, type: 2}
+    - target: {fileID: 5345346731414644992, guid: be4ae40b898abc371a9eea4c816b5149,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: be4ae40b898abc371a9eea4c816b5149, type: 3}

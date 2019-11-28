@@ -160,11 +160,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32bee3a23f63545bc9fe0e5bd680d735, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dropRate: 0.5
+  dropRate: 0.7
   aggroZone: {fileID: 1161148983929493434}
   lostZone: {fileID: 7062443018094338420}
   speed: 1
-  hitPoints: 0
+  behaviour: {fileID: 5345346731414644992}
+  hitPoints: 3
 --- !u!50 &9189348773845476850
 Rigidbody2D:
   serializedVersion: 4

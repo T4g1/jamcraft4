@@ -19,6 +19,8 @@ public class Wandering : StateMachineBehaviour
     {
         enemy = animator.gameObject.GetComponentInParent<Enemy>();
         directionChangeDelay = 0.0f;
+
+        enemy.SetAnimation("walk");
     }
 
     override public void OnStateUpdate(
