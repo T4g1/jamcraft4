@@ -126,7 +126,7 @@ MonoBehaviour:
   cameraContainer: {fileID: 8710513883601704295}
   animator: {fileID: 1341694006770321310}
   speed: 200
-  hitPoints: 5
+  hitPoints: 3
 --- !u!95 &1341694006770321310
 Animator:
   serializedVersion: 3
