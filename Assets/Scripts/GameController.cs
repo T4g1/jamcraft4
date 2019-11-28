@@ -212,4 +212,16 @@ public class GameController : MonoBehaviour
         CloseCraftingUI();
         CloseInventory();
     }
+
+    /**
+     * Instantiate a new prefab in the dynamic holder
+     */
+    public GameObject Instantiate(GameObject prefab, Vector3 position)
+    {
+        GameObject newObject = Instantiate(prefab);
+        newObject.transform.parent = dynamicHolder.transform;
+        newObject.transform.position = position;
+
+        return newObject;
+    }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 public class Bullet : MonoBehaviour
 {
@@ -11,6 +12,14 @@ public class Bullet : MonoBehaviour
     [SerializeField]
     private Rigidbody2D body = null;
 
+    [SerializeField]
+    private GameObject destroyEffect = null;
+
+
+    void Start()
+    {
+        Assert.IsNotNull(destroyEffect);
+    }
 
     void FixedUpdate()
     {
@@ -29,6 +38,7 @@ public class Bullet : MonoBehaviour
 
     void Explode()
     {
+        GameController.Instance.Instantiate(destroyEffect, transform.position);
         Destroy(gameObject);
     }
 
