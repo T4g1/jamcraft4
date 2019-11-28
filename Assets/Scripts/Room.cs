@@ -13,6 +13,9 @@ public class Room : MonoBehaviour
     private Tilemap contentTilemap;
     private GameObject contentContainer;
 
+    public List<Room> connectedTo = new List<Room>();
+
+
     void Start()
     {
         Assert.IsNotNull(wall);
@@ -41,6 +44,10 @@ public class Room : MonoBehaviour
         BoundsInt bounds = contentTilemap.cellBounds;
         TileBase[] allTiles = contentTilemap.GetTilesBlock(bounds);
 
+        List<TileBase> overrideTiles = new List<TileBase>();
+        overrideTiles.Add(null);
+        overrideTiles.Add(wall);
+
         for (int x = -1; x < bounds.size.x + 1; x++) {
             for (int y = -1; y < bounds.size.y + 1; y++) {
                 Vector3Int cellPosition = startCell + new Vector3Int(x, y, 0);
@@ -50,7 +57,8 @@ public class Room : MonoBehaviour
                     x >= bounds.size.x || 
                     y >= bounds.size.y
                 ) {
-                    if (tilemap.GetTile(cellPosition) == null) {
+                    TileBase currentTile = tilemap.GetTile(cellPosition);
+                    if (overrideTiles.Contains(currentTile)) {
                         tilemap.SetTile(cellPosition, wall);
                     } 
                 } else {
@@ -80,5 +88,10 @@ public class Room : MonoBehaviour
             Mathf.FloorToInt(GetPosition().y - transform.localScale.y / 2),
             0
         );
+    }
+
+    public void DisableCollider()
+    {
+        GetComponent<BoxCollider2D>().enabled = false;
     }
 }
