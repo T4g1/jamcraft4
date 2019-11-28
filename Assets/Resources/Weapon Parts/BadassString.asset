@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 17d1b9131e29bd84c8df176623f6ef54, type: 3}
-  m_Name: DefaultStock
+  m_Name: BadassString
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 18c229c19dd0ad848a01ec5bd7604277, type: 3}
+  sprite: {fileID: 21300000, guid: f0f41b8c06f793d4b89c313ca1635511, type: 3}
   isQuiver: 0
   magazineSize: 0
   isBarrel: 0
   bulletPrefab: {fileID: 0}
-  isStock: 1
-  recoil: 2
+  isStock: 0
+  recoil: 0
   isSight: 0
   precision: 0
   isHandle: 0
   reloadTime: 0
-  isString: 0
+  isString: 1
   fireRate: 0
-  lifespan: 0
+  lifespan: 10

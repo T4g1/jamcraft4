@@ -1,7 +1,9 @@
 using UnityEngine;
 
+[ExecuteInEditMode]
 public class ItemPickup : Interactable 
 {
+    [SerializeField]
     private Item item;
     public Item Item {
         get { return item; }
@@ -9,6 +11,14 @@ public class ItemPickup : Interactable
         { 
             item = value;
             GetComponent<SpriteRenderer>().sprite = item.sprite;
+        }
+    }
+
+    void OnValidate()
+    {
+        SpriteRenderer renderer = GetComponent<SpriteRenderer>();
+        if (renderer && item) {
+            renderer.sprite = item.sprite;
         }
     }
 

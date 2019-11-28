@@ -30,17 +30,17 @@ public class Inventory : MonoBehaviour
 
     public bool Add(Item item)
     {
-        if (items.Count < space) {
-            items.Add(item);
-
-            if (OnItemChanged != null) {
-                OnItemChanged();
-            }
-
-            return true;
+        if (IsFull()) {
+            return false;
         }
 
-        return false;
+        items.Add(item);
+
+        if (OnItemChanged != null) {
+            OnItemChanged();
+        }
+
+        return true;
     }
 
     public void Remove(Item item)
@@ -50,5 +50,10 @@ public class Inventory : MonoBehaviour
         if (OnItemChanged != null) {
             OnItemChanged();
         }
+    }
+
+    public bool IsFull()
+    {
+        return items.Count >= space;
     }
 }

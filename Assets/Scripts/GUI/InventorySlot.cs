@@ -7,11 +7,14 @@ public class InventorySlot : MonoBehaviour
     [SerializeField]
     private Image icon = null;
     [SerializeField]
-    private Button itemButton = null;
+    protected Button itemButton = null;
     [SerializeField]
     private Button removeButton = null;
 
-    Item item;
+    private Item item;
+    public Item Item {
+        get { return item; }
+    }
 
 
     void Start()
@@ -21,7 +24,7 @@ public class InventorySlot : MonoBehaviour
         Assert.IsNotNull(removeButton);
     }
 
-    public void AddItem(Item newItem)
+    public virtual bool AddItem(Item newItem)
     {
         item = newItem;
 
@@ -29,9 +32,11 @@ public class InventorySlot : MonoBehaviour
         icon.enabled = true;
         itemButton.interactable = true;
         removeButton.interactable = true;
+
+        return true;
     }
 
-    public void ClearSlot()
+    public virtual void ClearSlot()
     {
         item = null;
 
@@ -48,12 +53,17 @@ public class InventorySlot : MonoBehaviour
 
     public void OnUseItem()
     {
-        if (item == null) {
+        if (IsFree()) {
             return;
         }
 
         if (item.Use()) {
             Inventory.Instance.Remove(item);
         }
+    }
+
+    public bool IsFree()
+    {
+        return item == null;
     }
 }
