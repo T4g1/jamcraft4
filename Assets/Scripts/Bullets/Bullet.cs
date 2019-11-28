@@ -25,6 +25,7 @@ public class Bullet : MonoBehaviour
     {
         lifespan -= Time.fixedDeltaTime;
         if (lifespan <= 0.0f) {
+            OnMiss();
             Explode();
         }
 
@@ -38,7 +39,6 @@ public class Bullet : MonoBehaviour
 
     void Explode()
     {
-        GameController.Instance.Instantiate(destroyEffect, transform.position);
         Destroy(gameObject);
     }
 
@@ -46,16 +46,42 @@ public class Bullet : MonoBehaviour
      * Damage every killable thing that it this
      */
     void OnCollisionEnter2D(Collision2D other) {
+        OnCollision();
+
         MonoBehaviour[] behaviours =
             other.gameObject.GetComponents<MonoBehaviour>();
         
+        bool hitTarget = false;
         foreach(MonoBehaviour behaviour in behaviours) {
             if (behaviour is IAlive) {
                 IAlive killable = (IAlive) behaviour;
                 killable.TakeDamage(damage);
+                hitTarget = true;
             }
         }
 
+        if (hitTarget) {
+            OnHit();
+        } 
+        else {
+            OnMiss();
+        }
+        
         Explode();
+    }
+
+    public virtual void OnCollision()
+    {
+        Utility.Instantiate(destroyEffect, transform.position);
+    }
+
+    public virtual void OnHit()
+    {
+        // Override
+    }
+
+    public virtual void OnMiss()
+    {
+        // Override
     }
 }

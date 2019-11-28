@@ -16,9 +16,9 @@ MonoBehaviour:
   isQuiver: 0
   magazineSize: 0
   isBarrel: 1
-  bulletPrefab: {fileID: 1496128666617700257, guid: 019195a777cb3a649be41bb9f82dd475,
+  bulletPrefab: {fileID: 2663036425329013886, guid: 6c559eb0428413d4bb8be3a339b6b3c8,
     type: 3}
-  isSstock: 0
+  isStock: 0
   recoil: 0
   isSight: 0
   precision: 0
