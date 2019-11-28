@@ -175,6 +175,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   radius: 3
   actionInfo: {fileID: 1703819333365893902}
+  actionInfoOffset: 0.5
 --- !u!58 &6117367753224943580
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -218,7 +219,7 @@ RectTransform:
   m_GameObject: {fileID: 1703819333365893902}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7808726767649508951}
   m_Father: {fileID: 2833587252917670570}
@@ -250,7 +251,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
