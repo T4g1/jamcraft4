@@ -75625,7 +75625,7 @@ MonoBehaviour:
     type: 3}
   spawn: {fileID: 1406427245}
   portalIn: {fileID: 1942375589}
-  corridor: {fileID: 0}
+  corridor: {fileID: 11400000, guid: 6ed40dfdec8ed2a448704a6dad25273e, type: 2}
 --- !u!224 &1709614824 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 810523462649530869, guid: 58c37a54af48c1048a0c03ceaaa86460,
