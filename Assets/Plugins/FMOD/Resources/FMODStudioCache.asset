@@ -51,7 +51,7 @@ MonoBehaviour:
   lastModified: 637103625174775273
   LoadResult: 0
   FileSizes: []
-  Exists: 1
+  Exists: 0
 --- !u!114 &-7752218606830973676
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -84,7 +84,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: Assets/Audio/Music/Level1/Master.strings.bank
   SubDir: 
-  lastModified: 637103625174794931
+  lastModified: 637104709260000000
   LoadResult: 0
   FileSizes:
   - Name: 
@@ -176,7 +176,7 @@ MonoBehaviour:
   Min: 0
   Max: 100
   Default: 0
-  Exists: 1
+  Exists: 0
 --- !u!114 &-2230014284775771884
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -192,12 +192,12 @@ MonoBehaviour:
   Path: event:/Level1_Song
   guid: 73b530aea6edcc4abfa35ed19bfa7d66
   Banks:
-  - {fileID: -8325340484314253293}
+  - {fileID: -1853621602539051956}
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: -2760718837930720223}
+  - {fileID: 4222658360030543247}
   MinDistance: 0
   MaxDistance: 0
   Length: 41142
@@ -218,6 +218,24 @@ MonoBehaviour:
   Max: 100
   Default: 0
   Exists: 0
+--- !u!114 &-1853621602539051956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Audio/Music/Level1/Master.bank
+  SubDir: 
+  lastModified: 637104709260000000
+  LoadResult: 0
+  FileSizes: []
+  Exists: 1
 --- !u!114 &-904794101343573666
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -284,15 +302,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EditorBanks:
   - {fileID: -7639165003188260227}
-  - {fileID: -8325340484314253293}
+  - {fileID: -1853621602539051956}
   EditorEvents:
   - {fileID: -2230014284775771884}
   EditorParameters: []
   MasterBanks:
-  - {fileID: -8325340484314253293}
+  - {fileID: -1853621602539051956}
   StringsBanks:
   - {fileID: -7639165003188260227}
-  stringsBankWriteTime: 637103625174794931
+  stringsBankWriteTime: 637104709260000000
   cacheVersion: 3
 --- !u!114 &70328455217948522
 MonoBehaviour:
@@ -346,6 +364,23 @@ MonoBehaviour:
   Max: 100
   Default: 0
   Exists: 0
+--- !u!114 &4222658360030543247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Level1_Song/Intensity
+  m_EditorClassIdentifier: 
+  Name: Intensity
+  Min: 0
+  Max: 100
+  Default: 0
+  Exists: 1
 --- !u!114 &5572431869179398266
 MonoBehaviour:
   m_ObjectHideFlags: 0

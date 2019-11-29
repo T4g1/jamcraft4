@@ -61,6 +61,10 @@ public class GameController : MonoBehaviour
         set {}
     }
 
+    [SerializeField]
+    private int maxGenerations = 10;
+    private int currentGeneration;
+
     public GameObject dynamicHolder = null;
 
     [SerializeField]
@@ -80,6 +84,7 @@ public class GameController : MonoBehaviour
 
     private void Awake() {
         InitInstance();
+        currentGeneration=0;
     }
 
     void Start()
@@ -182,6 +187,7 @@ public class GameController : MonoBehaviour
     public void OnLevelEnds()
     {
         levelGenerator.Generate();
+        currentGeneration++;
     }
 
     public void ToggleCraftingUI()
@@ -235,6 +241,14 @@ public class GameController : MonoBehaviour
     {
         CloseCraftingUI();
         CloseInventory();
+    }
+    public void ActivatePortal(Portal portal, Vector2 destination,bool isEnd){
+        if(currentGeneration==maxGenerations && isEnd){
+        portal.SetDestination(new Vector2(1000,0));
+        }else{
+        portal.SetDestination(destination);
+        }
+        portal.SetLevelEnd(isEnd);
     }
 
     /**

@@ -375,7 +375,7 @@ public class LevelGenerator : MonoBehaviour
     void FillRooms()
     {
         // Set destination of entry portal
-        portalIn.SetDestination(startRoom.GetComponent<Room>().GetPosition());
+        GameController.Instance.ActivatePortal(portalIn,startRoom.GetComponent<Room>().GetPosition(),false);
 
         foreach (Room room in rooms) {
             GameObject content = room.Generate(tilemap, dynamicHolder);
@@ -386,8 +386,7 @@ public class LevelGenerator : MonoBehaviour
             }
 
             portalOut = content.transform.GetComponentInChildren<Portal>();
-            portalOut.SetDestination(spawn.position);
-            portalOut.SetLevelEnd(true);
+            GameController.Instance.ActivatePortal(portalOut,spawn.position,true);
         }
     }
 }
