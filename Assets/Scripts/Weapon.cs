@@ -220,7 +220,7 @@ public class Weapon : MonoBehaviour
      */
     void HandleInputs()
     {
-        if (Input.GetButtonDown("Fire1")) {
+        if (Input.GetButton("Fire1")) {
             Shoot();
         }
         

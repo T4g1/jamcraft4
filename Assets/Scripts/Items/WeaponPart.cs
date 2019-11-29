@@ -28,6 +28,7 @@ public class WeaponPart : Item
 
     [Header("Stock")]
     public bool isStock;
+    // Max movement added to the visor on shoot
     public float recoil;
 
     [Header("Sight")]
