@@ -85,6 +85,8 @@ public class GameController : MonoBehaviour
 
         mainTheme = FMODUnity.RuntimeManager.CreateInstance(mainThemeName);
         mainTheme.start();
+
+        Cursor.visible = false;
     }
 
     void Update()

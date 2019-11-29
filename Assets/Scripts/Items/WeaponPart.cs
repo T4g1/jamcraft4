@@ -32,7 +32,10 @@ public class WeaponPart : Item
 
     [Header("Sight")]
     public bool isSight;
-    public float precision;
+    [Range (0f, 1f)]
+    // 0 means no pertubation added to shoots
+    // 1 means maximalPertubation is added to shoots
+    public float precision; 
 
     [Header("Handle")]
     public bool isHandle;
@@ -64,12 +67,16 @@ public class WeaponPart : Item
     {
         isStock = true;
         sprite = GetRandomSprite(GameController.Instance.stockSprites);
+
+        recoil = Random.Range(0f, 1f);
     }
 
     public void RandomizeSight()
     {
         isSight = true;
         sprite = GetRandomSprite(GameController.Instance.sightSprites);
+
+        precision = Random.Range(0f, 1f);
     }
 
     public void RandomizeHandle()

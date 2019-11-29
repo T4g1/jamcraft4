@@ -42,12 +42,17 @@ public class Utility
             screenPosition.y = Screen.height - marginBottom;
         }
 
+        screenPosition.z = 0.0f;
+
         return screenPosition;
     }
 
     public static Vector3 GetMouseWorldPosition()
     {
         Vector3 screenPosition = Utility.GetMouseInScreenPosition();
-        return Camera.main.ScreenToWorldPoint(screenPosition);
+        Vector3 worldPosition = Camera.main.ScreenToWorldPoint(screenPosition);
+        worldPosition.z = 0.0f;
+
+        return worldPosition;
     }
 }
