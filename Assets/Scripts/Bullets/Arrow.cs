@@ -14,8 +14,8 @@ public class Arrow : Bullet
         Assert.IsNotNull(arrowBounceEffect);
     }
 
-    public override void OnMiss()
+    public override void OnMiss(Vector3 where)
     {
-        Utility.Instantiate(arrowBounceEffect, transform.position);
+        Utility.Instantiate(arrowBounceEffect, where);
     }
 }

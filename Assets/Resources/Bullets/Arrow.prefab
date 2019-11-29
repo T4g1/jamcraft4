@@ -18,7 +18,7 @@ MonoBehaviour:
   body: {fileID: 3421170765830297034}
   destroyEffect: {fileID: 6716661629832660066, guid: 3a1000b3f2c38aa4b9fcd13285fd014c,
     type: 3}
-  arrowBounceEffect: {fileID: 6952515505022506481, guid: 6c6b127440f4ab84895dae39496d9463,
+  arrowBounceEffect: {fileID: 6952515505022506481, guid: d5d65456c231a2440af1b59376c734db,
     type: 3}
 --- !u!1001 &1884590426344634428
 PrefabInstance:

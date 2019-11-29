@@ -25,7 +25,7 @@ public class Bullet : MonoBehaviour
     {
         lifespan -= Time.fixedDeltaTime;
         if (lifespan <= 0.0f) {
-            OnMiss();
+            OnMiss(transform.position);
             Explode();
         }
 
@@ -46,7 +46,8 @@ public class Bullet : MonoBehaviour
      * Damage every killable thing that it this
      */
     void OnCollisionEnter2D(Collision2D other) {
-        OnCollision();
+        Vector3 collisionPosition = other.GetContact(0).point;
+        OnCollision(collisionPosition);
 
         MonoBehaviour[] behaviours =
             other.gameObject.GetComponents<MonoBehaviour>();
@@ -61,26 +62,26 @@ public class Bullet : MonoBehaviour
         }
 
         if (hitTarget) {
-            OnHit();
+            OnHit(collisionPosition);
         } 
         else {
-            OnMiss();
+            OnMiss(collisionPosition);
         }
         
         Explode();
     }
 
-    public virtual void OnCollision()
+    public virtual void OnCollision(Vector3 where)
     {
-        Utility.Instantiate(destroyEffect, transform.position);
+        Utility.Instantiate(destroyEffect, where);
     }
 
-    public virtual void OnHit()
+    public virtual void OnHit(Vector3 where)
     {
         // Override
     }
 
-    public virtual void OnMiss()
+    public virtual void OnMiss(Vector3 where)
     {
         // Override
     }
