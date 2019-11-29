@@ -145,7 +145,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &7249763757001272905
@@ -166,6 +166,8 @@ MonoBehaviour:
   speed: 1
   behaviour: {fileID: 5345346731414644992}
   hitPoints: 3
+  bloodInstance: {fileID: 6716661629832660066, guid: 8a50f28f9c71d461fb94cb13102120a8,
+    type: 3}
 --- !u!50 &9189348773845476850
 Rigidbody2D:
   serializedVersion: 4

@@ -377,11 +377,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5659915047984211277}
     m_Modifications:
-    - target: {fileID: 6653498924248182779, guid: 8ee14e7a454b6cb40b073dc981a1c0ce,
-        type: 3}
-      propertyPath: m_Name
-      value: Weapon
-      objectReference: {fileID: 0}
     - target: {fileID: 5156399072565790103, guid: 8ee14e7a454b6cb40b073dc981a1c0ce,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -451,6 +446,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.y
       value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 6653498924248182779, guid: 8ee14e7a454b6cb40b073dc981a1c0ce,
+        type: 3}
+      propertyPath: m_Name
+      value: Weapon
       objectReference: {fileID: 0}
     - target: {fileID: 5162149960894103124, guid: 8ee14e7a454b6cb40b073dc981a1c0ce,
         type: 3}

@@ -14,6 +14,7 @@ public class Wandering : StateMachineBehaviour
     private float maxDirectionTime = 5.0f;
 
 
+
     override public void OnStateEnter(
         Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
@@ -22,7 +23,7 @@ public class Wandering : StateMachineBehaviour
 
         enemy.SetAnimation("walk");
     }
-
+    
     override public void OnStateUpdate(
         Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
@@ -53,4 +54,6 @@ public class Wandering : StateMachineBehaviour
 
         enemy.SetDirection(direction);
     }
+
+    
 }
