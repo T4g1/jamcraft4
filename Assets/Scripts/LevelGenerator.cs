@@ -30,6 +30,15 @@ public class LevelGenerator : MonoBehaviour
     private Transform spawn = null;
     [SerializeField]
     private Portal portalIn = null;
+    public Portal PortalIn {
+        get { return portalIn; }
+        set {}
+    }
+    private Portal portalOut = null;
+    public Portal PortalOut {
+        get { return portalOut; }
+        set {}
+    }
 
     private List<Room> rooms = new List<Room>();
     private List<Room> paths = new List<Room>();
@@ -37,7 +46,6 @@ public class LevelGenerator : MonoBehaviour
     private GameObject startRoom = null;
     private GameObject endRoom = null;
     private GameObject dynamicHolder;
-    private Portal portalOut = null;
 
 
     void Start()
@@ -54,13 +62,6 @@ public class LevelGenerator : MonoBehaviour
         dynamicHolder = GameController.Instance.dynamicHolder;
 
         Generate();
-    }
-
-    void Update()
-    {
-        if (Input.GetButtonDown("Submit")) {
-            Generate();
-        }
     }
 
     public void Generate()
@@ -85,10 +86,7 @@ public class LevelGenerator : MonoBehaviour
 
         AddWalls();
 
-        portalIn.Activate();
-
-        // TODO: Should Happen when Boss Dies!
-        portalOut.Activate();
+        GameController.Instance.OnLevelGenerated();
     }
 
     /**
@@ -375,7 +373,7 @@ public class LevelGenerator : MonoBehaviour
     void FillRooms()
     {
         // Set destination of entry portal
-        GameController.Instance.ActivatePortal(portalIn,startRoom.GetComponent<Room>().GetPosition(),false);
+        portalIn.SetDestination(startRoom.GetComponent<Room>().GetPosition());
 
         foreach (Room room in rooms) {
             GameObject content = room.Generate(tilemap, dynamicHolder);
@@ -386,7 +384,8 @@ public class LevelGenerator : MonoBehaviour
             }
 
             portalOut = content.transform.GetComponentInChildren<Portal>();
-            GameController.Instance.ActivatePortal(portalOut,spawn.position,true);
+            portalOut.SetDestination(spawn.position);
+            portalOut.SetLevelEnd(true);
         }
     }
 }

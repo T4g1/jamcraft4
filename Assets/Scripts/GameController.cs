@@ -47,6 +47,9 @@ public class GameController : MonoBehaviour
     private GameObject inventoryUI = null;
     [SerializeField]
     private GameObject craftingUI = null;
+    
+    [SerializeField]
+    private Transform lastRoomEntry = null;
 
     [SerializeField]
     private TileBase floor = null;
@@ -62,8 +65,8 @@ public class GameController : MonoBehaviour
     }
 
     [SerializeField]
-    private int maxGenerations = 10;
-    private int currentGeneration;
+    private uint lastLevel = 5;
+    private uint currentLevel = 0;
 
     public GameObject dynamicHolder = null;
 
@@ -84,7 +87,6 @@ public class GameController : MonoBehaviour
 
     private void Awake() {
         InitInstance();
-        currentGeneration=0;
     }
 
     void Start()
@@ -98,6 +100,7 @@ public class GameController : MonoBehaviour
         Assert.IsNotNull(inventoryUI);
         Assert.IsNotNull(craftingUI);
         Assert.IsNotNull(levelGenerator);
+        Assert.IsNotNull(lastRoomEntry);
         Utility.AssertArrayNotNull<Sprite>(handleSprites);
         Utility.AssertArrayNotNull<Sprite>(quiverSprites);
         Utility.AssertArrayNotNull<Sprite>(stockSprites);
@@ -187,7 +190,20 @@ public class GameController : MonoBehaviour
     public void OnLevelEnds()
     {
         levelGenerator.Generate();
-        currentGeneration++;
+    }
+
+    public void OnLevelGenerated()
+    {
+        currentLevel += 1;
+
+        if (currentLevel >= lastLevel) {
+            levelGenerator.PortalOut.SetDestination(
+                lastRoomEntry.position
+            );
+        }
+        
+        levelGenerator.PortalIn.Activate();
+        levelGenerator.PortalOut.Activate();    // TODO: Do this when boss dies
     }
 
     public void ToggleCraftingUI()
@@ -241,14 +257,6 @@ public class GameController : MonoBehaviour
     {
         CloseCraftingUI();
         CloseInventory();
-    }
-    public void ActivatePortal(Portal portal, Vector2 destination,bool isEnd){
-        if(currentGeneration==maxGenerations && isEnd){
-        portal.SetDestination(new Vector2(1000,0));
-        }else{
-        portal.SetDestination(destination);
-        }
-        portal.SetLevelEnd(isEnd);
     }
 
     /**
