@@ -8,6 +8,8 @@ using UnityEngine.EventSystems;
 public class Weapon : MonoBehaviour
 {
     public event System.Action<uint> OnMagazineClipChanged;
+    public event System.Action OnShoot;
+    public event System.Action OnMagzineEmpty;
 
     // Display settings
     [SerializeField]
@@ -239,6 +241,10 @@ public class Weapon : MonoBehaviour
         }
 
         if (MagazineClip <= 0) {
+            if (OnMagzineEmpty != null) {
+                OnMagzineEmpty();
+            }
+
             return;
         }
 
@@ -258,6 +264,10 @@ public class Weapon : MonoBehaviour
         MagazineClip -= 1;
 
         shotCooldown = GetShotInterval();
+
+        if (OnShoot != null) {
+            OnShoot();
+        }
     }
 
     void Reload()

@@ -22,24 +22,19 @@ public class Utility
 
     public static Vector3 GetMouseInScreenPosition()
     {
-        float marginTop = Screen.height / 3;
-        float marginBottom = Screen.height / 3;
-        float marginLeft = Screen.width / 3;
-        float marginRight = Screen.width / 3;
-
         // Confines the mouse in the screen coordinates
         Vector3 screenPosition = Input.mousePosition;
-        if (screenPosition.x < marginRight) {
-            screenPosition.x = marginRight;
+        if (screenPosition.x < 0) {
+            screenPosition.x = 0;
         }
-        if (screenPosition.y < marginTop) {
-            screenPosition.y = marginTop;
+        if (screenPosition.y < 0) {
+            screenPosition.y = 0;
         }
-        if (screenPosition.x > Screen.width - marginLeft) {
-            screenPosition.x = Screen.width - marginLeft;
+        if (screenPosition.x > Screen.width) {
+            screenPosition.x = Screen.width;
         }
-        if (screenPosition.y > Screen.height - marginBottom) {
-            screenPosition.y = Screen.height - marginBottom;
+        if (screenPosition.y > Screen.height) {
+            screenPosition.y = Screen.height;
         }
 
         screenPosition.z = 0.0f;
