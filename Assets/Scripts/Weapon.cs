@@ -56,6 +56,9 @@ public class Weapon : MonoBehaviour
     private WeaponPartHolder handleHolder;
     private WeaponPartHolder quiverHolder;
 
+    // FMOD declare emitter instance
+    FMODUnity.StudioEventEmitter emitter;
+
 
     void Start()
     {
@@ -98,6 +101,10 @@ public class Weapon : MonoBehaviour
         );
 
         UpdateLayout();
+
+        // FMOD connect emitter to event emitter component
+        var target = GameObject.Find("Weapon");
+        emitter = target.GetComponent<FMODUnity.StudioEventEmitter>();
     }
 
     /**
@@ -237,12 +244,20 @@ public class Weapon : MonoBehaviour
     void Shoot()
     {
         if (shotCooldown > 0) {
+            // FMOD set IsEmpty parameter to 0 and trigger Shoot event
+            emitter.SetParameter("IsEmpty", 0);
+            emitter.Play();
             return;
         }
+
+        shotCooldown = GetShotInterval();
 
         if (MagazineClip <= 0) {
             if (OnMagzineEmpty != null) {
                 OnMagzineEmpty();
+                // FMOD set IsEmpty parameter to 1 and trigger Shoot event
+                emitter.SetParameter("IsEmpty", 1);
+                emitter.Play();
             }
 
             return;
@@ -262,8 +277,6 @@ public class Weapon : MonoBehaviour
         visor.transform.position += recoil;
 
         MagazineClip -= 1;
-
-        shotCooldown = GetShotInterval();
 
         if (OnShoot != null) {
             OnShoot();
