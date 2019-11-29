@@ -6,20 +6,12 @@ using UnityEngine.Tilemaps;
 
 public class Room : MonoBehaviour
 {
-    [SerializeField]
-    private TileBase wall = null;
-
     private GameObject roomContent = null;
     private Tilemap contentTilemap;
     private GameObject contentContainer;
 
     public List<Room> connectedTo = new List<Room>();
-
-
-    void Start()
-    {
-        Assert.IsNotNull(wall);
-    }
+    
 
     public void SetContent(GameObject content)
     {
@@ -46,7 +38,7 @@ public class Room : MonoBehaviour
 
         List<TileBase> overrideTiles = new List<TileBase>();
         overrideTiles.Add(null);
-        overrideTiles.Add(wall);
+        overrideTiles.Add(Utility.GetWall());
 
         for (int x = -1; x < bounds.size.x + 1; x++) {
             for (int y = -1; y < bounds.size.y + 1; y++) {
@@ -59,7 +51,7 @@ public class Room : MonoBehaviour
                 ) {
                     TileBase currentTile = tilemap.GetTile(cellPosition);
                     if (overrideTiles.Contains(currentTile)) {
-                        tilemap.SetTile(cellPosition, wall);
+                        tilemap.SetTile(cellPosition, Utility.GetWall());
                     } 
                 } else {
                     TileBase tile = allTiles[x + y * bounds.size.x];

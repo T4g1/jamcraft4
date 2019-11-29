@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.Tilemaps;
 
 public class Utility
 {
@@ -49,5 +50,15 @@ public class Utility
         worldPosition.z = 0.0f;
 
         return worldPosition;
+    }
+
+    public static TileBase GetWall()
+    {
+        return GameController.Instance.Wall;
+    }
+
+    public static TileBase GetFloor()
+    {
+        return GameController.Instance.Floor;
     }
 }
