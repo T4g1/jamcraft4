@@ -14,15 +14,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: 087383a6cab574e4d95231d2ccfe4cff, type: 3}
   isQuiver: 1
-  magazineSize: 5000
+  magazineSize: 1
+  magezineSizes: 050000001400000032000000
   isBarrel: 0
   bulletPrefab: {fileID: 0}
   isStock: 0
   recoil: 0
+  recoils:
+  - 0
+  - 1
+  - 5
   isSight: 0
   precision: 0
+  precisions:
+  - 0
+  - 0.05
+  - 0.5
   isHandle: 0
   reloadTime: 0
+  reloadTimes:
+  - 0
+  - 2
+  - 5
   isString: 0
   fireRate: 0
   lifespan: 0
+  fireRates:
+  - 0.1
+  - 0.5
+  - 1

@@ -9,7 +9,7 @@ public class Weapon : MonoBehaviour
 {
     public event System.Action<uint> OnMagazineClipChanged;
     public event System.Action OnShoot;
-    public event System.Action OnMagzineEmpty;
+    public event System.Action OnMagazineEmpty;
 
     // Display settings
     [SerializeField]
@@ -57,7 +57,7 @@ public class Weapon : MonoBehaviour
     private WeaponPartHolder quiverHolder;
 
     // FMOD declare emitter instance
-    FMODUnity.StudioEventEmitter emitter;
+    FMODUnity.StudioEventEmitter sfx;
 
 
     void Start()
@@ -84,7 +84,11 @@ public class Weapon : MonoBehaviour
         Assert.IsNotNull(handleHolder);
         Assert.IsNotNull(quiverHolder);
         
+        // FMOD connect emitter to event emitter component
+        sfx = GetComponent<FMODUnity.StudioEventEmitter>();
+        
         MagazineClip = GetMagazineSize();
+        sfx.SetParameter("IsEmpty", 0);
 
         playerCamera = Camera.main;
 
@@ -101,10 +105,6 @@ public class Weapon : MonoBehaviour
         );
 
         UpdateLayout();
-
-        // FMOD connect emitter to event emitter component
-        var target = GameObject.Find("Weapon");
-        emitter = target.GetComponent<FMODUnity.StudioEventEmitter>();
     }
 
     /**
@@ -162,6 +162,8 @@ public class Weapon : MonoBehaviour
         reloadTime = Mathf.Max(0, reloadTime -Time.deltaTime);
 
         if (reloading && reloadTime <= 0) {
+            sfx.SetParameter("IsEmpty", 1);
+
             reloading = false;
             MagazineClip = GetMagazineSize();
         }
@@ -244,20 +246,17 @@ public class Weapon : MonoBehaviour
     void Shoot()
     {
         if (shotCooldown > 0) {
-            // FMOD set IsEmpty parameter to 0 and trigger Shoot event
-            emitter.SetParameter("IsEmpty", 0);
-            emitter.Play();
             return;
         }
 
         shotCooldown = GetShotInterval();
 
         if (MagazineClip <= 0) {
-            if (OnMagzineEmpty != null) {
-                OnMagzineEmpty();
-                // FMOD set IsEmpty parameter to 1 and trigger Shoot event
-                emitter.SetParameter("IsEmpty", 1);
-                emitter.Play();
+            sfx.SetParameter("IsEmpty", 1);
+            sfx.Play();
+
+            if (OnMagazineEmpty != null) {
+                OnMagazineEmpty();
             }
 
             return;
@@ -277,6 +276,7 @@ public class Weapon : MonoBehaviour
         visor.transform.position += recoil;
 
         MagazineClip -= 1;
+        sfx.Play();
 
         if (OnShoot != null) {
             OnShoot();
