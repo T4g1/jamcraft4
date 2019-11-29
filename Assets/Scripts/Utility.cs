@@ -13,4 +13,10 @@ public class Utility
             Assert.IsNotNull(content);
         }
     }
+
+    public static GameObject Instantiate(
+        GameObject prefab, Vector3 position)
+    {
+        return GameController.Instance.Instantiate(prefab, position);
+    }
 }

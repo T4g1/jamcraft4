@@ -71,6 +71,8 @@ MonoBehaviour:
   lifespan: 0
   damage: 1
   body: {fileID: 3845257894242790902}
+  destroyEffect: {fileID: 6716661629832660066, guid: 3a1000b3f2c38aa4b9fcd13285fd014c,
+    type: 3}
 --- !u!212 &9027388419040329486
 SpriteRenderer:
   m_ObjectHideFlags: 0

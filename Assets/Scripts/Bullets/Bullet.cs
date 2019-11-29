@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 public class Bullet : MonoBehaviour
 {
@@ -11,11 +12,20 @@ public class Bullet : MonoBehaviour
     [SerializeField]
     private Rigidbody2D body = null;
 
+    [SerializeField]
+    private GameObject destroyEffect = null;
+
+
+    void Start()
+    {
+        Assert.IsNotNull(destroyEffect);
+    }
 
     void FixedUpdate()
     {
         lifespan -= Time.fixedDeltaTime;
         if (lifespan <= 0.0f) {
+            OnMiss(transform.position);
             Explode();
         }
 
@@ -36,16 +46,43 @@ public class Bullet : MonoBehaviour
      * Damage every killable thing that it this
      */
     void OnCollisionEnter2D(Collision2D other) {
+        Vector3 collisionPosition = other.GetContact(0).point;
+        OnCollision(collisionPosition);
+
         MonoBehaviour[] behaviours =
             other.gameObject.GetComponents<MonoBehaviour>();
         
+        bool hitTarget = false;
         foreach(MonoBehaviour behaviour in behaviours) {
             if (behaviour is IAlive) {
                 IAlive killable = (IAlive) behaviour;
                 killable.TakeDamage(damage);
+                hitTarget = true;
             }
         }
 
+        if (hitTarget) {
+            OnHit(collisionPosition);
+        } 
+        else {
+            OnMiss(collisionPosition);
+        }
+        
         Explode();
+    }
+
+    public virtual void OnCollision(Vector3 where)
+    {
+        Utility.Instantiate(destroyEffect, where);
+    }
+
+    public virtual void OnHit(Vector3 where)
+    {
+        // Override
+    }
+
+    public virtual void OnMiss(Vector3 where)
+    {
+        // Override
     }
 }
