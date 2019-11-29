@@ -21,6 +21,9 @@ public class WeaponPart : Item
     [Header("Quiver")]
     public bool isQuiver;
     public uint magazineSize;
+    public uint[] magezineSizes = new uint[] {
+        5, 20, 50
+    };
 
     [Header("Barrel")]
     public bool isBarrel;
@@ -30,6 +33,9 @@ public class WeaponPart : Item
     public bool isStock;
     // Max movement added to the visor on shoot
     public float recoil;
+    public float[] recoils = new float[] {
+        0f, 1f, 5f
+    };
 
     [Header("Sight")]
     public bool isSight;
@@ -37,22 +43,32 @@ public class WeaponPart : Item
     // 0 means no pertubation added to shoots
     // 1 means maximalPertubation is added to shoots
     public float precision; 
+    public float[] precisions = new float[] {
+        0f, 0.05f, 0.5f
+    };
 
     [Header("Handle")]
     public bool isHandle;
     public float reloadTime;
+    public float[] reloadTimes = new float[] {
+        0f, 2f, 5f
+    };
 
     [Header("String")]
     public bool isString;
     public float fireRate;  // Time between every shot
     public float lifespan;  // Time before decaying
+    
+    public float[] fireRates = new float[] {
+        0.1f, 0.5f, 1f
+    };
 
     public void RandomizeQuiver()
     {
         isQuiver = true;
         sprite = GetRandomSprite(GameController.Instance.quiverSprites);
 
-        magazineSize = (uint) Random.Range(10, 50);
+        magazineSize = Utility.RandomElement(magezineSizes);
     }
 
     public void RandomizeBarrel()
@@ -61,7 +77,7 @@ public class WeaponPart : Item
         sprite = GetRandomSprite(GameController.Instance.barrelSprites);
 
         Bullet[] bullets = Resources.LoadAll<Bullet>("Bullets");
-        bulletPrefab = bullets[Random.Range(0, bullets.Length)];
+        bulletPrefab = Utility.RandomElement(bullets);
     }
 
     public void RandomizeStock()
@@ -69,7 +85,7 @@ public class WeaponPart : Item
         isStock = true;
         sprite = GetRandomSprite(GameController.Instance.stockSprites);
 
-        recoil = Random.Range(0f, 1f);
+        recoil = Utility.RandomElement(recoils);
     }
 
     public void RandomizeSight()
@@ -77,7 +93,7 @@ public class WeaponPart : Item
         isSight = true;
         sprite = GetRandomSprite(GameController.Instance.sightSprites);
 
-        precision = Random.Range(0f, 1f);
+        precision = Utility.RandomElement(precisions);
     }
 
     public void RandomizeHandle()
@@ -85,7 +101,7 @@ public class WeaponPart : Item
         isHandle = true;
         sprite = GetRandomSprite(GameController.Instance.handleSprites);
 
-        reloadTime = Random.Range(0f, 5f);
+        reloadTime = Utility.RandomElement(reloadTimes);
     }
 
     public void RandomizeString()
@@ -93,8 +109,8 @@ public class WeaponPart : Item
         isString = true;
         sprite = GetRandomSprite(GameController.Instance.stringSprites);
 
-        fireRate = Random.Range(0.1f, 1f);
-        lifespan = Random.Range(1f, 10f);
+        fireRate = Utility.RandomElement(fireRates);
+        lifespan = 3.0f;
     }
 
     private Sprite GetRandomSprite(List<Sprite> sprites)

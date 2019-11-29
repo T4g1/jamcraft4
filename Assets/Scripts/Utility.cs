@@ -7,6 +7,11 @@ using UnityEngine.Tilemaps;
 
 public class Utility
 {
+    public static T RandomElement<T>(T[] array)
+    {
+        return array[UnityEngine.Random.Range(0, array.Length)];
+    }
+
     public static void AssertArrayNotNull<T>(List<T> array) where T : class
     {
         Assert.IsTrue(array.Count > 0);
