@@ -18,7 +18,7 @@ MonoBehaviour:
   isBarrel: 0
   bulletPrefab: {fileID: 0}
   isStock: 1
-  recoil: 2
+  recoil: 0.4
   isSight: 0
   precision: 0
   isHandle: 0

@@ -24,6 +24,10 @@ public class Weapon : MonoBehaviour
 
     // Shooting system
     [SerializeField]
+    private float visorSpeed = 10.0f;
+    [SerializeField]
+    private GameObject visor = null;
+    [SerializeField]
     private GameObject muzzle = null;
 
     private float shotCooldown = 0.0f;  // Time before next bullet
@@ -51,6 +55,9 @@ public class Weapon : MonoBehaviour
 
     void Start()
     {
+        Assert.IsNotNull(visor);
+        Assert.IsNotNull(muzzle);
+
         partHolders = gameObject.GetComponentsInChildren<WeaponPartHolder>();
         
         Assert.IsNotNull(partHolders);
@@ -139,6 +146,8 @@ public class Weapon : MonoBehaviour
 
     void Update()
     {
+        UpdateVisor();
+
         shotCooldown = Mathf.Max(0, shotCooldown -Time.deltaTime);
         reloadTime = Mathf.Max(0, reloadTime -Time.deltaTime);
 
@@ -157,12 +166,22 @@ public class Weapon : MonoBehaviour
         HandleInputs();
     }
 
+    void UpdateVisor()
+    {
+        visor.transform.rotation = Quaternion.identity;
+        visor.transform.position =  Vector3.Lerp(
+            visor.transform.position, 
+            Utility.GetMouseWorldPosition(), 
+            Time.deltaTime * visorSpeed
+        );
+    }
+
     /**
      * Look at mouse position
      */
     void UpdateRotation()
     {
-        Vector3 target = playerCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0.0f));
+        Vector3 target = visor.transform.position;
         target.z = 0.0f;
 
         Vector3 origin = new Vector3(
@@ -224,6 +243,8 @@ public class Weapon : MonoBehaviour
         bullet.transform.rotation = transform.rotation;
         bullet.lifespan = GetBulletLifeSpan();
 
+        visor.transform.position += new Vector3(1, 1, 0) * GetRecoil();
+
         MagazineClip -= 1;
 
         shotCooldown = GetShotInterval();
@@ -278,6 +299,14 @@ public class Weapon : MonoBehaviour
     float GetReloadTime()
     {
         return handleHolder.Part.reloadTime;
+    }
+
+    /**
+     * Get recoil
+     */
+    float GetRecoil()
+    {
+        return stockHolder.Part.recoil;
     }
 
     /**

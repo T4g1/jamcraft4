@@ -19,4 +19,35 @@ public class Utility
     {
         return GameController.Instance.Instantiate(prefab, position);
     }
+
+    public static Vector3 GetMouseInScreenPosition()
+    {
+        float marginTop = Screen.height / 3;
+        float marginBottom = Screen.height / 3;
+        float marginLeft = Screen.width / 3;
+        float marginRight = Screen.width / 3;
+
+        // Confines the mouse in the screen coordinates
+        Vector3 screenPosition = Input.mousePosition;
+        if (screenPosition.x < marginRight) {
+            screenPosition.x = marginRight;
+        }
+        if (screenPosition.y < marginTop) {
+            screenPosition.y = marginTop;
+        }
+        if (screenPosition.x > Screen.width - marginLeft) {
+            screenPosition.x = Screen.width - marginLeft;
+        }
+        if (screenPosition.y > Screen.height - marginBottom) {
+            screenPosition.y = Screen.height - marginBottom;
+        }
+
+        return screenPosition;
+    }
+
+    public static Vector3 GetMouseWorldPosition()
+    {
+        Vector3 screenPosition = Utility.GetMouseInScreenPosition();
+        return Camera.main.ScreenToWorldPoint(screenPosition);
+    }
 }

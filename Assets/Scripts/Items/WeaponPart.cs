@@ -28,11 +28,11 @@ public class WeaponPart : Item
 
     [Header("Stock")]
     public bool isStock;
-    public uint recoil;
+    public float recoil;
 
     [Header("Sight")]
     public bool isSight;
-    public uint precision;
+    public float precision;
 
     [Header("Handle")]
     public bool isHandle;
