@@ -17,12 +17,12 @@ MonoBehaviour:
   magazineSize: 0
   isBarrel: 0
   bulletPrefab: {fileID: 0}
-  isSstock: 0
+  isStock: 0
   recoil: 0
   isSight: 0
   precision: 0
   isHandle: 0
   reloadTime: 0
   isString: 1
-  fireRate: 0.2
+  fireRate: 0
   lifespan: 3

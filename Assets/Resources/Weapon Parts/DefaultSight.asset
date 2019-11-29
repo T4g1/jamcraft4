@@ -20,7 +20,7 @@ MonoBehaviour:
   isStock: 0
   recoil: 0
   isSight: 1
-  precision: 0.05
+  precision: 0
   isHandle: 0
   reloadTime: 0
   isString: 0
