@@ -91,7 +91,7 @@ public class Weapon : MonoBehaviour
         // FMOD connect emitter to event emitter component
         sfx = GetComponent<FMODUnity.StudioEventEmitter>();
         Debug.Log("SFX_SHOOT_FULL");
-        sfx.SetParameter("IsEmpty", SFX_SHOOT_FULL);
+        sfx.SetParameter("IsEmpty", 0);
 
         playerCamera = Camera.main;
 
@@ -166,7 +166,7 @@ public class Weapon : MonoBehaviour
 
         if (reloading && reloadTime <= 0) {
             Debug.Log("SFX_SHOOT_FULL");
-            sfx.SetParameter("IsEmpty", SFX_SHOOT_FULL);
+            sfx.SetParameter("IsEmpty", 0);
 
             reloading = false;
             MagazineClip = GetMagazineSize();
@@ -284,7 +284,7 @@ public class Weapon : MonoBehaviour
 
         if (MagazineClip <= 0) {
             Debug.Log("SFX_SHOOT_EMPTY");
-            sfx.SetParameter("IsEmpty", SFX_SHOOT_EMPTY);
+            sfx.SetParameter("IsEmpty", 1);
 
             if (OnMagazineEmpty != null) {
                 OnMagazineEmpty();
