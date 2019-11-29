@@ -85,8 +85,6 @@ public class GameController : MonoBehaviour
 
         mainTheme = FMODUnity.RuntimeManager.CreateInstance(mainThemeName);
         mainTheme.start();
-
-        Cursor.visible = false;
     }
 
     void Update()
@@ -178,6 +176,11 @@ public class GameController : MonoBehaviour
         }
     }
 
+    public bool IsCraftingUIActive()
+    {
+        return craftingUI.activeSelf;
+    }
+
     public void OpenCraftingUI()
     {
         craftingUI.SetActive(true);
@@ -186,8 +189,10 @@ public class GameController : MonoBehaviour
 
     public void CloseCraftingUI()
     {
-        craftingUI.SetActive(false);
-        CloseInventory();
+        if (IsCraftingUIActive()) {
+            craftingUI.SetActive(false);
+            CloseInventory();
+        }
     }
 
     public void ToggleInventory()

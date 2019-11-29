@@ -18,6 +18,10 @@ public class PlayerCamera : MonoBehaviour
 
     void Update()
     {
+        if (Cursor.visible) {
+            return;
+        }
+
         Vector3 worldPosition = Utility.GetMouseWorldPosition();
         Vector3 delta = player.transform.position - worldPosition;
 

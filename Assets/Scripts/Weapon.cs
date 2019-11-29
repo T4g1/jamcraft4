@@ -148,8 +148,7 @@ public class Weapon : MonoBehaviour
 
     void Update()
     {
-        UpdateVisor();
-
+        // Update cooldowns
         shotCooldown = Mathf.Max(0, shotCooldown -Time.deltaTime);
         reloadTime = Mathf.Max(0, reloadTime -Time.deltaTime);
 
@@ -157,13 +156,17 @@ public class Weapon : MonoBehaviour
             reloading = false;
             MagazineClip = GetMagazineSize();
         }
-        
-        UpdateRotation();
 
         if (EventSystem.current.IsPointerOverGameObject()) {
+            Cursor.visible = true;
             return;
+        } 
+        else {
+            Cursor.visible = false;
         }
-
+        
+        UpdateVisor();
+        UpdateRotation();
         HandleInputs();
     }
 
@@ -244,7 +247,13 @@ public class Weapon : MonoBehaviour
         bullet.transform.rotation = GetShootDirection();
         bullet.lifespan = GetBulletLifeSpan();
 
-        visor.transform.position += new Vector3(1, 1, 0) * GetRecoil();
+        Vector3 recoil = new Vector3(
+            Random.Range(0f, GetRecoil()), 
+            Random.Range(0f, GetRecoil()), 
+            0f
+        );
+
+        visor.transform.position += recoil;
 
         MagazineClip -= 1;
 
