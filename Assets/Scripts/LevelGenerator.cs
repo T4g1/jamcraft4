@@ -383,7 +383,7 @@ public class LevelGenerator : MonoBehaviour
             GameObject content = room.Generate(tilemap, dynamicHolder);
 
             // Check for exit portal
-            if (content.transform.Find("Teleport") == null) {
+            if (content.transform.Find("Portal") == null) {
                 continue;
             }
 
