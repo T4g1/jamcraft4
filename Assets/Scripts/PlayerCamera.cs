@@ -6,33 +6,40 @@ using UnityEngine.Assertions;
 public class PlayerCamera : MonoBehaviour
 {
     [SerializeField]
-    private float margin = 100.0f;
-    [SerializeField]
     private float moveSpeed = 2.0f;
 
     private Player player;
+    private float marginTop;
+    private float marginBottom;
+    private float marginLeft;
+    private float marginRight;
 
 
     void Start()
     {
         player = GameObject.FindWithTag("Player").GetComponent<Player>();
+
+        marginTop = Screen.height / 3;
+        marginBottom = Screen.height / 3;
+        marginLeft = Screen.width / 3;
+        marginRight = Screen.width / 3;
     }
 
     void Update()
     {
         // Confines the mouse in the screen coordinates
         Vector3 screenPosition = Input.mousePosition;
-        if (screenPosition.x < margin) {
-            screenPosition.x = margin;
+        if (screenPosition.x < marginRight) {
+            screenPosition.x = marginRight;
         }
-        if (screenPosition.y < margin) {
-            screenPosition.y = margin;
+        if (screenPosition.y < marginTop) {
+            screenPosition.y = marginTop;
         }
-        if (screenPosition.x > Screen.width - margin) {
-            screenPosition.x = Screen.width - margin;
+        if (screenPosition.x > Screen.width - marginLeft) {
+            screenPosition.x = Screen.width - marginLeft;
         }
-        if (screenPosition.y > Screen.height - margin) {
-            screenPosition.y = Screen.height - margin;
+        if (screenPosition.y > Screen.height - marginBottom) {
+            screenPosition.y = Screen.height - marginBottom;
         }
 
         Vector3 worldPosition = Camera.main.ScreenToWorldPoint(screenPosition);
