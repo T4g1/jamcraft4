@@ -30,10 +30,6 @@ public class LevelGenerator : MonoBehaviour
     private Transform spawn = null;
     [SerializeField]
     private Portal portalIn = null;
-    [SerializeField]
-    private TileBase floor = null;
-    [SerializeField]
-    private TileBase wall = null;
 
     private List<Room> rooms = new List<Room>();
     private List<Room> paths = new List<Room>();
@@ -52,7 +48,6 @@ public class LevelGenerator : MonoBehaviour
         Assert.IsNotNull(roomCollider);
         Assert.IsNotNull(spawn);
         Assert.IsNotNull(portalIn);
-        Assert.IsNotNull(floor);
 
         Utility.AssertArrayNotNull<GameObject>(roomContents);
 
@@ -324,8 +319,8 @@ public class LevelGenerator : MonoBehaviour
     void PlaceCorridorSection(
         Vector3Int position, Vector3Int delta)
     {
-        tilemap.SetTile(position, floor);
-        tilemap.SetTile(position + delta, floor);
+        tilemap.SetTile(position, Utility.GetFloor());
+        tilemap.SetTile(position + delta, Utility.GetFloor());
     }
 
     /**
@@ -341,7 +336,7 @@ public class LevelGenerator : MonoBehaviour
         for (int x = 0; x < bounds.size.x; x++) {
             for (int y = 0; y < bounds.size.y; y++) {
                 TileBase tile = allTiles[x + y * bounds.size.x];
-                if (tile == wall || tile == null) {
+                if (tile == Utility.GetWall() || tile == null) {
                     continue;
                 }
                 
@@ -364,7 +359,10 @@ public class LevelGenerator : MonoBehaviour
                         neighbour.y >= bounds.size.y ||
                         allTiles[index] == null
                     ) {
-                        tilemap.SetTile(bounds.position + neighbour, wall);
+                        tilemap.SetTile(
+                            bounds.position + neighbour, 
+                            Utility.GetWall()
+                        );
                     }
                 }
             }

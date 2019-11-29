@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -9,6 +8,8 @@ using UnityEngine.EventSystems;
 public class Weapon : MonoBehaviour
 {
     public event System.Action<uint> OnMagazineClipChanged;
+    public event System.Action OnShoot;
+    public event System.Action OnMagzineEmpty;
 
     // Display settings
     [SerializeField]
@@ -17,12 +18,19 @@ public class Weapon : MonoBehaviour
 
     [SerializeField]
     private float rotationOffset = 180.0f;
+    private float rotationRaw;
+    [SerializeField]
+    private float maximalPerturbation = 180.0f; // Max offset added by precision
 
     private WeaponPartHolder[] partHolders;
 
     private Camera playerCamera;        // Cache player camera
 
     // Shooting system
+    [SerializeField]
+    private float visorSpeed = 10.0f;
+    [SerializeField]
+    private GameObject visor = null;
     [SerializeField]
     private GameObject muzzle = null;
 
@@ -51,6 +59,9 @@ public class Weapon : MonoBehaviour
 
     void Start()
     {
+        Assert.IsNotNull(visor);
+        Assert.IsNotNull(muzzle);
+
         partHolders = gameObject.GetComponentsInChildren<WeaponPartHolder>();
         
         Assert.IsNotNull(partHolders);
@@ -139,22 +150,36 @@ public class Weapon : MonoBehaviour
 
     void Update()
     {
+        // Update cooldowns
         shotCooldown = Mathf.Max(0, shotCooldown -Time.deltaTime);
         reloadTime = Mathf.Max(0, reloadTime -Time.deltaTime);
 
         if (reloading && reloadTime <= 0) {
             reloading = false;
             MagazineClip = GetMagazineSize();
-            Debug.Log("Reloaded");
         }
-        
-        UpdateRotation();
 
         if (EventSystem.current.IsPointerOverGameObject()) {
+            Cursor.visible = true;
             return;
+        } 
+        else {
+            Cursor.visible = false;
         }
-
+        
+        UpdateVisor();
+        UpdateRotation();
         HandleInputs();
+    }
+
+    void UpdateVisor()
+    {
+        visor.transform.rotation = Quaternion.identity;
+        visor.transform.position =  Vector3.Lerp(
+            visor.transform.position, 
+            Utility.GetMouseWorldPosition(), 
+            Time.deltaTime * visorSpeed
+        );
     }
 
     /**
@@ -162,7 +187,7 @@ public class Weapon : MonoBehaviour
      */
     void UpdateRotation()
     {
-        Vector3 target = playerCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0.0f));
+        Vector3 target = visor.transform.position;
         target.z = 0.0f;
 
         Vector3 origin = new Vector3(
@@ -171,23 +196,23 @@ public class Weapon : MonoBehaviour
             0.0f
         );
 
-        float rotation = Mathf.Atan2(
+        rotationRaw = Mathf.Atan2(
             target.y - origin.y,
             target.x - origin.x
         );
 
         // To degrees
-        rotation *= (180.0f / Mathf.PI);
+        rotationRaw *= (180.0f / Mathf.PI);
 
         transform.rotation = Quaternion.Euler(
             0.0f, 
             0.0f, 
-            rotationOffset + rotation
+            GetCurrentRotation()
         );
 
         // Flip weapon
         transform.localScale = defaultScale;
-        if (rotation < 90.0f && rotation > -90) {
+        if (rotationRaw < 90.0f && rotationRaw > -90) {
             transform.localScale = flippedScale;
         }
     }
@@ -197,7 +222,7 @@ public class Weapon : MonoBehaviour
      */
     void HandleInputs()
     {
-        if (Input.GetButtonDown("Fire1")) {
+        if (Input.GetButton("Fire1")) {
             Shoot();
         }
         
@@ -216,17 +241,33 @@ public class Weapon : MonoBehaviour
         }
 
         if (MagazineClip <= 0) {
+            if (OnMagzineEmpty != null) {
+                OnMagzineEmpty();
+            }
+
             return;
         }
 
         Bullet bullet = Instantiate(GetBulletPrefab());
         bullet.transform.position = GetMuzzlePosition();
-        bullet.transform.rotation = transform.rotation;
+        bullet.transform.rotation = GetShootDirection();
         bullet.lifespan = GetBulletLifeSpan();
+
+        Vector3 recoil = new Vector3(
+            Random.Range(0f, GetRecoil()), 
+            Random.Range(0f, GetRecoil()), 
+            0f
+        );
+
+        visor.transform.position += recoil;
 
         MagazineClip -= 1;
 
         shotCooldown = GetShotInterval();
+
+        if (OnShoot != null) {
+            OnShoot();
+        }
     }
 
     void Reload()
@@ -235,9 +276,28 @@ public class Weapon : MonoBehaviour
             return;
         }
 
-        Debug.Log("Reloading");
         reloading = true;
         reloadTime = GetReloadTime();
+    }
+
+    Quaternion GetShootDirection()
+    {
+        float perturbation = maximalPerturbation * GetPrecision();
+        perturbation = Random.Range(
+            -perturbation/2, 
+            perturbation/2
+        );
+
+        return Quaternion.Euler(
+            0.0f,
+            0.0f,
+            GetCurrentRotation() + perturbation
+        );
+    }
+
+    float GetCurrentRotation()
+    {
+        return rotationOffset + rotationRaw;
     }
 
     /**
@@ -278,6 +338,22 @@ public class Weapon : MonoBehaviour
     float GetReloadTime()
     {
         return handleHolder.Part.reloadTime;
+    }
+
+    /**
+     * Get recoil
+     */
+    float GetRecoil()
+    {
+        return stockHolder.Part.recoil;
+    }
+
+    /**
+     * Get precision
+     */
+    float GetPrecision()
+    {
+        return sightHolder.Part.precision;
     }
 
     /**

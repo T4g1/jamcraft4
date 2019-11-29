@@ -27,6 +27,10 @@ public class PlayerCamera : MonoBehaviour
 
     void Update()
     {
+        if (Cursor.visible) {
+            return;
+        }
+        
         // Confines the mouse in the screen coordinates
         Vector3 screenPosition = Input.mousePosition;
         if (screenPosition.x < marginRight) {

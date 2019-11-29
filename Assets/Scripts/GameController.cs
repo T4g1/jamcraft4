@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.Tilemaps;
 
 public class GameController : MonoBehaviour
 {
@@ -47,6 +48,19 @@ public class GameController : MonoBehaviour
     [SerializeField]
     private GameObject craftingUI = null;
 
+    [SerializeField]
+    private TileBase floor = null;
+    public TileBase Floor {
+        get { return floor; }
+        set {}
+    }
+    [SerializeField]
+    private TileBase wall = null;
+    public TileBase Wall {
+        get { return wall; }
+        set {}
+    }
+
     public GameObject dynamicHolder = null;
 
     [SerializeField]
@@ -71,6 +85,9 @@ public class GameController : MonoBehaviour
     void Start()
     {
         Screen.SetResolution(640, 360, false);
+        
+        Assert.IsNotNull(wall);
+        Assert.IsNotNull(floor);
         Assert.IsNotNull(intensityTween);
         Assert.IsNotNull(pickUpPrefab);
         Assert.IsNotNull(inventoryUI);
@@ -176,6 +193,11 @@ public class GameController : MonoBehaviour
         }
     }
 
+    public bool IsCraftingUIActive()
+    {
+        return craftingUI.activeSelf;
+    }
+
     public void OpenCraftingUI()
     {
         craftingUI.SetActive(true);
@@ -184,8 +206,10 @@ public class GameController : MonoBehaviour
 
     public void CloseCraftingUI()
     {
-        craftingUI.SetActive(false);
-        CloseInventory();
+        if (IsCraftingUIActive()) {
+            craftingUI.SetActive(false);
+            CloseInventory();
+        }
     }
 
     public void ToggleInventory()
