@@ -278,6 +278,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   margin: 100
+  moveSpeed: 5
 --- !u!1001 &7523753020974414327
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -5,10 +5,12 @@ using UnityEngine.Assertions;
 
 public class PlayerCamera : MonoBehaviour
 {
-    private Player player;
-
     [SerializeField]
     private float margin = 100.0f;
+    [SerializeField]
+    private float moveSpeed = 2.0f;
+
+    private Player player;
 
 
     void Start()
@@ -18,6 +20,7 @@ public class PlayerCamera : MonoBehaviour
 
     void Update()
     {
+        // Confines the mouse in the screen coordinates
         Vector3 screenPosition = Input.mousePosition;
         if (screenPosition.x < margin) {
             screenPosition.x = margin;
@@ -39,6 +42,10 @@ public class PlayerCamera : MonoBehaviour
         Vector3 cameraPosition = player.transform.position - delta / 2;
         cameraPosition.z = -10.0f;
 
-        transform.position = cameraPosition;
+        transform.position =  Vector3.Lerp(
+            transform.position, 
+            cameraPosition, 
+            Time.deltaTime * moveSpeed
+        );
     }
 }
