@@ -58,9 +58,13 @@ public class Weapon : MonoBehaviour
 
     // FMOD declare emitter instance
     FMODUnity.StudioEventEmitter sfx;
-    const int SFX_SHOOT_FULL = 1;
-    const int SFX_SHOOT_EMPTY = 0;
+    const float SFX_SHOOT_FULL = 0.0f;
+    const float SFX_SHOOT_EMPTY = 1.0f;
 
+
+    [FMODUnity.EventRef]
+    public string PlayerStateEvent = "";
+    FMOD.Studio.EventInstance playerState;
 
     void Start()
     {
@@ -89,9 +93,8 @@ public class Weapon : MonoBehaviour
         MagazineClip = GetMagazineSize();
         
         // FMOD connect emitter to event emitter component
-        sfx = GetComponent<FMODUnity.StudioEventEmitter>();
-        Debug.Log("SFX_SHOOT_FULL");
-        sfx.SetParameter("IsEmpty", 0);
+        playerState = FMODUnity.RuntimeManager.CreateInstance(PlayerStateEvent);
+        playerState.setParameterByName("IsEmpty", SFX_SHOOT_FULL);
 
         playerCamera = Camera.main;
 
@@ -165,8 +168,7 @@ public class Weapon : MonoBehaviour
         reloadTime = Mathf.Max(0, reloadTime -Time.deltaTime);
 
         if (reloading && reloadTime <= 0) {
-            Debug.Log("SFX_SHOOT_FULL");
-            sfx.SetParameter("IsEmpty", 0);
+            playerState.setParameterByName("IsEmpty", SFX_SHOOT_FULL);
 
             reloading = false;
             MagazineClip = GetMagazineSize();
@@ -256,8 +258,13 @@ public class Weapon : MonoBehaviour
         shotCooldown = GetShotInterval();
 
         if (MagazineClip <= 0) {
-            Debug.Log("PLAY");
-            sfx.Play();
+            playerState.setParameterByName("IsEmpty", SFX_SHOOT_EMPTY);
+            playerState.start();
+
+            if (OnMagazineEmpty != null) {
+                OnMagazineEmpty();
+            }
+
             return;
         }
 
@@ -275,20 +282,11 @@ public class Weapon : MonoBehaviour
         visor.transform.position += recoil;
 
         MagazineClip -= 1;
-        Debug.Log("PLAY");
-        sfx.Play();
+        
+        playerState.start();
 
         if (OnShoot != null) {
             OnShoot();
-        }
-
-        if (MagazineClip <= 0) {
-            Debug.Log("SFX_SHOOT_EMPTY");
-            sfx.SetParameter("IsEmpty", 1);
-
-            if (OnMagazineEmpty != null) {
-                OnMagazineEmpty();
-            }
         }
     }
 
