@@ -6,7 +6,7 @@ public class Popup : MonoBehaviour
     private bool openByDefault = false;
 
 
-    void Start()
+    protected virtual void Start()
     {
         if (openByDefault) {
             Open();
@@ -30,7 +30,7 @@ public class Popup : MonoBehaviour
         }
     }
 
-    public void Open()
+    public virtual void Open()
     {
         gameObject.SetActive(true);
     }

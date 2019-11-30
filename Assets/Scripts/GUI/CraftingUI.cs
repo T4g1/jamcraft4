@@ -105,4 +105,10 @@ public class CraftingUI : Popup
     {
         return gameObject.activeSelf;
     }
+
+    public override void Open()
+    {
+        base.Open();
+        GameUIController.Instance.Inventory.Open();
+    }
 }
