@@ -1308,10 +1308,10 @@ MonoBehaviour:
   intensityTween: {fileID: 2146036818}
   pickUpPrefab: {fileID: 6523152550276114754, guid: 7e5ab56071570ec4ca96a6e3166848cd,
     type: 3}
-  lastRoomEntry: {fileID: 508262189}
+  lastRoomEntry: {fileID: 0}
   floor: {fileID: 11400000, guid: 659d03f5516aa3443b619fc3c9a49036, type: 2}
   wall: {fileID: 11400000, guid: c26fea2fdf943d44fad0454dcac044c8, type: 2}
-  lastLevel: 1
+  lastLevel: 5
   dynamicHolder: {fileID: 1022476630}
   levelGenerator: {fileID: 1642989573}
 --- !u!1001 &382715593
@@ -2272,12 +2272,6 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
---- !u!4 &508262189 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 173732895140245763, guid: b978339bc73488b44b9150bb4603c2f9,
-    type: 3}
-  m_PrefabInstance: {fileID: 1192072711}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &517540629 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 810523462649530869, guid: 58c37a54af48c1048a0c03ceaaa86460,

@@ -180,17 +180,9 @@ public class Weapon : MonoBehaviour
             reloading = false;
             MagazineClip = GetMagazineSize();
         }
-
-        if (Cursor.visible) {
-            return;
-        }
-        
-        UpdateVisor();
-        UpdateRotation();
-        HandleInputs();
     }
 
-    void UpdateVisor()
+    public void UpdateVisor()
     {
         visor.transform.rotation = Quaternion.identity;
         visor.transform.position =  Vector3.Lerp(
@@ -203,7 +195,7 @@ public class Weapon : MonoBehaviour
     /**
      * Look at mouse position
      */
-    void UpdateRotation()
+    public void UpdateRotation()
     {
         Vector3 target = visor.transform.position;
         target.z = 0.0f;
@@ -236,23 +228,9 @@ public class Weapon : MonoBehaviour
     }
 
     /**
-     * Handle player inputs
-     */
-    void HandleInputs()
-    {
-        if (Input.GetButton("Fire1")) {
-            Shoot();
-        }
-        
-        if (Input.GetButtonDown("Reload")) {
-            Reload();
-        }
-    }
-
-    /**
      * Shoot a projectile
      */
-    void Shoot()
+    public void Shoot()
     {
         if (shotCooldown > 0) {
             return;
@@ -298,7 +276,7 @@ public class Weapon : MonoBehaviour
         }
     }
 
-    void Reload()
+    public void Reload()
     {
         if (reloading) {
             return;
