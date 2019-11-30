@@ -10,25 +10,25 @@ public class Wandering : StateMachineBehaviour
     [SerializeField]
     private float minDirectionTime = 2.0f;
 
-    private Animator Animator = null;
+    private Animator cachedAnimator = null;
 
     [SerializeField]
     private float maxDirectionTime = 5.0f;
     public void OnTargetAquired(GameObject other)
     {
-        if (other.tag == "Player")
-        {
-            Animator.SetBool("hasTarget", true);
-            // Check if that way is a good way to access the Animator.
+        if (other.tag == "Player") {
+            cachedAnimator.SetBool("hasTarget", true);
         }
     }
 
     override public void OnStateEnter(
         Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        cachedAnimator = animator;
         enemy = animator.gameObject.GetComponentInParent<Enemy>();
+
         directionChangeDelay = 0.0f;
-        Animator = animator;
+
         enemy.SetAnimation("walk");
         enemy.AggroZone.OnZoneEnter += OnTargetAquired;
     }
@@ -37,24 +37,23 @@ public class Wandering : StateMachineBehaviour
         Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         directionChangeDelay -= Time.deltaTime;
-        if (directionChangeDelay <= 0)
-        {
+        if (directionChangeDelay <= 0) {
             changeDirection();
         }
 
-        if (animator.GetBool("collisionOccured"))
-        {
+        if (animator.GetBool("collisionOccured")) {
             animator.SetBool("collisionOccured", false);
 
             changeDirection();
         }
     }
 
-    override public void OnStateExit(Animator animator, AnimatorStateInfo animatorStateInfo, int layerIndex)
+    override public void OnStateExit(
+        Animator animator, AnimatorStateInfo animatorStateInfo, int layerIndex)
     {
         enemy.AggroZone.OnZoneEnter -= OnTargetAquired;
-
     }
+
     /**
      * Change direction of movement
      */
@@ -70,6 +69,4 @@ public class Wandering : StateMachineBehaviour
 
         enemy.SetDirection(direction);
     }
-
-
 }

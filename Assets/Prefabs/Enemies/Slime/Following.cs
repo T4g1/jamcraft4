@@ -5,40 +5,36 @@ using UnityEngine;
 public class Following : StateMachineBehaviour
 {
     private Enemy enemy;
-    private Animator Animator = null;
+    private Animator cachedAnimator = null;
 
     private float oldSpeed;
 
+
     public void OnTargetLost(GameObject other)
     {
-        if (other.tag == "Player")
-        {
-            // Check if that way is a good way to access the Animator.
-            Animator.SetBool("hasTarget", false);
-            enemy.Speed=oldSpeed;
+        if (other.tag == "Player") {
+            cachedAnimator.SetBool("hasTarget", false);
         }
     }
 
     public void OnTargetAquired(GameObject other)
     {
-        if (other.tag == "Player")
-        {
-            Animator.SetBool("attacking", true);
+        if (other.tag == "Player") {
+            cachedAnimator.SetBool("attacking", true);
         }
     }
-
 
 
     override public void OnStateEnter(
         Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        cachedAnimator = animator;
         enemy = animator.gameObject.GetComponentInParent<Enemy>();
 
-        Animator = animator;
         enemy.SetAnimation("walk");
 
-        oldSpeed=enemy.Speed;
-        enemy.Speed=enemy.AgroSpeed;
+        oldSpeed = enemy.Speed;
+        enemy.Speed = enemy.AgroSpeed;
 
         enemy.LostZone.OnZoneExit += OnTargetLost;
         enemy.AttackZone.OnZoneEnter += OnTargetAquired;
@@ -47,26 +43,28 @@ public class Following : StateMachineBehaviour
     override public void OnStateUpdate(
         Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        changeDirection();
+        FollowPlayer();
     }
 
-    override public void OnStateExit(Animator animator, AnimatorStateInfo animatorStateInfo, int layerIndex)
+    override public void OnStateExit(
+        Animator animator, AnimatorStateInfo animatorStateInfo, int layerIndex)
     {
+        enemy.Speed = oldSpeed;
+
         enemy.LostZone.OnZoneExit -= OnTargetLost;
         enemy.AttackZone.OnZoneEnter -= OnTargetAquired;
-
-
     }
+
     /**
-     * Change direction of movement
+     * Move towards player
      */
-    void changeDirection()
+    void FollowPlayer()
     {
-        Vector3 playerPos=Utility.GetPlayer().transform.position;
-        Vector3 direction = playerPos-enemy.transform.position;
+        Vector3 playerPosition = Utility.GetPlayer().transform.position;
+
+        Vector3 direction = playerPosition - enemy.transform.position;
         direction.Normalize();
+
         enemy.SetDirection(direction);
     }
-
-
 }

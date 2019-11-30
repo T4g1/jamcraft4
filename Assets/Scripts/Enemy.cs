@@ -58,9 +58,7 @@ public class Enemy : MonoBehaviour, IAlive
     private int hitPoints;
 
     [SerializeField]
-    private GameObject bloodInstance;
-    [SerializeField]
-    private float attackDelay = 1f;
+    private GameObject bloodInstance = null;
 
     public int HitPoints
     {
@@ -80,6 +78,7 @@ public class Enemy : MonoBehaviour, IAlive
         Assert.IsNotNull(behaviour);
         Assert.IsNotNull(aggroZone);
         Assert.IsNotNull(lostZone);
+        Assert.IsNotNull(bloodInstance);
 
         aggroZone.OnZoneEnter += OnGotTarget;
         lostZone.OnZoneExit += OnLostTarget;
@@ -106,8 +105,7 @@ public class Enemy : MonoBehaviour, IAlive
 
     void OnGotTarget(GameObject other)
     {
-        if (other.tag != "Player")
-        {
+        if (other.tag != "Player") {
             return;
         }
 
@@ -116,8 +114,7 @@ public class Enemy : MonoBehaviour, IAlive
 
     void OnLostTarget(GameObject other)
     {
-        if (other.tag != "Player")
-        {
+        if (other.tag != "Player") {
             return;
         }
 
@@ -141,26 +138,30 @@ public class Enemy : MonoBehaviour, IAlive
         SetAnimation("hurt");
         GetComponent<Rigidbody2D>().velocity = Vector2.zero;
 
-        if (!IsAlive)
-        {
+        if (!IsAlive) {
             Die();
         }
     }
 
     public void Die()
     {
-        if (Random.Range(0f, 1f) <= dropRate)
-        {
+        if (Random.Range(0f, 1f) <= dropRate) {
             GameController.Instance.CreatePickUp(transform.position);
         }
-        GameObject blood = Instantiate(bloodInstance, gameObject.transform.position, Quaternion.identity);
+
+        GameObject blood = GameController.Instance.Instantiate(
+            bloodInstance, 
+            gameObject.transform.position
+        );
 
         Destroy(gameObject);
     }
+
     public virtual void Attack()
     {
         // Attack the player.
     }
+
     public void SetAnimation(string animationName)
     {
         GetComponent<Animator>().Play(animationName);

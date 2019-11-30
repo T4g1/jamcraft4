@@ -5,42 +5,33 @@ using UnityEngine;
 public class Attacking : StateMachineBehaviour
 {
     private Enemy enemy;
-    private Animator Animator = null;
-
-
-    public void OnTargetLost(GameObject other)
-    {
-        if (other.tag == "Player")
-        {
-            Animator.SetBool("attacking", false);
-        }
-    }
-
-
+    private Animator cachedAnimator = null;
+    
+    private float attackDelay = 0.5f;
+    private float attackCooldown = 0f;
 
     override public void OnStateEnter(
         Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        cachedAnimator = animator;
         enemy = animator.gameObject.GetComponentInParent<Enemy>();
 
-        Animator = animator;
         enemy.SetAnimation("attack");
-        enemy.AttackZone.OnZoneExit += OnTargetLost;
+        enemy.SetDirection(Vector3.zero);
 
         Utility.GetPlayer().TakeDamage(1);
-    }
-    override public void OnStateUpdate(Animator animator, AnimatorStateInfo animatorStateInfo, int layerIndex) {
-        keepDirection();
+
+        attackCooldown = attackDelay;
     }
 
-
-    override public void OnStateExit(Animator animator, AnimatorStateInfo animatorStateInfo, int layerIndex)
+    override public void OnStateUpdate(
+        Animator animator, AnimatorStateInfo animatorStateInfo, int layerIndex) 
     {
-        enemy.AttackZone.OnZoneExit -= OnTargetLost;
-    }
-    private void keepDirection(){
-        enemy.SetDirection(Vector3.zero);
-    }
+        enemy.gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
 
-
+        attackCooldown -= Time.deltaTime;
+        if (attackCooldown <= 0) {
+            cachedAnimator.SetBool("attacking", false);
+        }
+    }
 }
