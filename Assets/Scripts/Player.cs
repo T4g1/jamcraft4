@@ -93,9 +93,9 @@ public class Player : MonoBehaviour, IAlive
 
     void Update()
     {
-        UpdateAnimator();
-
         if (InputEnabled()) {
+            UpdateAnimator();
+
             weapon.UpdateVisor();
             weapon.UpdateRotation();
 
@@ -183,7 +183,7 @@ public class Player : MonoBehaviour, IAlive
         if (animator == null) {
             return;
         }
-        
+        Debug.Log(stateName);
         animator.Play(stateName);
         lastAnimation = stateName;
     }
