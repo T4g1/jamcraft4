@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.Tilemaps;
 
 public class GameController : MonoBehaviour
 {
@@ -46,6 +47,26 @@ public class GameController : MonoBehaviour
     private GameObject inventoryUI = null;
     [SerializeField]
     private GameObject craftingUI = null;
+    
+    [SerializeField]
+    private Transform lastRoomEntry = null;
+
+    [SerializeField]
+    private TileBase floor = null;
+    public TileBase Floor {
+        get { return floor; }
+        set {}
+    }
+    [SerializeField]
+    private TileBase wall = null;
+    public TileBase Wall {
+        get { return wall; }
+        set {}
+    }
+
+    [SerializeField]
+    private uint lastLevel = 5;
+    private uint currentLevel = 0;
 
     public GameObject dynamicHolder = null;
 
@@ -71,11 +92,15 @@ public class GameController : MonoBehaviour
     void Start()
     {
         Screen.SetResolution(640, 360, false);
+        
+        Assert.IsNotNull(wall);
+        Assert.IsNotNull(floor);
         Assert.IsNotNull(intensityTween);
         Assert.IsNotNull(pickUpPrefab);
         Assert.IsNotNull(inventoryUI);
         Assert.IsNotNull(craftingUI);
         Assert.IsNotNull(levelGenerator);
+        Assert.IsNotNull(lastRoomEntry);
         Utility.AssertArrayNotNull<Sprite>(handleSprites);
         Utility.AssertArrayNotNull<Sprite>(quiverSprites);
         Utility.AssertArrayNotNull<Sprite>(stockSprites);
@@ -167,6 +192,20 @@ public class GameController : MonoBehaviour
         levelGenerator.Generate();
     }
 
+    public void OnLevelGenerated()
+    {
+        currentLevel += 1;
+
+        if (currentLevel >= lastLevel) {
+            levelGenerator.PortalOut.SetDestination(
+                lastRoomEntry.position
+            );
+        }
+        
+        levelGenerator.PortalIn.Activate();
+        levelGenerator.PortalOut.Activate();    // TODO: Do this when boss dies
+    }
+
     public void ToggleCraftingUI()
     {
         if (craftingUI.activeSelf) {
@@ -174,6 +213,11 @@ public class GameController : MonoBehaviour
         } else {
             OpenCraftingUI();
         }
+    }
+
+    public bool IsCraftingUIActive()
+    {
+        return craftingUI.activeSelf;
     }
 
     public void OpenCraftingUI()
@@ -184,8 +228,10 @@ public class GameController : MonoBehaviour
 
     public void CloseCraftingUI()
     {
-        craftingUI.SetActive(false);
-        CloseInventory();
+        if (IsCraftingUIActive()) {
+            craftingUI.SetActive(false);
+            CloseInventory();
+        }
     }
 
     public void ToggleInventory()
