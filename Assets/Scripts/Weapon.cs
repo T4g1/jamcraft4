@@ -56,15 +56,14 @@ public class Weapon : MonoBehaviour
     private WeaponPartHolder handleHolder;
     private WeaponPartHolder quiverHolder;
 
-    // FMOD declare emitter instance
-    FMODUnity.StudioEventEmitter sfx;
-    const float SFX_SHOOT_FULL = 0.0f;
-    const float SFX_SHOOT_EMPTY = 1.0f;
-
-
+    [SerializeField]
+    private float SFX_SHOOT_FULL = 0.0f;
+    [SerializeField]
+    private float SFX_SHOOT_EMPTY = 1.0f;
     [FMODUnity.EventRef]
-    public string PlayerStateEvent = "";
-    FMOD.Studio.EventInstance playerState;
+    public string shootSFXName = "";
+    private float sfxIsEmpty;
+
 
     void Start()
     {
@@ -92,9 +91,7 @@ public class Weapon : MonoBehaviour
         
         MagazineClip = GetMagazineSize();
         
-        // FMOD connect emitter to event emitter component
-        playerState = FMODUnity.RuntimeManager.CreateInstance(PlayerStateEvent);
-        playerState.setParameterByName("IsEmpty", SFX_SHOOT_FULL);
+        sfxIsEmpty = SFX_SHOOT_FULL;
 
         playerCamera = Camera.main;
 
@@ -168,7 +165,7 @@ public class Weapon : MonoBehaviour
         reloadTime = Mathf.Max(0, reloadTime -Time.deltaTime);
 
         if (reloading && reloadTime <= 0) {
-            playerState.setParameterByName("IsEmpty", SFX_SHOOT_FULL);
+            sfxIsEmpty = SFX_SHOOT_FULL;
 
             reloading = false;
             MagazineClip = GetMagazineSize();
@@ -258,8 +255,8 @@ public class Weapon : MonoBehaviour
         shotCooldown = GetShotInterval();
 
         if (MagazineClip <= 0) {
-            playerState.setParameterByName("IsEmpty", SFX_SHOOT_EMPTY);
-            playerState.start();
+            sfxIsEmpty = SFX_SHOOT_EMPTY;
+            StartShootSFX();
 
             if (OnMagazineEmpty != null) {
                 OnMagazineEmpty();
@@ -282,8 +279,8 @@ public class Weapon : MonoBehaviour
         visor.transform.position += recoil;
 
         MagazineClip -= 1;
-        
-        playerState.start();
+
+        StartShootSFX();
 
         if (OnShoot != null) {
             OnShoot();
@@ -407,5 +404,14 @@ public class Weapon : MonoBehaviour
         // one PartType holder (or something requested a NONE part holder)
         Assert.IsTrue(false);
         return null;
+    }
+
+    void StartShootSFX()
+    {
+        FMOD.Studio.EventInstance instance =
+            FMODUnity.RuntimeManager.CreateInstance(shootSFXName);
+
+        instance.setParameterByName("IsEmpty", sfxIsEmpty);
+        instance.start();
     }
 }
