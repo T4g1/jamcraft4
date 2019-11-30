@@ -4,23 +4,18 @@ using UnityEngine;
 
 public class Following : StateMachineBehaviour
 {
+    private Player player;
     private Enemy enemy;
     private Animator cachedAnimator = null;
 
     private float oldSpeed;
+    private float attackThreshold = 1.2f;
 
 
     public void OnTargetLost(GameObject other)
     {
         if (other.tag == "Player") {
             cachedAnimator.SetBool("hasTarget", false);
-        }
-    }
-
-    public void OnTargetAquired(GameObject other)
-    {
-        if (other.tag == "Player") {
-            cachedAnimator.SetBool("attacking", true);
         }
     }
 
@@ -37,13 +32,21 @@ public class Following : StateMachineBehaviour
         enemy.Speed = enemy.AgroSpeed;
 
         enemy.LostZone.OnZoneExit += OnTargetLost;
-        enemy.AttackZone.OnZoneEnter += OnTargetAquired;
+
+        player = Utility.GetPlayer();
     }
 
     override public void OnStateUpdate(
         Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         FollowPlayer();
+
+        float distance = Vector3.Distance(
+            enemy.transform.position, 
+            player.transform.position
+        );
+
+        cachedAnimator.SetBool("attacking", distance < attackThreshold);
     }
 
     override public void OnStateExit(
@@ -52,7 +55,6 @@ public class Following : StateMachineBehaviour
         enemy.Speed = oldSpeed;
 
         enemy.LostZone.OnZoneExit -= OnTargetLost;
-        enemy.AttackZone.OnZoneEnter -= OnTargetAquired;
     }
 
     /**

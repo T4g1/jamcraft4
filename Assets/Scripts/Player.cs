@@ -183,7 +183,7 @@ public class Player : MonoBehaviour, IAlive
         if (animator == null) {
             return;
         }
-        Debug.Log(stateName);
+        
         animator.Play(stateName);
         lastAnimation = stateName;
     }
