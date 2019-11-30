@@ -10,7 +10,7 @@ public class InventoryUI : Popup
     private InventorySlot[] slots;
 
 
-    void Start()
+    new void Start()
     {
         Assert.IsNotNull(itemsParent);
 
