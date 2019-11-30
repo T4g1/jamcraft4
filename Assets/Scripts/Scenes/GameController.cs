@@ -47,6 +47,9 @@ public class GameController : MonoBehaviour
     private Transform lastRoomEntry = null;
 
     [SerializeField]
+    private float deathTime = 2.0f;
+
+    [SerializeField]
     private TileBase floor = null;
     public TileBase Floor {
         get { return floor; }
@@ -108,6 +111,8 @@ public class GameController : MonoBehaviour
 
         theme = FMODUnity.RuntimeManager.CreateInstance(themeName);
         theme.start();
+
+        Utility.GetPlayer().OnDeath += OnPlayerDies;
     }
 
     void Update()
@@ -181,6 +186,23 @@ public class GameController : MonoBehaviour
         return part;
     }
 
+    /**
+     * Teleports player back to spawn and resplenish life
+     */
+    public void OnPlayerDies()
+    {
+        StartCoroutine(_OnPlayerDies());
+    }
+
+    IEnumerator _OnPlayerDies()
+    {
+        yield return new WaitForSeconds(deathTime);
+
+        Player player = Utility.GetPlayer();
+        player.transform.position = levelGenerator.Spawn.position;
+        player.Heal();
+    }
+
     public void OnLevelEnds()
     {
         levelGenerator.Generate();
@@ -215,5 +237,10 @@ public class GameController : MonoBehaviour
     public void OnDestroy()
     {
         theme.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        
+        Player player = Utility.GetPlayer();
+        if (player) {
+            player.OnDeath -= OnPlayerDies;
+        }
     }
 }

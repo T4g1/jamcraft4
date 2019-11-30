@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b528076d160d3b04f9eac9e6503946cd, type: 3}
   m_Name: End Item
   m_EditorClassIdentifier: 
-  sprite: {fileID: 6172791670031832800, guid: 696be44e40cd71c47a9327189cc3056f, type: 3}
+  sprite: {fileID: 21300000, guid: 499a21ae936037941aa75477b7ff51fa, type: 3}

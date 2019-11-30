@@ -917,7 +917,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   themeName: event:/Level1_Song
   themIntensity: 50
-  light: {fileID: 571969066}
+  mouseLight: {fileID: 571969066}
 --- !u!4 &1340446925
 Transform:
   m_ObjectHideFlags: 0

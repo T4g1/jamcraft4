@@ -28,6 +28,10 @@ public class LevelGenerator : MonoBehaviour
     private GameObject endRoomContent = null;
     [SerializeField]
     private Transform spawn = null;
+    public Transform Spawn {
+        get { return spawn; }
+        set {}
+    }
     [SerializeField]
     private Portal portalIn = null;
     public Portal PortalIn {
