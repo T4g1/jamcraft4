@@ -17,4 +17,9 @@ public class Item : ScriptableObject
     {
         return PartType.NONE;
     }
+
+    public virtual void OnPickedUp()
+    {
+        // Override behaviour
+    }
 }

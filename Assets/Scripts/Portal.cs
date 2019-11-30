@@ -10,7 +10,22 @@ public class Portal : MonoBehaviour
     private float teleportTime = 0.5f;
 
     private bool isLevelEnd = false;
-    private Vector2 destination = Vector3.zero;
+    
+    [SerializeField]
+    private bool defaultActive = true;
+    [SerializeField]
+    private Vector3 destination = Vector3.zero;
+
+
+    void Start()
+    {
+        if (defaultActive) {
+            Activate();
+        }
+        else {
+            Deactivate();
+        }
+    }
 
 
     void OnTriggerEnter2D(Collider2D other) 
@@ -46,5 +61,10 @@ public class Portal : MonoBehaviour
     public void Activate()
     {
         gameObject.SetActive(true);
+    }
+
+    public void Deactivate()
+    {
+        gameObject.SetActive(false);
     }
 }

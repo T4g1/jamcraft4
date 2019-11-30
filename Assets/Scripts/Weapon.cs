@@ -9,7 +9,8 @@ public class Weapon : MonoBehaviour
 {
     public event System.Action<uint> OnMagazineClipChanged;
     public event System.Action OnShoot;
-    public event System.Action OnMagzineEmpty;
+    public event System.Action OnMagazineEmpty;
+    public event System.Action OnReloading;
 
     // Display settings
     [SerializeField]
@@ -105,6 +106,13 @@ public class Weapon : MonoBehaviour
      */
     public void UpdateLayout()
     {
+        Quaternion savedRotation = transform.rotation;
+        transform.rotation = Quaternion.Euler(
+            0.0f,
+            0.0f,
+            0.0f
+        );
+
         // Place barrel left of handle
         barrelHolder.SetPosition(handleHolder.GetPosition() + new Vector3(
             -barrelHolder.GetSize().x,
@@ -146,6 +154,8 @@ public class Weapon : MonoBehaviour
             -barrelHolder.GetSize().y / 2,
             0.0f
         );
+
+        transform.rotation = savedRotation;
     }
 
     void Update()
@@ -159,12 +169,8 @@ public class Weapon : MonoBehaviour
             MagazineClip = GetMagazineSize();
         }
 
-        if (EventSystem.current.IsPointerOverGameObject()) {
-            Cursor.visible = true;
+        if (Cursor.visible) {
             return;
-        } 
-        else {
-            Cursor.visible = false;
         }
         
         UpdateVisor();
@@ -240,11 +246,11 @@ public class Weapon : MonoBehaviour
             return;
         }
 
-        if (MagazineClip <= 0) {
-            if (OnMagzineEmpty != null) {
-                OnMagzineEmpty();
-            }
+        if (reloading) {
+            return;
+        }
 
+        if (MagazineClip <= 0) {
             return;
         }
 
@@ -262,6 +268,11 @@ public class Weapon : MonoBehaviour
         visor.transform.position += recoil;
 
         MagazineClip -= 1;
+        if (MagazineClip <= 0) {
+            if (OnMagazineEmpty != null) {
+                OnMagazineEmpty();
+            }
+        }
 
         shotCooldown = GetShotInterval();
 
@@ -278,6 +289,10 @@ public class Weapon : MonoBehaviour
 
         reloading = true;
         reloadTime = GetReloadTime();
+
+        if (OnReloading != null) {
+            OnReloading();
+        }
     }
 
     Quaternion GetShootDirection()

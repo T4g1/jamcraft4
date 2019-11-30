@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Tween : MonoBehaviour
 {
+    public event System.Action OnTweenEnd;
+
     [SerializeField]
     private float transitionTime = 0.0f;
 
@@ -29,6 +31,10 @@ public class Tween : MonoBehaviour
 
         if (elapsed_time > transitionTime) {
             elapsed_time = transitionTime;
+            
+            if (OnTweenEnd != null) {
+                OnTweenEnd();
+            }
         }
     }
 
