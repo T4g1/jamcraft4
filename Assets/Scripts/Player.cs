@@ -126,6 +126,11 @@ public class Player : MonoBehaviour, IAlive
         }
     }
 
+    public void StopMovement()
+    {
+        body.velocity = Vector3.zero;
+    }
+
     void UpdateVelocity()
     {
         moveDirection = new Vector3(
