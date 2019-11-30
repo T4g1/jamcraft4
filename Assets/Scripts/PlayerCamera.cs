@@ -27,7 +27,7 @@ public class PlayerCamera : MonoBehaviour
 
     void Update()
     {
-        if (Cursor.visible) {
+        if (!player.InputEnabled()) {
             return;
         }
         

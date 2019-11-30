@@ -16,6 +16,10 @@ public class Cheat : MonoBehaviour
         if (Input.GetButtonDown("Use")) {
             RandomizeWeapon();
         }
+
+        if (Input.GetButtonDown("Use")) {
+            HurtPlayer();
+        }
     }
 
     /**
@@ -32,5 +36,10 @@ public class Cheat : MonoBehaviour
 
             weapon.SetPart(part);
         }
+    }
+
+    void HurtPlayer()
+    {
+        Utility.GetPlayer().TakeDamage(1);
     }
 }

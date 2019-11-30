@@ -86,7 +86,7 @@ public class Player : MonoBehaviour, IAlive
     /**
      * Wether or not player is directly controlled right now
      */
-    bool InputEnabled()
+    public bool InputEnabled()
     {
         return IsAlive && !Cursor.visible;
     }
@@ -119,10 +119,6 @@ public class Player : MonoBehaviour, IAlive
     {
         if (Input.GetButton("Fire1")) {
             weapon.Shoot();
-        }
-
-        if (Input.GetButtonDown("Use")) {
-            HitPoints -= 1;
         }
         
         if (Input.GetButtonDown("Reload")) {
