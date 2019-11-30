@@ -8,7 +8,7 @@ public class Popup : MonoBehaviour
     private bool openByDefault = false;
 
 
-    protected virtual void Start()
+    protected void Start()
     {
         if (openByDefault) {
             Open();
@@ -41,7 +41,7 @@ public class Popup : MonoBehaviour
         }
     }
 
-    public void Close()
+    public virtual void Close()
     {
         gameObject.SetActive(false);
 

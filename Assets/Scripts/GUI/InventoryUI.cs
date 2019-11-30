@@ -10,7 +10,7 @@ public class InventoryUI : Popup
     private InventorySlot[] slots;
 
 
-    protected override void Start()
+    void Start()
     {
         Assert.IsNotNull(itemsParent);
 
@@ -19,7 +19,7 @@ public class InventoryUI : Popup
 
         slots = itemsParent.GetComponentsInChildren<InventorySlot>();
 
-        base.Start();
+        UpdateUI();
     }
 
     void OnEnable()

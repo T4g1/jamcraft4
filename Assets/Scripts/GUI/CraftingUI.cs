@@ -111,4 +111,10 @@ public class CraftingUI : Popup
         base.Open();
         GameUIController.Instance.Inventory.Open();
     }
+
+    public override void Close()
+    {
+        base.Close();
+        GameUIController.Instance.Inventory.Close();
+    }
 }
