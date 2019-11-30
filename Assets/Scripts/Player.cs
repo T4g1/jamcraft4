@@ -5,6 +5,7 @@ using UnityEngine.Assertions;
 
 public class Player : MonoBehaviour, IAlive
 {
+    public event System.Action OnDeath;
     public event System.Action<int> OnHitPointsChanged;
 
     [SerializeField]
@@ -29,26 +30,37 @@ public class Player : MonoBehaviour, IAlive
     [SerializeField]
     private int maxHitPoints = 3;
     private int hitPoints = 0;
-
     public int HitPoints {
         get { return hitPoints; }
-        set { 
-            hitPoints = value; 
+        set {
+            bool wasAlive = IsAlive;
+            hitPoints = value;
 
             if (OnHitPointsChanged != null) {
                 OnHitPointsChanged(hitPoints);
             }
+
+            // Player just died
+            if (wasAlive && !IsAlive) {
+                Die();
+            }
         }
     }
+
+    private Weapon weapon;
     
     public bool IsAlive {
-        get { return hitPoints > 0; }
+        get { return HitPoints > 0; }
         set {}
     }
+    
+    [SerializeField]
+    private Tooltip reloadUI = null;
 
 
     void Start() 
     {
+        Assert.IsNotNull(reloadUI);
         Assert.IsNotNull(body);
         Assert.IsNotNull(sprite);
         Assert.IsNotNull(cameraContainer);
@@ -56,13 +68,38 @@ public class Player : MonoBehaviour, IAlive
         SetAnimation("idle_down");
 
         HitPoints = maxHitPoints;
+        
+        Utility.GetWeapon().OnMagazineEmpty += OnMagazineEmpty;
+        Utility.GetWeapon().OnReloading += OnReloading;
+
+        weapon = Utility.GetWeapon();
+    }
+
+    void OnDestroy()
+    {
+        if (weapon != null) {
+            weapon.OnMagazineEmpty -= OnMagazineEmpty;
+            weapon.OnReloading -= OnReloading;
+        }
+    }
+
+    /**
+     * Wether or not player is directly controlled right now
+     */
+    public bool InputEnabled()
+    {
+        return IsAlive && !Cursor.visible;
     }
 
     void Update()
     {
         UpdateAnimator();
-        if (Input.GetButtonDown("Use")) {
-            HitPoints -= 1;
+
+        if (InputEnabled()) {
+            weapon.UpdateVisor();
+            weapon.UpdateRotation();
+
+            HandleInputs();
         }
     }
 
@@ -73,7 +110,20 @@ public class Player : MonoBehaviour, IAlive
 
     void FixedUpdate()
     {
-        UpdateVelocity();
+        if (InputEnabled()) {
+            UpdateVelocity();
+        }
+    }
+
+    void HandleInputs()
+    {
+        if (Input.GetButton("Fire1")) {
+            weapon.Shoot();
+        }
+        
+        if (Input.GetButtonDown("Reload")) {
+            weapon.Reload();
+        }
     }
 
     void UpdateVelocity()
@@ -135,20 +185,33 @@ public class Player : MonoBehaviour, IAlive
     
     public void TakeDamage(int amount)
     {
-        hitPoints -= amount;
+        HitPoints -= amount;
+    }
 
-        if (!IsAlive) {
-            Die();
-        }
+    public void Heal()
+    {
+        HitPoints = maxHitPoints;
     }
 
     public void Die()
     {
-        // TODO
+        if (OnDeath != null) {
+            OnDeath();
+        }
     }
 
     public Camera GetCamera()
     {
         return cameraContainer.GetComponent<Camera>();
+    }
+
+    public void OnReloading()
+    {
+        reloadUI.Hide();
+    }
+
+    public void OnMagazineEmpty()
+    {
+        reloadUI.Show();
     }
 }

@@ -9,7 +9,8 @@ public class Weapon : MonoBehaviour
 {
     public event System.Action<uint> OnMagazineClipChanged;
     public event System.Action OnShoot;
-    public event System.Action OnMagzineEmpty;
+    public event System.Action OnMagazineEmpty;
+    public event System.Action OnReloading;
 
     // Display settings
     [SerializeField]
@@ -56,6 +57,14 @@ public class Weapon : MonoBehaviour
     private WeaponPartHolder handleHolder;
     private WeaponPartHolder quiverHolder;
 
+    [SerializeField]
+    private float SFX_SHOOT_FULL = 0.0f;
+    [SerializeField]
+    private float SFX_SHOOT_EMPTY = 1.0f;
+    [FMODUnity.EventRef]
+    public string shootSFXName = "";
+    private float sfxIsEmpty;
+
 
     void Start()
     {
@@ -82,6 +91,8 @@ public class Weapon : MonoBehaviour
         Assert.IsNotNull(quiverHolder);
         
         MagazineClip = GetMagazineSize();
+        
+        sfxIsEmpty = SFX_SHOOT_FULL;
 
         playerCamera = Camera.main;
 
@@ -105,6 +116,13 @@ public class Weapon : MonoBehaviour
      */
     public void UpdateLayout()
     {
+        Quaternion savedRotation = transform.rotation;
+        transform.rotation = Quaternion.Euler(
+            0.0f,
+            0.0f,
+            0.0f
+        );
+
         // Place barrel left of handle
         barrelHolder.SetPosition(handleHolder.GetPosition() + new Vector3(
             -barrelHolder.GetSize().x,
@@ -146,6 +164,8 @@ public class Weapon : MonoBehaviour
             -barrelHolder.GetSize().y / 2,
             0.0f
         );
+
+        transform.rotation = savedRotation;
     }
 
     void Update()
@@ -155,24 +175,14 @@ public class Weapon : MonoBehaviour
         reloadTime = Mathf.Max(0, reloadTime -Time.deltaTime);
 
         if (reloading && reloadTime <= 0) {
+            sfxIsEmpty = SFX_SHOOT_FULL;
+
             reloading = false;
             MagazineClip = GetMagazineSize();
         }
-
-        if (EventSystem.current.IsPointerOverGameObject()) {
-            Cursor.visible = true;
-            return;
-        } 
-        else {
-            Cursor.visible = false;
-        }
-        
-        UpdateVisor();
-        UpdateRotation();
-        HandleInputs();
     }
 
-    void UpdateVisor()
+    public void UpdateVisor()
     {
         visor.transform.rotation = Quaternion.identity;
         visor.transform.position =  Vector3.Lerp(
@@ -185,7 +195,7 @@ public class Weapon : MonoBehaviour
     /**
      * Look at mouse position
      */
-    void UpdateRotation()
+    public void UpdateRotation()
     {
         Vector3 target = visor.transform.position;
         target.z = 0.0f;
@@ -218,33 +228,21 @@ public class Weapon : MonoBehaviour
     }
 
     /**
-     * Handle player inputs
-     */
-    void HandleInputs()
-    {
-        if (Input.GetButton("Fire1")) {
-            Shoot();
-        }
-        
-        if (Input.GetButtonDown("Reload")) {
-            Reload();
-        }
-    }
-
-    /**
      * Shoot a projectile
      */
-    void Shoot()
+    public void Shoot()
     {
         if (shotCooldown > 0) {
             return;
         }
 
-        if (MagazineClip <= 0) {
-            if (OnMagzineEmpty != null) {
-                OnMagzineEmpty();
-            }
+        shotCooldown = GetShotInterval();
 
+        if (reloading) {
+            return;
+        }
+
+        if (MagazineClip <= 0) {
             return;
         }
 
@@ -262,15 +260,23 @@ public class Weapon : MonoBehaviour
         visor.transform.position += recoil;
 
         MagazineClip -= 1;
+        if (MagazineClip <= 0) {
+            sfxIsEmpty = SFX_SHOOT_EMPTY;
+            StartShootSFX();
 
-        shotCooldown = GetShotInterval();
+            if (OnMagazineEmpty != null) {
+                OnMagazineEmpty();
+            }
+        }
+
+        StartShootSFX();
 
         if (OnShoot != null) {
             OnShoot();
         }
     }
 
-    void Reload()
+    public void Reload()
     {
         if (reloading) {
             return;
@@ -278,6 +284,10 @@ public class Weapon : MonoBehaviour
 
         reloading = true;
         reloadTime = GetReloadTime();
+
+        if (OnReloading != null) {
+            OnReloading();
+        }
     }
 
     Quaternion GetShootDirection()
@@ -387,5 +397,14 @@ public class Weapon : MonoBehaviour
         // one PartType holder (or something requested a NONE part holder)
         Assert.IsTrue(false);
         return null;
+    }
+
+    void StartShootSFX()
+    {
+        FMOD.Studio.EventInstance instance =
+            FMODUnity.RuntimeManager.CreateInstance(shootSFXName);
+
+        instance.setParameterByName("IsEmpty", sfxIsEmpty);
+        instance.start();
     }
 }

@@ -146,7 +146,9 @@ public class Enemy : MonoBehaviour, IAlive
     public void Die()
     {
         if (Random.Range(0f, 1f) <= dropRate) {
-            GameController.Instance.CreatePickUp(transform.position);
+            GameController.Instance.CreateRandomWeaponPartPickUp(
+                transform.position
+            );
         }
 
         GameObject blood = GameController.Instance.Instantiate(

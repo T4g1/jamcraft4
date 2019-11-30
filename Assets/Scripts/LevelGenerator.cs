@@ -28,8 +28,21 @@ public class LevelGenerator : MonoBehaviour
     private GameObject endRoomContent = null;
     [SerializeField]
     private Transform spawn = null;
+    public Transform Spawn {
+        get { return spawn; }
+        set {}
+    }
     [SerializeField]
     private Portal portalIn = null;
+    public Portal PortalIn {
+        get { return portalIn; }
+        set {}
+    }
+    private Portal portalOut = null;
+    public Portal PortalOut {
+        get { return portalOut; }
+        set {}
+    }
 
     private List<Room> rooms = new List<Room>();
     private List<Room> paths = new List<Room>();
@@ -37,7 +50,6 @@ public class LevelGenerator : MonoBehaviour
     private GameObject startRoom = null;
     private GameObject endRoom = null;
     private GameObject dynamicHolder;
-    private Portal portalOut = null;
 
 
     void Start()
@@ -54,13 +66,6 @@ public class LevelGenerator : MonoBehaviour
         dynamicHolder = GameController.Instance.dynamicHolder;
 
         Generate();
-    }
-
-    void Update()
-    {
-        if (Input.GetButtonDown("Submit")) {
-            Generate();
-        }
     }
 
     public void Generate()
@@ -85,10 +90,7 @@ public class LevelGenerator : MonoBehaviour
 
         AddWalls();
 
-        portalIn.Activate();
-
-        // TODO: Should Happen when Boss Dies!
-        portalOut.Activate();
+        GameController.Instance.OnLevelGenerated();
     }
 
     /**
