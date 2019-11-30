@@ -10,18 +10,25 @@ public class Wandering : StateMachineBehaviour
     [SerializeField]
     private float minDirectionTime = 2.0f;
 
+    private Animator Animator=null;
+
     [SerializeField]
     private float maxDirectionTime = 5.0f;
-
-
+    public void OnTargetAquired(GameObject other){
+        if(other.tag=="Player"){
+            Animator.SetBool("hasTarget",true);
+            // Check if that way is a good way to access the Animator.
+        }
+    }
 
     override public void OnStateEnter(
         Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         enemy = animator.gameObject.GetComponentInParent<Enemy>();
         directionChangeDelay = 0.0f;
-
+        Animator=animator;
         enemy.SetAnimation("walk");
+        enemy.AggroZone.OnZoneEnter+=OnTargetAquired;
     }
     
     override public void OnStateUpdate(
@@ -39,6 +46,10 @@ public class Wandering : StateMachineBehaviour
         }
     }
 
+    override public void OnStateExit(Animator animator, AnimatorStateInfo animatorStateInfo, int layerIndex) {
+        enemy.AggroZone.OnZoneEnter-=OnTargetAquired;
+        
+    }
     /**
      * Change direction of movement
      */

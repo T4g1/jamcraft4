@@ -15,11 +15,13 @@ MonoBehaviour:
   dropRate: 0.5
   aggroZone: {fileID: 6196314451790662426}
   lostZone: {fileID: 6196314451790662426}
-  speed: 20
+  speed: 1
   behaviour: {fileID: 1139126462083085728}
+  player: {fileID: 0}
   hitPoints: 0
   bloodInstance: {fileID: 6716661629832660066, guid: 8a50f28f9c71d461fb94cb13102120a8,
     type: 3}
+  attackDelay: 1
 --- !u!1001 &5035167265586568352
 PrefabInstance:
   m_ObjectHideFlags: 0

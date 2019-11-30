@@ -11,9 +11,17 @@ public class Enemy : MonoBehaviour, IAlive
 
     [SerializeField]
     private TriggerZone aggroZone = null;
+    public TriggerZone AggroZone{
+        get{return aggroZone;}
+        set{}
+    }
 
     [SerializeField]
     private TriggerZone lostZone = null;
+    public TriggerZone LostZone{
+        get{return lostZone;}
+        set{}
+    }
 
     [SerializeField]
     private float speed = 1.0f;
@@ -32,6 +40,8 @@ public class Enemy : MonoBehaviour, IAlive
 
     [SerializeField]
     private GameObject bloodInstance;
+    [SerializeField]
+    private float attackDelay = 1f;
 
     public int HitPoints
     {

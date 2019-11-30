@@ -66,4 +66,8 @@ public class Utility
     {
         return GameController.Instance.Floor;
     }
+    public static Player GetPlayer()
+    {
+        return GameObject.FindWithTag("Player").GetComponent<Player>();
+    }
 }
