@@ -15,14 +15,31 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: 18c229c19dd0ad848a01ec5bd7604277, type: 3}
   isQuiver: 0
   magazineSize: 0
+  magezineSizes: 050000001400000032000000
   isBarrel: 0
   bulletPrefab: {fileID: 0}
   isStock: 1
-  recoil: 1
+  recoil: 0.5
+  recoils:
+  - 0
+  - 1
+  - 5
   isSight: 0
   precision: 0
+  precisions:
+  - 0
+  - 0.05
+  - 0.5
   isHandle: 0
   reloadTime: 0
+  reloadTimes:
+  - 0
+  - 2
+  - 5
   isString: 0
   fireRate: 0
   lifespan: 0
+  fireRates:
+  - 0.1
+  - 0.5
+  - 1

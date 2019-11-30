@@ -1312,7 +1312,7 @@ MonoBehaviour:
   deathTime: 2
   floor: {fileID: 11400000, guid: 659d03f5516aa3443b619fc3c9a49036, type: 2}
   wall: {fileID: 11400000, guid: c26fea2fdf943d44fad0454dcac044c8, type: 2}
-  lastLevel: 5
+  lastLevel: 2
   dynamicHolder: {fileID: 1022476630}
   levelGenerator: {fileID: 1642989573}
 --- !u!1001 &382715593
