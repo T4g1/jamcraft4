@@ -25,7 +25,7 @@ public class CraftingStation : Interactable
     {
         isInRange = false;
 
-        GameController.Instance.CloseCraftingUI();
+        GameUIController.Instance.Crafting.Close();
         actionInfo.Hide();
     }
 
@@ -37,7 +37,7 @@ public class CraftingStation : Interactable
     void Update()
     {
         if (Input.GetButtonDown("Use") && isInRange) {
-            GameController.Instance.ToggleCraftingUI();
+            GameUIController.Instance.Crafting.Toggle();
         }
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
 
-public class CraftingUI : MonoBehaviour
+public class CraftingUI : Popup
 {
     #region Singleton
     public static CraftingUI Instance { get; private set; }

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Assertions;
 
-public class InventoryUI : MonoBehaviour
+public class InventoryUI : Popup
 {
     [SerializeField]
     private Transform itemsParent = null;

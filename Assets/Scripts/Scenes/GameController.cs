@@ -23,7 +23,7 @@ public class GameController : MonoBehaviour
     void InitInstance()
     {
         if (Instance != null) {
-            Debug.Log("More than on inventory created!");
+            Debug.Log("More than one GameController created!");
         }
 
         Instance = this;
@@ -42,11 +42,6 @@ public class GameController : MonoBehaviour
 
     [SerializeField]
     private GameObject pickUpPrefab = null;
-
-    [SerializeField]
-    private GameObject inventoryUI = null;
-    [SerializeField]
-    private GameObject craftingUI = null;
     
     [SerializeField]
     private Transform lastRoomEntry = null;
@@ -102,8 +97,6 @@ public class GameController : MonoBehaviour
         Assert.IsNotNull(floor);
         Assert.IsNotNull(intensityTween);
         Assert.IsNotNull(pickUpPrefab);
-        Assert.IsNotNull(inventoryUI);
-        Assert.IsNotNull(craftingUI);
         Assert.IsNotNull(levelGenerator);
         Assert.IsNotNull(lastRoomEntry);
         Utility.AssertArrayNotNull<Sprite>(handleSprites);
@@ -123,17 +116,6 @@ public class GameController : MonoBehaviour
             "intensity",
             (float) intensityTween.GetValue()
         );
-
-        if (Input.GetButtonDown("Inventory")) {
-            ToggleInventory();
-        }
-
-        if (IsMenuOpened()) {
-            Cursor.visible = true;
-        } 
-        else {
-            Cursor.visible = false;
-        }
     }
 
     void UpdateThemeIntensity()
@@ -216,69 +198,6 @@ public class GameController : MonoBehaviour
         
         levelGenerator.PortalIn.Activate();
         levelGenerator.PortalOut.Activate();    // TODO: Do this when boss dies
-    }
-
-    public bool IsMenuOpened()
-    {
-        return IsCraftingUIActive() || IsInventoryActive();
-    }
-
-    public void CloseUI()
-    {
-        CloseCraftingUI();
-        CloseInventory();
-    }
-
-    public bool IsCraftingUIActive()
-    {
-        return craftingUI.activeSelf;
-    }
-
-    public void ToggleCraftingUI()
-    {
-        if (craftingUI.activeSelf) {
-            CloseCraftingUI();
-        } else {
-            OpenCraftingUI();
-        }
-    }
-
-    public void OpenCraftingUI()
-    {
-        craftingUI.SetActive(true);
-        OpenInventory();
-    }
-
-    public void CloseCraftingUI()
-    {
-        if (IsCraftingUIActive()) {
-            craftingUI.SetActive(false);
-            CloseInventory();
-        }
-    }
-
-    public bool IsInventoryActive()
-    {
-        return inventoryUI.activeSelf;
-    }
-
-    public void ToggleInventory()
-    {
-        if (inventoryUI.activeSelf) {
-            CloseInventory();
-        } else {
-            OpenInventory();
-        }
-    }
-
-    public void OpenInventory()
-    {
-        inventoryUI.SetActive(true);
-    }
-
-    public void CloseInventory()
-    {
-        inventoryUI.SetActive(false);
     }
 
     /**
