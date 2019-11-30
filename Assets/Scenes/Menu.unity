@@ -404,7 +404,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 571969066}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -7.09}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 679519802}
@@ -421,7 +421,7 @@ Light:
   serializedVersion: 9
   m_Type: 2
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1.3
+  m_Intensity: 1
   m_Range: 30
   m_SpotAngle: 55
   m_InnerSpotAngle: 5
@@ -917,6 +917,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   themeName: event:/Level1_Song
   themIntensity: 50
+  light: {fileID: 571969066}
 --- !u!4 &1340446925
 Transform:
   m_ObjectHideFlags: 0
