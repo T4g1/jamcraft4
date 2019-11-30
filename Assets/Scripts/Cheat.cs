@@ -4,8 +4,15 @@ using UnityEngine;
 
 public class Cheat : MonoBehaviour
 {
+    [SerializeField]
+    private bool cheatEnabled = false;
+
     void Update()
     {
+        if (!cheatEnabled) {
+            return;
+        }
+
         if (Input.GetButtonDown("Use")) {
             RandomizeWeapon();
         }
