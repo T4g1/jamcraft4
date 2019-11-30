@@ -98,7 +98,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   radius: 1.25
   actionInfo: {fileID: 4665872184140116523}
-  actionInfoOffset: 1.25
 --- !u!58 &6117367753224943580
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -247,6 +246,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2833587252917670570}
     m_Modifications:
+    - target: {fileID: 4474098794640344307, guid: 6088b77b9d16f4a4c9a60935af54dfb8,
+        type: 3}
+      propertyPath: follow
+      value: 
+      objectReference: {fileID: 1168572555531694141}
+    - target: {fileID: 4474098794640344307, guid: 6088b77b9d16f4a4c9a60935af54dfb8,
+        type: 3}
+      propertyPath: offset.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7598308737244282326, guid: 6088b77b9d16f4a4c9a60935af54dfb8,
         type: 3}
       propertyPath: m_Name
@@ -356,6 +365,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1335766708892465295, guid: 6088b77b9d16f4a4c9a60935af54dfb8,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1335766708892465295, guid: 6088b77b9d16f4a4c9a60935af54dfb8,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6088b77b9d16f4a4c9a60935af54dfb8, type: 3}

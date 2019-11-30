@@ -351,7 +351,6 @@ MonoBehaviour:
   speed: 200
   maxHitPoints: 3
   reloadUI: {fileID: 4956622789899826250}
-  reloadUIOffset: {x: 0, y: -1, z: 0}
 --- !u!95 &1341694006770321310
 Animator:
   serializedVersion: 3
@@ -806,6 +805,16 @@ PrefabInstance:
       propertyPath: textContent
       value: R
       objectReference: {fileID: 0}
+    - target: {fileID: 4474098794640344307, guid: 6088b77b9d16f4a4c9a60935af54dfb8,
+        type: 3}
+      propertyPath: offset.y
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4474098794640344307, guid: 6088b77b9d16f4a4c9a60935af54dfb8,
+        type: 3}
+      propertyPath: follow
+      value: 
+      objectReference: {fileID: 4401080608842598192}
     - target: {fileID: 7598308737244282326, guid: 6088b77b9d16f4a4c9a60935af54dfb8,
         type: 3}
       propertyPath: m_Name
@@ -920,6 +929,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Color.a
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1335766708892465295, guid: 6088b77b9d16f4a4c9a60935af54dfb8,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1335766708892465295, guid: 6088b77b9d16f4a4c9a60935af54dfb8,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4815157631127888770, guid: 6088b77b9d16f4a4c9a60935af54dfb8,
         type: 3}

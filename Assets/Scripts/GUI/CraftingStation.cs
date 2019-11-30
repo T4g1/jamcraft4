@@ -11,8 +11,6 @@ public class CraftingStation : Interactable
 {
     [SerializeField]
     private Tooltip actionInfo = null;
-    [SerializeField]
-    private float actionInfoOffset = 0.5f;
 
     private bool isInRange = false;
     
@@ -41,11 +39,5 @@ public class CraftingStation : Interactable
         if (Input.GetButtonDown("Use") && isInRange) {
             GameController.Instance.ToggleCraftingUI();
         }
-
-        actionInfo.SetWorldPosition(new Vector3(
-            transform.position.x,
-            transform.position.y + actionInfoOffset,
-            transform.position.z
-        ));
     }
 }

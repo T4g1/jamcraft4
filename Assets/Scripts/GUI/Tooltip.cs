@@ -7,9 +7,13 @@ using UnityEngine.UI;
 public class Tooltip : MonoBehaviour
 {
     [SerializeField]
+    private GameObject follow = null;
+    [SerializeField]
+    private Vector3 offset = Vector3.zero;
+    [SerializeField]
     private bool defaultActive = false;
     [SerializeField]
-    private float margin = 2.0f;
+    private float textMargin = 2.0f;
     [SerializeField]
     private string textContent = "E";
     public string TextContent {
@@ -21,7 +25,6 @@ public class Tooltip : MonoBehaviour
     }
     
     private Text tooltipText;
-    private Vector3 goalPosition;   // Where in the world to display it
 
 
     void UpdateSize()
@@ -32,7 +35,9 @@ public class Tooltip : MonoBehaviour
         RectTransform rectTransform = GetComponent<RectTransform>();
         RectTransform tooltipTransform = 
             tooltipText.GetComponent<RectTransform>();
-        rectTransform.sizeDelta = tooltipTransform.sizeDelta + new Vector2(margin, margin) * 2;
+        
+        rectTransform.sizeDelta = tooltipTransform.sizeDelta; 
+        rectTransform.sizeDelta += new Vector2(textMargin, textMargin) * 2;
     }
 
     void Start()
@@ -62,7 +67,9 @@ public class Tooltip : MonoBehaviour
         Canvas canvas = GetComponentInParent<Canvas>();
         
         // Calculate *screen* position (note, not a canvas/recttransform position)
-        Vector2 screenPoint = Camera.main.WorldToScreenPoint(goalPosition);
+        Vector2 screenPoint = Camera.main.WorldToScreenPoint(
+            follow.transform.position + offset
+        );
         
         // Convert screen position to Canvas / RectTransform space <- leave camera null if Screen Space Overlay
         Vector2 canvasPosition;
@@ -74,11 +81,6 @@ public class Tooltip : MonoBehaviour
         );
         
         transform.localPosition = canvasPosition;
-    }
-
-    public void SetWorldPosition(Vector3 position)
-    {
-        goalPosition = position;
     }
     
     public void Show()

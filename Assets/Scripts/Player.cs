@@ -48,8 +48,6 @@ public class Player : MonoBehaviour, IAlive
     
     [SerializeField]
     private Tooltip reloadUI = null;
-    [SerializeField]
-    private Vector3 reloadUIOffset = Vector2.zero;
 
 
     void Start() 
@@ -79,8 +77,6 @@ public class Player : MonoBehaviour, IAlive
     void Update()
     {
         UpdateAnimator();
-
-        reloadUI.SetWorldPosition(transform.position + reloadUIOffset);
     }
 
     void Spawn()
