@@ -14,7 +14,7 @@ public class MainMenu : MonoBehaviour
 
     void Start()
     {
-        Screen.SetResolution(640, 360, false);
+        //Screen.SetResolution(640, 360, false);
 
         theme = FMODUnity.RuntimeManager.CreateInstance(themeName);
         theme.setParameterByName("intensity", themIntensity);

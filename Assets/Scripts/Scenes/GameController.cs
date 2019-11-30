@@ -89,9 +89,14 @@ public class GameController : MonoBehaviour
         InitInstance();
     }
 
+    void OnFocus()
+    {
+        Cursor.lockState = CursorLockMode.Confined;
+    }
+
     void Start()
     {
-        Screen.SetResolution(640, 360, false);
+        Cursor.lockState = CursorLockMode.Confined;
         
         Assert.IsNotNull(wall);
         Assert.IsNotNull(floor);
@@ -121,6 +126,13 @@ public class GameController : MonoBehaviour
 
         if (Input.GetButtonDown("Inventory")) {
             ToggleInventory();
+        }
+
+        if (IsMenuOpened()) {
+            Cursor.visible = true;
+        } 
+        else {
+            Cursor.visible = false;
         }
     }
 
@@ -206,6 +218,22 @@ public class GameController : MonoBehaviour
         levelGenerator.PortalOut.Activate();    // TODO: Do this when boss dies
     }
 
+    public bool IsMenuOpened()
+    {
+        return IsCraftingUIActive() || IsInventoryActive();
+    }
+
+    public void CloseUI()
+    {
+        CloseCraftingUI();
+        CloseInventory();
+    }
+
+    public bool IsCraftingUIActive()
+    {
+        return craftingUI.activeSelf;
+    }
+
     public void ToggleCraftingUI()
     {
         if (craftingUI.activeSelf) {
@@ -213,11 +241,6 @@ public class GameController : MonoBehaviour
         } else {
             OpenCraftingUI();
         }
-    }
-
-    public bool IsCraftingUIActive()
-    {
-        return craftingUI.activeSelf;
     }
 
     public void OpenCraftingUI()
@@ -232,6 +255,11 @@ public class GameController : MonoBehaviour
             craftingUI.SetActive(false);
             CloseInventory();
         }
+    }
+
+    public bool IsInventoryActive()
+    {
+        return inventoryUI.activeSelf;
     }
 
     public void ToggleInventory()
@@ -251,12 +279,6 @@ public class GameController : MonoBehaviour
     public void CloseInventory()
     {
         inventoryUI.SetActive(false);
-    }
-
-    public void CloseUI()
-    {
-        CloseCraftingUI();
-        CloseInventory();
     }
 
     /**

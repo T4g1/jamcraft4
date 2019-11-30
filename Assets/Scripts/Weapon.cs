@@ -9,7 +9,7 @@ public class Weapon : MonoBehaviour
 {
     public event System.Action<uint> OnMagazineClipChanged;
     public event System.Action OnShoot;
-    public event System.Action OnMagzineEmpty;
+    public event System.Action OnMagazineEmpty;
     public event System.Action OnReloading;
 
     // Display settings
@@ -169,12 +169,8 @@ public class Weapon : MonoBehaviour
             MagazineClip = GetMagazineSize();
         }
 
-        if (EventSystem.current.IsPointerOverGameObject()) {
-            Cursor.visible = true;
+        if (Cursor.visible) {
             return;
-        } 
-        else {
-            Cursor.visible = false;
         }
         
         UpdateVisor();
@@ -250,11 +246,11 @@ public class Weapon : MonoBehaviour
             return;
         }
 
-        if (MagazineClip <= 0) {
-            if (OnMagzineEmpty != null) {
-                OnMagzineEmpty();
-            }
+        if (reloading) {
+            return;
+        }
 
+        if (MagazineClip <= 0) {
             return;
         }
 
@@ -272,6 +268,11 @@ public class Weapon : MonoBehaviour
         visor.transform.position += recoil;
 
         MagazineClip -= 1;
+        if (MagazineClip <= 0) {
+            if (OnMagazineEmpty != null) {
+                OnMagazineEmpty();
+            }
+        }
 
         shotCooldown = GetShotInterval();
 

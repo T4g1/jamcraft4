@@ -61,7 +61,7 @@ public class Player : MonoBehaviour, IAlive
 
         HitPoints = maxHitPoints;
         
-        Utility.GetWeapon().OnMagzineEmpty += OnMagzineEmpty;
+        Utility.GetWeapon().OnMagazineEmpty += OnMagazineEmpty;
         Utility.GetWeapon().OnReloading += OnReloading;
     }
 
@@ -69,7 +69,7 @@ public class Player : MonoBehaviour, IAlive
     {
         Weapon weapon = Utility.GetWeapon();
         if (weapon != null) {
-            weapon.OnMagzineEmpty -= OnMagzineEmpty;
+            weapon.OnMagazineEmpty -= OnMagazineEmpty;
             weapon.OnReloading -= OnReloading;
         }
     }
@@ -170,7 +170,7 @@ public class Player : MonoBehaviour, IAlive
         reloadUI.Hide();
     }
 
-    public void OnMagzineEmpty()
+    public void OnMagazineEmpty()
     {
         reloadUI.Show();
     }
