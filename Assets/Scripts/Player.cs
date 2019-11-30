@@ -190,11 +190,18 @@ public class Player : MonoBehaviour, IAlive
 
     public void Heal()
     {
+        if (!IsAlive) {
+            SetAnimation("idle_down");
+        }
+        
         HitPoints = maxHitPoints;
     }
 
     public void Die()
     {
+        body.velocity = Vector3.zero;
+        SetAnimation("die");
+
         if (OnDeath != null) {
             OnDeath();
         }

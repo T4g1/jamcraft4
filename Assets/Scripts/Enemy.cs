@@ -5,18 +5,48 @@ using UnityEngine.Assertions;
 
 public class Enemy : MonoBehaviour, IAlive
 {
-    [Range (0f, 1f)]
+    [Range(0f, 1f)]
     [SerializeField]
     private float dropRate = 0.5f;
 
     [SerializeField]
     private TriggerZone aggroZone = null;
+    public TriggerZone AggroZone
+    {
+        get { return aggroZone; }
+        set { }
+    }
+    [SerializeField]
+    private TriggerZone attackZone = null;
+    public TriggerZone AttackZone
+    {
+        get { return attackZone; }
+        set { }
+    }
 
     [SerializeField]
     private TriggerZone lostZone = null;
+    public TriggerZone LostZone
+    {
+        get { return lostZone; }
+        set { }
+    }
 
     [SerializeField]
     private float speed = 1.0f;
+    
+    public float Speed
+    {
+        get { return speed; }
+        set { speed = value; }
+    }
+    [SerializeField]
+    private float agroSpeed = 1.0f;
+    public float AgroSpeed
+    {
+        get { return agroSpeed; }
+        set {}
+    }
 
     [SerializeField]
     private Animator behaviour = null;
@@ -27,14 +57,19 @@ public class Enemy : MonoBehaviour, IAlive
     [SerializeField]
     private int hitPoints;
 
-    public int HitPoints {
+    [SerializeField]
+    private GameObject bloodInstance = null;
+
+    public int HitPoints
+    {
         get { return hitPoints; }
         set { hitPoints = value; }
     }
-    
-    public bool IsAlive {
+
+    public bool IsAlive
+    {
         get { return hitPoints > 0; }
-        set {}
+        set { }
     }
 
 
@@ -43,6 +78,7 @@ public class Enemy : MonoBehaviour, IAlive
         Assert.IsNotNull(behaviour);
         Assert.IsNotNull(aggroZone);
         Assert.IsNotNull(lostZone);
+        Assert.IsNotNull(bloodInstance);
 
         aggroZone.OnZoneEnter += OnGotTarget;
         lostZone.OnZoneExit += OnLostTarget;
@@ -61,7 +97,7 @@ public class Enemy : MonoBehaviour, IAlive
         transform.Translate(direction * speed * Time.deltaTime);
     }
 
-    void OnDestroy() 
+    void OnDestroy()
     {
         aggroZone.OnZoneEnter -= OnGotTarget;
         lostZone.OnZoneExit -= OnLostTarget;
@@ -94,11 +130,11 @@ public class Enemy : MonoBehaviour, IAlive
     {
         direction = value;
     }
-    
+
     public void TakeDamage(int amount)
     {
         hitPoints -= amount;
-        
+
         SetAnimation("hurt");
         GetComponent<Rigidbody2D>().velocity = Vector2.zero;
 
@@ -114,8 +150,18 @@ public class Enemy : MonoBehaviour, IAlive
                 transform.position
             );
         }
-        
+
+        GameObject blood = GameController.Instance.Instantiate(
+            bloodInstance, 
+            gameObject.transform.position
+        );
+
         Destroy(gameObject);
+    }
+
+    public virtual void Attack()
+    {
+        // Attack the player.
     }
 
     public void SetAnimation(string animationName)
