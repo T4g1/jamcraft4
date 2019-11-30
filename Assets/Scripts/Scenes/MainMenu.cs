@@ -17,6 +17,8 @@ public class MainMenu : MonoBehaviour
 
     void Start()
     {
+        Cursor.visible = true;
+        
         Assert.IsNotNull(mouseLight);
 
         theme = FMODUnity.RuntimeManager.CreateInstance(themeName);
