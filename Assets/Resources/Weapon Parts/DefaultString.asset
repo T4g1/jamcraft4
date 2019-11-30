@@ -37,5 +37,9 @@ MonoBehaviour:
   - 2
   - 5
   isString: 1
-  fireRate: 1
+  fireRate: 0.2
   lifespan: 3
+  fireRates:
+  - 0.1
+  - 0.5
+  - 1
