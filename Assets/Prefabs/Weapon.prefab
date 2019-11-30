@@ -623,9 +623,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultScale: {x: 1, y: 1, z: 1}
   rotationOffset: 180
+  maximalPerturbation: 180
   visorSpeed: 20
   visor: {fileID: 7441105149148224158}
   muzzle: {fileID: 7889903456875506755}
+  shootSFXName: event:/SFX/Shoot
+  SFX_SHOOT_FULL: 0
+  SFX_SHOOT_EMPTY: 1
 --- !u!1 &7441105149148224158
 GameObject:
   m_ObjectHideFlags: 0
