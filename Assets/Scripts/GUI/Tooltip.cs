@@ -7,11 +7,15 @@ using UnityEngine.UI;
 public class Tooltip : MonoBehaviour
 {
     [SerializeField]
+    private bool defaultActive = false;
+    [SerializeField]
+    private float margin = 2.0f;
+    [SerializeField]
     private string textContent = "E";
     public string TextContent {
         set {
             textContent = value;
-            OnValidate();
+            UpdateSize();
         }
         get { return textContent; }
     }
@@ -20,15 +24,27 @@ public class Tooltip : MonoBehaviour
     private Vector3 goalPosition;   // Where in the world to display it
 
 
-    void OnValidate()
+    void UpdateSize()
     {
         tooltipText = GetComponentInChildren<Text>();
         tooltipText.text = textContent;
+
+        RectTransform rectTransform = GetComponent<RectTransform>();
+        RectTransform tooltipTransform = 
+            tooltipText.GetComponent<RectTransform>();
+        rectTransform.sizeDelta = tooltipTransform.sizeDelta + new Vector2(margin, margin) * 2;
     }
 
     void Start()
     {
         tooltipText = GetComponentInChildren<Text>();
+
+        if (defaultActive) {
+            Show();
+        }
+        else {
+            Hide();
+        }
     }
 
     void Update()
@@ -37,6 +53,7 @@ public class Tooltip : MonoBehaviour
             return;
         }
 
+        UpdateSize();
         UpdatePosition();
     }
 

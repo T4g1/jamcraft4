@@ -69,11 +69,21 @@ public class Utility
 
     public static Player GetPlayer()
     {
-        return GameObject.FindWithTag("Player").GetComponent<Player>();
+        GameObject player = GameObject.FindWithTag("Player");
+        if (player != null) {
+            return player.GetComponent<Player>();
+        }
+        
+        return null;
     }
 
     public static Weapon GetWeapon()
     {
-        return Utility.GetPlayer().transform.GetComponentInChildren<Weapon>();
+        Player player = Utility.GetPlayer();
+        if (player != null) {
+            return player.transform.GetComponentInChildren<Weapon>();
+        }
+        
+        return null;
     }
 }
