@@ -11,28 +11,47 @@ public class Enemy : MonoBehaviour, IAlive
 
     [SerializeField]
     private TriggerZone aggroZone = null;
-    public TriggerZone AggroZone{
-        get{return aggroZone;}
-        set{}
+    public TriggerZone AggroZone
+    {
+        get { return aggroZone; }
+        set { }
+    }
+    [SerializeField]
+    private TriggerZone attackZone = null;
+    public TriggerZone AttackZone
+    {
+        get { return attackZone; }
+        set { }
     }
 
     [SerializeField]
     private TriggerZone lostZone = null;
-    public TriggerZone LostZone{
-        get{return lostZone;}
-        set{}
+    public TriggerZone LostZone
+    {
+        get { return lostZone; }
+        set { }
     }
 
     [SerializeField]
     private float speed = 1.0f;
+    
+    public float Speed
+    {
+        get { return speed; }
+        set { speed = value; }
+    }
+    [SerializeField]
+    private float agroSpeed = 1.0f;
+    public float AgroSpeed
+    {
+        get { return agroSpeed; }
+        set {}
+    }
 
     [SerializeField]
     private Animator behaviour = null;
 
     private Vector3 direction = Vector3.zero;
-
-    [SerializeField]
-    private Player player;
 
     // Alive interface
     [SerializeField]

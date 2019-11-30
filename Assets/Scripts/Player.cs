@@ -61,7 +61,6 @@ public class Player : MonoBehaviour, IAlive
     void Update()
     {
         UpdateAnimator();
-
         if (Input.GetButtonDown("Use")) {
             HitPoints -= 1;
         }

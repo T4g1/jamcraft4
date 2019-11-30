@@ -10,13 +10,15 @@ public class Wandering : StateMachineBehaviour
     [SerializeField]
     private float minDirectionTime = 2.0f;
 
-    private Animator Animator=null;
+    private Animator Animator = null;
 
     [SerializeField]
     private float maxDirectionTime = 5.0f;
-    public void OnTargetAquired(GameObject other){
-        if(other.tag=="Player"){
-            Animator.SetBool("hasTarget",true);
+    public void OnTargetAquired(GameObject other)
+    {
+        if (other.tag == "Player")
+        {
+            Animator.SetBool("hasTarget", true);
             // Check if that way is a good way to access the Animator.
         }
     }
@@ -26,29 +28,32 @@ public class Wandering : StateMachineBehaviour
     {
         enemy = animator.gameObject.GetComponentInParent<Enemy>();
         directionChangeDelay = 0.0f;
-        Animator=animator;
+        Animator = animator;
         enemy.SetAnimation("walk");
-        enemy.AggroZone.OnZoneEnter+=OnTargetAquired;
+        enemy.AggroZone.OnZoneEnter += OnTargetAquired;
     }
-    
+
     override public void OnStateUpdate(
         Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         directionChangeDelay -= Time.deltaTime;
-        if (directionChangeDelay <= 0) {
+        if (directionChangeDelay <= 0)
+        {
             changeDirection();
         }
 
-        if (animator.GetBool("collisionOccured")) {
+        if (animator.GetBool("collisionOccured"))
+        {
             animator.SetBool("collisionOccured", false);
 
             changeDirection();
         }
     }
 
-    override public void OnStateExit(Animator animator, AnimatorStateInfo animatorStateInfo, int layerIndex) {
-        enemy.AggroZone.OnZoneEnter-=OnTargetAquired;
-        
+    override public void OnStateExit(Animator animator, AnimatorStateInfo animatorStateInfo, int layerIndex)
+    {
+        enemy.AggroZone.OnZoneEnter -= OnTargetAquired;
+
     }
     /**
      * Change direction of movement
@@ -66,5 +71,5 @@ public class Wandering : StateMachineBehaviour
         enemy.SetDirection(direction);
     }
 
-    
+
 }

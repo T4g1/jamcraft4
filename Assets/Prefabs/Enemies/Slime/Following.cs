@@ -5,20 +5,25 @@ using UnityEngine;
 public class Following : StateMachineBehaviour
 {
     private Enemy enemy;
-    private float directionChangeDelay;
+    private Animator Animator = null;
 
-    [SerializeField]
-    private float minDirectionTime = 2.0f;
+    private float oldSpeed;
 
-    [SerializeField]
-    private float maxDirectionTime = 5.0f;
-
-    private Animator Animator=null;
-
-    public void OnTargetLost(GameObject other){
-        if(other.tag=="Player"){
+    public void OnTargetLost(GameObject other)
+    {
+        if (other.tag == "Player")
+        {
             // Check if that way is a good way to access the Animator.
-            Animator.SetBool("hasTarget",false);
+            Animator.SetBool("hasTarget", false);
+            enemy.Speed=oldSpeed;
+        }
+    }
+
+    public void OnTargetAquired(GameObject other)
+    {
+        if (other.tag == "Player")
+        {
+            Animator.SetBool("attacking", true);
         }
     }
 
@@ -27,38 +32,41 @@ public class Following : StateMachineBehaviour
     override public void OnStateEnter(
         Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-
         enemy = animator.gameObject.GetComponentInParent<Enemy>();
-        directionChangeDelay = 0.0f;
-        Animator=animator;
+
+        Animator = animator;
         enemy.SetAnimation("walk");
-        enemy.LostZone.OnZoneExit+=OnTargetLost;
+
+        oldSpeed=enemy.Speed;
+        enemy.Speed=enemy.AgroSpeed;
+
+        enemy.LostZone.OnZoneExit += OnTargetLost;
+        enemy.AttackZone.OnZoneEnter += OnTargetAquired;
     }
-    
+
     override public void OnStateUpdate(
         Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         changeDirection();
-            //TODO: Determine what to do on Collission.
     }
 
-    override public void OnStateExit(Animator animator, AnimatorStateInfo animatorStateInfo, int layerIndex) {
-        enemy.LostZone.OnZoneExit-=OnTargetLost;
-        
-        
+    override public void OnStateExit(Animator animator, AnimatorStateInfo animatorStateInfo, int layerIndex)
+    {
+        enemy.LostZone.OnZoneExit -= OnTargetLost;
+        enemy.AttackZone.OnZoneEnter -= OnTargetAquired;
+
+
     }
     /**
      * Change direction of movement
      */
     void changeDirection()
     {
-        Vector3 direction = Utility.GetPlayer().transform.position;
-        Debug.Log(direction);
-
+        Vector3 playerPos=Utility.GetPlayer().transform.position;
+        Vector3 direction = playerPos-enemy.transform.position;
         direction.Normalize();
-
         enemy.SetDirection(direction);
     }
 
-    
+
 }
