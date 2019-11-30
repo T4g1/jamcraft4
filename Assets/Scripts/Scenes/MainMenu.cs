@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
@@ -11,12 +12,12 @@ public class MainMenu : MonoBehaviour
     public float themIntensity = 50.0f;
     private FMOD.Studio.EventInstance theme;
     [SerializeField]
-    private GameObject light = null;
+    private GameObject mouseLight = null;
 
 
     void Start()
     {
-        //Screen.SetResolution(640, 360, false);
+        Assert.IsNotNull(mouseLight);
 
         theme = FMODUnity.RuntimeManager.CreateInstance(themeName);
         theme.setParameterByName("intensity", themIntensity);
@@ -26,7 +27,7 @@ public class MainMenu : MonoBehaviour
     void Update()
     {
         Vector3 mousePosition = Utility.GetMouseWorldPosition();
-        light.transform.position = new Vector3(
+        mouseLight.transform.position = new Vector3(
             mousePosition.x,
             mousePosition.y,
             0f

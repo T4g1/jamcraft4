@@ -108,6 +108,8 @@ public class GameController : MonoBehaviour
 
         theme = FMODUnity.RuntimeManager.CreateInstance(themeName);
         theme.start();
+
+        Utility.GetPlayer().OnDeath += OnPlayerDies;
     }
 
     void Update()
@@ -181,6 +183,16 @@ public class GameController : MonoBehaviour
         return part;
     }
 
+    /**
+     * Teleports player back to spawn and resplenish life
+     */
+    public void OnPlayerDies()
+    {
+        Player player = Utility.GetPlayer();
+        player.transform.position = levelGenerator.Spawn.position;
+        player.Heal();
+    }
+
     public void OnLevelEnds()
     {
         levelGenerator.Generate();
@@ -215,5 +227,10 @@ public class GameController : MonoBehaviour
     public void OnDestroy()
     {
         theme.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        
+        Player player = Utility.GetPlayer();
+        if (player) {
+            player.OnDeath -= OnPlayerDies;
+        }
     }
 }

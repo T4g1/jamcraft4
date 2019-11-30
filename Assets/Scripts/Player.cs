@@ -32,11 +32,17 @@ public class Player : MonoBehaviour, IAlive
     private int hitPoints = 0;
     public int HitPoints {
         get { return hitPoints; }
-        set { 
-            hitPoints = value; 
+        set {
+            bool wasAlive = IsAlive;
+            hitPoints = value;
 
             if (OnHitPointsChanged != null) {
                 OnHitPointsChanged(hitPoints);
+            }
+
+            // Player just died
+            if (wasAlive && !IsAlive) {
+                Die();
             }
         }
     }
@@ -44,7 +50,7 @@ public class Player : MonoBehaviour, IAlive
     private Weapon weapon;
     
     public bool IsAlive {
-        get { return hitPoints > 0; }
+        get { return HitPoints > 0; }
         set {}
     }
     
@@ -114,6 +120,10 @@ public class Player : MonoBehaviour, IAlive
         if (Input.GetButton("Fire1")) {
             weapon.Shoot();
         }
+
+        if (Input.GetButtonDown("Use")) {
+            HitPoints -= 1;
+        }
         
         if (Input.GetButtonDown("Reload")) {
             weapon.Reload();
@@ -179,11 +189,12 @@ public class Player : MonoBehaviour, IAlive
     
     public void TakeDamage(int amount)
     {
-        hitPoints -= amount;
+        HitPoints -= amount;
+    }
 
-        if (!IsAlive) {
-            Die();
-        }
+    public void Heal()
+    {
+        HitPoints = maxHitPoints;
     }
 
     public void Die()
