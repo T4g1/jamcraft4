@@ -75,12 +75,9 @@ public class CraftingUI : MonoBehaviour
             }
         }
 
-        Player player = GameObject.FindWithTag("Player").GetComponent<Player>();
-        Weapon weapon = player.transform.GetComponentInChildren<Weapon>();
-        
         // Check the grid is complete
         foreach (CraftingSlot slot in slots) {
-            weapon.SetPart((WeaponPart) slot.Item);
+            Utility.GetWeapon().SetPart((WeaponPart) slot.Item);
         }
 
         ConsumeItems();

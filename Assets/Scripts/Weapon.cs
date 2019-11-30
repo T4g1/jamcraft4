@@ -105,6 +105,13 @@ public class Weapon : MonoBehaviour
      */
     public void UpdateLayout()
     {
+        Quaternion savedRotation = transform.rotation;
+        transform.rotation = Quaternion.Euler(
+            0.0f,
+            0.0f,
+            0.0f
+        );
+
         // Place barrel left of handle
         barrelHolder.SetPosition(handleHolder.GetPosition() + new Vector3(
             -barrelHolder.GetSize().x,
@@ -146,6 +153,8 @@ public class Weapon : MonoBehaviour
             -barrelHolder.GetSize().y / 2,
             0.0f
         );
+
+        transform.rotation = savedRotation;
     }
 
     void Update()

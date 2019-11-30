@@ -66,4 +66,14 @@ public class Utility
     {
         return GameController.Instance.Floor;
     }
+
+    public static Player GetPlayer()
+    {
+        return GameObject.FindWithTag("Player").GetComponent<Player>();
+    }
+
+    public static Weapon GetWeapon()
+    {
+        return Utility.GetPlayer().transform.GetComponentInChildren<Weapon>();
+    }
 }

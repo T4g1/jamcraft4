@@ -134,7 +134,7 @@ public class GameController : MonoBehaviour
     /**
      * Generate a random weapon part that can be picked up
      */
-    public void CreatePickUp(Vector3 where)
+    public void CreateRandomWeaponPartPickUp(Vector3 where)
     {
         GameObject pickUpObject = Instantiate(pickUpPrefab);
         pickUpObject.transform.parent = dynamicHolder.transform;
