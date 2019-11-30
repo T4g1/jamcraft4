@@ -44,7 +44,7 @@ public class CreditsController : MonoBehaviour
 
     public void OnCreditsEnd()
     {
-        SceneManager.LoadScene("Game", LoadSceneMode.Single);
+        SceneManager.LoadScene("Menu", LoadSceneMode.Single);
     }
 
     void OnDestroy() 

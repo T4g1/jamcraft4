@@ -508,7 +508,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2045843890}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: CreditsEndPosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -577,8 +577,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec86a04eb5151624e81647fef2566995, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  creditsText: {fileID: 0}
-  creditsPositionTween: {fileID: 0}
+  creditsText: {fileID: 2115480054}
+  creditsEndPosition: {fileID: 2045843889}
+  creditsPositionTween: {fileID: 204138662}
 --- !u!1 &2070307977
 GameObject:
   m_ObjectHideFlags: 0
