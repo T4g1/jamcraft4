@@ -10,6 +10,8 @@ public class MainMenu : MonoBehaviour
     [SerializeField]
     public float themIntensity = 50.0f;
     private FMOD.Studio.EventInstance theme;
+    [SerializeField]
+    private GameObject light = null;
 
 
     void Start()
@@ -19,6 +21,16 @@ public class MainMenu : MonoBehaviour
         theme = FMODUnity.RuntimeManager.CreateInstance(themeName);
         theme.setParameterByName("intensity", themIntensity);
         theme.start();
+    }
+
+    void Update()
+    {
+        Vector3 mousePosition = Utility.GetMouseWorldPosition();
+        light.transform.position = new Vector3(
+            mousePosition.x,
+            mousePosition.y,
+            0f
+        );
     }
 
     public void OnPlayButton()
