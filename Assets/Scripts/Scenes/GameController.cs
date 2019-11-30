@@ -23,30 +23,28 @@ public class GameController : MonoBehaviour
     void InitInstance()
     {
         if (Instance != null) {
-            Debug.Log("More than on inventory created!");
+            Debug.Log("More than one GameController created!");
         }
 
         Instance = this;
     }
     #endregion
 
-    private FMOD.Studio.EventInstance mainTheme;
+    private FMOD.Studio.EventInstance theme;
 
     public const uint TILE_SIZE = 16;
 
     [FMODUnity.EventRef]
-    public string mainThemeName;
+    public string themeName;
 
     [SerializeField]
     private Tween intensityTween = null;
 
     [SerializeField]
     private GameObject pickUpPrefab = null;
-
+    
     [SerializeField]
-    private GameObject inventoryUI = null;
-    [SerializeField]
-    private GameObject craftingUI = null;
+    private Transform lastRoomEntry = null;
 
     [SerializeField]
     private TileBase floor = null;
@@ -61,6 +59,10 @@ public class GameController : MonoBehaviour
         set {}
     }
 
+    [SerializeField]
+    private uint lastLevel = 5;
+    private uint currentLevel = 0;
+
     public GameObject dynamicHolder = null;
 
     [SerializeField]
@@ -73,7 +75,7 @@ public class GameController : MonoBehaviour
         get { return enemyAggro; }
         set {
             enemyAggro = Math.Max(0, Math.Min(value, enemyCount));
-            UpdateMainThemeIntensity();
+            UpdateThemeIntensity();
         }
     }
 
@@ -82,17 +84,21 @@ public class GameController : MonoBehaviour
         InitInstance();
     }
 
+    void OnFocus()
+    {
+        Cursor.lockState = CursorLockMode.Confined;
+    }
+
     void Start()
     {
-        Screen.SetResolution(640, 360, false);
+        Cursor.lockState = CursorLockMode.Confined;
         
         Assert.IsNotNull(wall);
         Assert.IsNotNull(floor);
         Assert.IsNotNull(intensityTween);
         Assert.IsNotNull(pickUpPrefab);
-        Assert.IsNotNull(inventoryUI);
-        Assert.IsNotNull(craftingUI);
         Assert.IsNotNull(levelGenerator);
+        Assert.IsNotNull(lastRoomEntry);
         Utility.AssertArrayNotNull<Sprite>(handleSprites);
         Utility.AssertArrayNotNull<Sprite>(quiverSprites);
         Utility.AssertArrayNotNull<Sprite>(stockSprites);
@@ -100,23 +106,19 @@ public class GameController : MonoBehaviour
         Utility.AssertArrayNotNull<Sprite>(barrelSprites);
         Utility.AssertArrayNotNull<Sprite>(stringSprites);
 
-        mainTheme = FMODUnity.RuntimeManager.CreateInstance(mainThemeName);
-        mainTheme.start();
+        theme = FMODUnity.RuntimeManager.CreateInstance(themeName);
+        theme.start();
     }
 
     void Update()
     {
-        mainTheme.setParameterByName(
+        theme.setParameterByName(
             "intensity",
             (float) intensityTween.GetValue()
         );
-
-        if (Input.GetButtonDown("Inventory")) {
-            ToggleInventory();
-        }
     }
 
-    void UpdateMainThemeIntensity()
+    void UpdateThemeIntensity()
     {
         int intensity = (int)(enemyAggro * 100.0f / enemyCount);
 
@@ -126,7 +128,7 @@ public class GameController : MonoBehaviour
     /**
      * Generate a random weapon part that can be picked up
      */
-    public void CreatePickUp(Vector3 where)
+    public void CreateRandomWeaponPartPickUp(Vector3 where)
     {
         GameObject pickUpObject = Instantiate(pickUpPrefab);
         pickUpObject.transform.parent = dynamicHolder.transform;
@@ -184,57 +186,18 @@ public class GameController : MonoBehaviour
         levelGenerator.Generate();
     }
 
-    public void ToggleCraftingUI()
+    public void OnLevelGenerated()
     {
-        if (craftingUI.activeSelf) {
-            CloseCraftingUI();
-        } else {
-            OpenCraftingUI();
+        currentLevel += 1;
+
+        if (currentLevel >= lastLevel) {
+            levelGenerator.PortalOut.SetDestination(
+                lastRoomEntry.position
+            );
         }
-    }
-
-    public bool IsCraftingUIActive()
-    {
-        return craftingUI.activeSelf;
-    }
-
-    public void OpenCraftingUI()
-    {
-        craftingUI.SetActive(true);
-        OpenInventory();
-    }
-
-    public void CloseCraftingUI()
-    {
-        if (IsCraftingUIActive()) {
-            craftingUI.SetActive(false);
-            CloseInventory();
-        }
-    }
-
-    public void ToggleInventory()
-    {
-        if (inventoryUI.activeSelf) {
-            CloseInventory();
-        } else {
-            OpenInventory();
-        }
-    }
-
-    public void OpenInventory()
-    {
-        inventoryUI.SetActive(true);
-    }
-
-    public void CloseInventory()
-    {
-        inventoryUI.SetActive(false);
-    }
-
-    public void CloseUI()
-    {
-        CloseCraftingUI();
-        CloseInventory();
+        
+        levelGenerator.PortalIn.Activate();
+        levelGenerator.PortalOut.Activate();    // TODO: Do this when boss dies
     }
 
     /**
@@ -247,5 +210,10 @@ public class GameController : MonoBehaviour
         newObject.transform.position = position;
 
         return newObject;
+    }
+
+    public void OnDestroy()
+    {
+        theme.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
     }
 }
