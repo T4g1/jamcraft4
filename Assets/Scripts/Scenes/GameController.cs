@@ -30,12 +30,12 @@ public class GameController : MonoBehaviour
     }
     #endregion
 
-    private FMOD.Studio.EventInstance mainTheme;
+    private FMOD.Studio.EventInstance theme;
 
     public const uint TILE_SIZE = 16;
 
     [FMODUnity.EventRef]
-    public string mainThemeName;
+    public string themeName;
 
     [SerializeField]
     private Tween intensityTween = null;
@@ -80,7 +80,7 @@ public class GameController : MonoBehaviour
         get { return enemyAggro; }
         set {
             enemyAggro = Math.Max(0, Math.Min(value, enemyCount));
-            UpdateMainThemeIntensity();
+            UpdateThemeIntensity();
         }
     }
 
@@ -108,13 +108,13 @@ public class GameController : MonoBehaviour
         Utility.AssertArrayNotNull<Sprite>(barrelSprites);
         Utility.AssertArrayNotNull<Sprite>(stringSprites);
 
-        mainTheme = FMODUnity.RuntimeManager.CreateInstance(mainThemeName);
-        mainTheme.start();
+        theme = FMODUnity.RuntimeManager.CreateInstance(themeName);
+        theme.start();
     }
 
     void Update()
     {
-        mainTheme.setParameterByName(
+        theme.setParameterByName(
             "intensity",
             (float) intensityTween.GetValue()
         );
@@ -124,7 +124,7 @@ public class GameController : MonoBehaviour
         }
     }
 
-    void UpdateMainThemeIntensity()
+    void UpdateThemeIntensity()
     {
         int intensity = (int)(enemyAggro * 100.0f / enemyCount);
 
@@ -269,5 +269,10 @@ public class GameController : MonoBehaviour
         newObject.transform.position = position;
 
         return newObject;
+    }
+
+    public void OnDestroy()
+    {
+        theme.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
     }
 }

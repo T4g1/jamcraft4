@@ -6,17 +6,19 @@ using UnityEngine.SceneManagement;
 public class MainMenu : MonoBehaviour
 {
     [FMODUnity.EventRef]
-    public string mainThemeName;
-    private FMOD.Studio.EventInstance mainTheme;
+    public string themeName;
+    [SerializeField]
+    public float themIntensity = 50.0f;
+    private FMOD.Studio.EventInstance theme;
 
 
     void Start()
     {
         Screen.SetResolution(640, 360, false);
 
-        mainTheme = FMODUnity.RuntimeManager.CreateInstance(mainThemeName);
-        mainTheme.setParameterByName("intensity", 0.5f);
-        mainTheme.start();
+        theme = FMODUnity.RuntimeManager.CreateInstance(themeName);
+        theme.setParameterByName("intensity", themIntensity);
+        theme.start();
     }
 
     public void OnPlayButton()
@@ -31,6 +33,6 @@ public class MainMenu : MonoBehaviour
 
     public void OnDestroy()
     {
-        mainTheme.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        theme.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
     }
 }

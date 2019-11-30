@@ -884,6 +884,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ed3cabaa0c380d47b1910dcf0f08808, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  themeName: event:/Level1_Song
+  themIntensity: 50
 --- !u!4 &1340446925
 Transform:
   m_ObjectHideFlags: 0

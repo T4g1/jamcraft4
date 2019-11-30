@@ -6,6 +6,12 @@ using UnityEngine.SceneManagement;
 
 public class CreditsController : MonoBehaviour
 {
+    [FMODUnity.EventRef]
+    public string themeName;
+    [SerializeField]
+    public float themIntensity = 100.0f;
+    private FMOD.Studio.EventInstance theme;
+
     [SerializeField]
     private GameObject credits = null;
     [SerializeField]
@@ -30,6 +36,10 @@ public class CreditsController : MonoBehaviour
             credits.transform.localPosition.y, 
             creditsEndPosition.transform.localPosition.y
         );
+
+        theme = FMODUnity.RuntimeManager.CreateInstance(themeName);
+        theme.setParameterByName("intensity", themIntensity);
+        theme.start();
     }
 
     void Update()
@@ -48,6 +58,7 @@ public class CreditsController : MonoBehaviour
     void OnDestroy() 
     {
         creditsPositionTween.OnTweenEnd -= OnCreditsEnd;
+        theme.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
     }
 
     IEnumerator _OnCreditsEnd()
