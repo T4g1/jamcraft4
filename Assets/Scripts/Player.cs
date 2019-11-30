@@ -45,10 +45,16 @@ public class Player : MonoBehaviour, IAlive
         get { return hitPoints > 0; }
         set {}
     }
+    
+    [SerializeField]
+    private Tooltip reloadUI = null;
+    [SerializeField]
+    private Vector3 reloadUIOffset = Vector2.zero;
 
 
     void Start() 
     {
+        Assert.IsNotNull(reloadUI);
         Assert.IsNotNull(body);
         Assert.IsNotNull(sprite);
         Assert.IsNotNull(cameraContainer);
@@ -56,15 +62,25 @@ public class Player : MonoBehaviour, IAlive
         SetAnimation("idle_down");
 
         HitPoints = maxHitPoints;
+        
+        Utility.GetWeapon().OnMagzineEmpty += OnMagzineEmpty;
+        Utility.GetWeapon().OnReloading += OnReloading;
+    }
+
+    void OnDestroy()
+    {
+        Weapon weapon = Utility.GetWeapon();
+        if (weapon != null) {
+            weapon.OnMagzineEmpty -= OnMagzineEmpty;
+            weapon.OnReloading -= OnReloading;
+        }
     }
 
     void Update()
     {
         UpdateAnimator();
 
-        if (Input.GetButtonDown("Use")) {
-            HitPoints -= 1;
-        }
+        reloadUI.SetWorldPosition(transform.position + reloadUIOffset);
     }
 
     void Spawn()
@@ -151,5 +167,15 @@ public class Player : MonoBehaviour, IAlive
     public Camera GetCamera()
     {
         return cameraContainer.GetComponent<Camera>();
+    }
+
+    public void OnReloading()
+    {
+        reloadUI.Hide();
+    }
+
+    public void OnMagzineEmpty()
+    {
+        reloadUI.Show();
     }
 }

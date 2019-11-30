@@ -10,6 +10,7 @@ public class Weapon : MonoBehaviour
     public event System.Action<uint> OnMagazineClipChanged;
     public event System.Action OnShoot;
     public event System.Action OnMagzineEmpty;
+    public event System.Action OnReloading;
 
     // Display settings
     [SerializeField]
@@ -287,6 +288,10 @@ public class Weapon : MonoBehaviour
 
         reloading = true;
         reloadTime = GetReloadTime();
+
+        if (OnReloading != null) {
+            OnReloading();
+        }
     }
 
     Quaternion GetShootDirection()
