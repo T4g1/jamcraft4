@@ -7,48 +7,53 @@ using UnityEngine.SceneManagement;
 public class CreditsController : MonoBehaviour
 {
     [SerializeField]
-    private GameObject creditsText = null;
+    private GameObject credits = null;
     [SerializeField]
     private GameObject creditsEndPosition = null;
 
     [SerializeField]
     private Tween creditsPositionTween = null;
 
+    [SerializeField]
+    private float freezeTime = 2.0f;
+
 
     void Start()
     {
-        Assert.IsNotNull(creditsText);
+        Assert.IsNotNull(credits);
         Assert.IsNotNull(creditsEndPosition);
         Assert.IsNotNull(creditsPositionTween);
 
         creditsPositionTween.OnTweenEnd += OnCreditsEnd;
         
         creditsPositionTween.Interpolate(
-            creditsText.transform.localPosition.y, 
+            credits.transform.localPosition.y, 
             creditsEndPosition.transform.localPosition.y
         );
     }
 
     void Update()
     {
-        creditsText.transform.localPosition = new Vector2(
-            creditsText.transform.localPosition.x,
+        credits.transform.localPosition = new Vector2(
+            credits.transform.localPosition.x,
             creditsPositionTween.GetValue()
         );
     }
 
-    void UpdateCreditsPosition()
-    {
-        Canvas canvas = creditsText.GetComponentInParent<Canvas>();
-    }
-
     public void OnCreditsEnd()
     {
-        SceneManager.LoadScene("Menu", LoadSceneMode.Single);
+        StartCoroutine(_OnCreditsEnd());
     }
 
     void OnDestroy() 
     {
         creditsPositionTween.OnTweenEnd -= OnCreditsEnd;
+    }
+
+    IEnumerator _OnCreditsEnd()
+    {
+        yield return new WaitForSeconds(freezeTime);
+        
+        SceneManager.LoadScene("Menu", LoadSceneMode.Single);
     }
 }
