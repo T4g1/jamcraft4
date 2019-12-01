@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1240484303456007652}
   - component: {fileID: 2772276691637220937}
   - component: {fileID: 7062443018094338420}
-  m_Layer: 10
+  m_Layer: 14
   m_Name: LostZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71,7 +71,7 @@ GameObject:
   - component: {fileID: 3174462102023871812}
   - component: {fileID: 2893486743378942179}
   - component: {fileID: 2164728929303064389}
-  m_Layer: 10
+  m_Layer: 14
   m_Name: AttackZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 8524909362151680533}
   - component: {fileID: 7888666924526619787}
   - component: {fileID: 3755885276011753549}
-  m_Layer: 13
+  m_Layer: 14
   m_Name: LoadingZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -410,7 +410,7 @@ GameObject:
   - component: {fileID: 1771049557922721764}
   - component: {fileID: 4395149619556599621}
   - component: {fileID: 1161148983929493434}
-  m_Layer: 10
+  m_Layer: 14
   m_Name: AggroZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
