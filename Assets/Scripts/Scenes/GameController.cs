@@ -39,6 +39,8 @@ public class GameController : MonoBehaviour
 
     [SerializeField]
     private Tween intensityTween = null;
+    [SerializeField]
+    private float intensityStep = 5.0f;
 
     [SerializeField]
     private GameObject pickUpPrefab = null;
@@ -71,16 +73,7 @@ public class GameController : MonoBehaviour
     [SerializeField]
     private LevelGenerator levelGenerator = null;
 
-    private int enemyCount = 3;
-    private int enemyAggro = 0;
-    public int EnemyAggro
-    {
-        get { return enemyAggro; }
-        set {
-            enemyAggro = Math.Max(0, Math.Min(value, enemyCount));
-            UpdateThemeIntensity();
-        }
-    }
+    private List<Enemy> activatedEnemies = new List<Enemy>();
 
 
     private void Awake() {
@@ -125,7 +118,8 @@ public class GameController : MonoBehaviour
 
     void UpdateThemeIntensity()
     {
-        int intensity = (int)(enemyAggro * 100.0f / enemyCount);
+        float intensity = activatedEnemies.Count * intensityStep;
+        intensity = Mathf.Min(intensity, 100.0f);
 
         intensityTween.Interpolate(intensityTween.GetValue(), intensity);
     }
@@ -243,6 +237,24 @@ public class GameController : MonoBehaviour
         Player player = Utility.GetPlayer();
         if (player) {
             player.OnDeath -= OnPlayerDies;
+        }
+    }
+
+    public void OnEnemyLoaded(Enemy enemy)
+    {
+        if (!activatedEnemies.Contains(enemy)) {
+            activatedEnemies.Add(enemy);
+
+            UpdateThemeIntensity();
+        }
+    }
+
+    public void OnEnemyUnloaded(Enemy enemy)
+    {
+        if (activatedEnemies.Contains(enemy)) {
+            activatedEnemies.Remove(enemy);
+            
+            UpdateThemeIntensity();
         }
     }
 }

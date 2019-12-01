@@ -92,10 +92,10 @@ public class Enemy : MonoBehaviour, IAlive
 
         aggroZone.OnZoneEnter += OnGotTarget;
         lostZone.OnZoneExit += OnLostTarget;
-        loadingZone.OnZoneEnter += OnLoad;
-        loadingZone.OnZoneExit += OnUnload;
+        loadingZone.OnZoneEnter += ActivateBehaviour;
+        loadingZone.OnZoneExit += DeactivateBehaviour;
 
-        OnUnload(null);
+        DeactivateBehaviour();
     }
 
     void Update()
@@ -116,26 +116,20 @@ public class Enemy : MonoBehaviour, IAlive
         aggroZone.OnZoneEnter -= OnGotTarget;
         lostZone.OnZoneExit -= OnLostTarget;
 
-        loadingZone.OnZoneEnter -= OnLoad;
-        loadingZone.OnZoneExit -= OnUnload;
+        loadingZone.OnZoneEnter -= ActivateBehaviour;
+        loadingZone.OnZoneExit -= DeactivateBehaviour;
+
+        GameController.Instance.OnEnemyUnloaded(this);
     }
 
-    void OnGotTarget(GameObject other)
+    protected virtual void OnGotTarget(GameObject other)
     {
-        if (other.tag != "Player") {
-            return;
-        }
-
-        GameController.Instance.EnemyAggro += 1;
+        // Override
     }
 
-    void OnLostTarget(GameObject other)
+    protected virtual void OnLostTarget(GameObject other)
     {
-        if (other.tag != "Player") {
-            return;
-        }
-
-        GameController.Instance.EnemyAggro -= 1;
+        // Override
     }
 
     void OnCollisionStay2D(Collision2D other)
@@ -190,17 +184,21 @@ public class Enemy : MonoBehaviour, IAlive
         GetComponent<Animator>().Play(animationName);
     }
 
-    public void OnLoad(GameObject other)
+    void ActivateBehaviour(GameObject other = null)
     {
         enabled = true;
         behaviour.gameObject.SetActive(true);
         gameObject.GetComponent<Animator>().enabled = true;
+
+        GameController.Instance.OnEnemyLoaded(this);
     }
 
-    public void OnUnload(GameObject other)
+    void DeactivateBehaviour(GameObject other = null)
     {
         enabled = false;
         behaviour.gameObject.SetActive(false);
         gameObject.GetComponent<Animator>().enabled = false;
+
+        GameController.Instance.OnEnemyUnloaded(this);
     }
 }
