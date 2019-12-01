@@ -15,8 +15,8 @@ public class InventorySlot : MonoBehaviour
     public Item Item {
         get { return item; }
     }
-
-
+    
+    
     void Start()
     {
         Assert.IsNotNull(icon);

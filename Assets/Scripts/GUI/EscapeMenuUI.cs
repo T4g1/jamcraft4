@@ -5,6 +5,21 @@ using UnityEngine.SceneManagement;
 
 public class EscapeMenuUI : Popup
 {
+    private ConfirmButton quitButton = null;
+
+
+    new void Start()
+    {
+        quitButton = GetComponentInChildren<ConfirmButton>();
+        Debug.Log(quitButton);
+        quitButton.OnButtonConfirmed += OnQuitButton;
+    }
+
+    void OnDestroy()
+    {
+        quitButton.OnButtonConfirmed -= OnQuitButton;
+    }
+
     public void OnMenuButton()
     {
         SceneManager.LoadScene("Menu", LoadSceneMode.Single);
