@@ -93,9 +93,9 @@ public class Player : MonoBehaviour, IAlive
 
     void Update()
     {
-        UpdateAnimator();
-
         if (InputEnabled()) {
+            UpdateAnimator();
+
             weapon.UpdateVisor();
             weapon.UpdateRotation();
 
@@ -124,6 +124,11 @@ public class Player : MonoBehaviour, IAlive
         if (Input.GetButtonDown("Reload")) {
             weapon.Reload();
         }
+    }
+
+    public void StopMovement()
+    {
+        body.velocity = Vector3.zero;
     }
 
     void UpdateVelocity()

@@ -2,11 +2,13 @@ using UnityEngine;
 
 public class Popup : MonoBehaviour
 {
+    public event System.Action OnClose;
+    public event System.Action OnOpen;
     [SerializeField]
     private bool openByDefault = false;
 
 
-    void Start()
+    protected void Start()
     {
         if (openByDefault) {
             Open();
@@ -30,13 +32,21 @@ public class Popup : MonoBehaviour
         }
     }
 
-    public void Open()
+    public virtual void Open()
     {
         gameObject.SetActive(true);
+
+        if (OnOpen != null) {
+            OnOpen();
+        }
     }
 
-    public void Close()
+    public virtual void Close()
     {
         gameObject.SetActive(false);
+
+        if (OnClose != null) {
+            OnClose();
+        }
     }
 }

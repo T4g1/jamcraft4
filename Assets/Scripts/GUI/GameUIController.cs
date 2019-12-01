@@ -47,6 +47,10 @@ public class GameUIController : MonoBehaviour
         Assert.IsNotNull(escapeMenu);
         Assert.IsNotNull(inventory);
         Assert.IsNotNull(crafting);
+
+        escapeMenu.OnOpen += OnUIOpen;
+        inventory.OnOpen += OnUIOpen;
+        crafting.OnOpen += OnUIOpen;
     }
 
     void Update()
@@ -62,6 +66,13 @@ public class GameUIController : MonoBehaviour
         Cursor.visible = IsOpen();
     }
 
+    void OnDestroy() 
+    {
+        escapeMenu.OnOpen -= OnUIOpen;
+        inventory.OnOpen -= OnUIOpen;
+        crafting.OnOpen -= OnUIOpen;
+    }
+
     public bool IsOpen()
     {
         return 
@@ -75,5 +86,11 @@ public class GameUIController : MonoBehaviour
         escapeMenu.Close();
         crafting.Close();
         inventory.Close();
+    }
+
+    void OnUIOpen()
+    {
+        // Stop player once when UI is opened
+        Utility.GetPlayer().StopMovement();
     }
 }

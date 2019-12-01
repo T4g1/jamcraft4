@@ -21,8 +21,8 @@ TagManager:
   - enemy
   - item
   - bullet
-  - 
-  - 
+  - loader
+  - trigger
   - 
   - 
   - 
@@ -46,6 +46,9 @@ TagManager:
     locked: 0
   - name: level
     uniqueID: 1210094349
+    locked: 0
+  - name: props
+    uniqueID: 2663201335
     locked: 0
   - name: portal
     uniqueID: 1011108229

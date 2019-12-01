@@ -51,6 +51,10 @@ public class Wandering : StateMachineBehaviour
     override public void OnStateExit(
         Animator animator, AnimatorStateInfo animatorStateInfo, int layerIndex)
     {
+        if (enemy == null) {
+            return;
+        }
+
         enemy.AggroZone.OnZoneEnter -= OnTargetAquired;
     }
 

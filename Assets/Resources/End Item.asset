@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: End Item
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: 499a21ae936037941aa75477b7ff51fa, type: 3}
+  consumable: 1
