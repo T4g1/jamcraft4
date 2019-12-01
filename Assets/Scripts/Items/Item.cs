@@ -3,6 +3,7 @@ using UnityEngine;
 public class Item : ScriptableObject
 {
     public Sprite sprite;
+    public bool consumable = false;
 
     /**
      * Return true is object is consumed
