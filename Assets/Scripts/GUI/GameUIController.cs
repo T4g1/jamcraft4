@@ -55,12 +55,19 @@ public class GameUIController : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetButtonDown("Inventory")) {
+        if (Input.GetButtonDown("Inventory") && !escapeMenu.IsOpen()) {
             inventory.Toggle();
         }
         
         if (Input.GetButtonDown("Cancel")) {
-            escapeMenu.Toggle();
+            // Exit any UI open
+            if (IsOpen()) {
+                CloseUI();
+            } 
+            // Shows escape menu
+            else {
+                escapeMenu.Open();
+            }
         }
 
         Cursor.visible = IsOpen();
@@ -92,5 +99,23 @@ public class GameUIController : MonoBehaviour
     {
         // Stop player once when UI is opened
         Utility.GetPlayer().StopMovement();
+    }
+
+    public void CloseCrafting()
+    {
+        if (escapeMenu.IsOpen()) {
+            return;
+        }
+
+        crafting.Close();
+    }
+
+    public void ToggleCrafting()
+    {
+        if (escapeMenu.IsOpen()) {
+            return;
+        }
+
+        crafting.Toggle();
     }
 }
