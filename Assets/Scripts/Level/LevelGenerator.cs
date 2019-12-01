@@ -83,12 +83,12 @@ public class LevelGenerator : MonoBehaviour
         FixRoomPositions();
 
         FindPaths();
-        MakeCorridors();
-        
-        FillRooms();
+        yield return StartCoroutine(_MakeCorridors());
+
+        yield return StartCoroutine(_FillRooms());
         ClearRooms();
 
-        AddWalls();
+        yield return StartCoroutine(_AddWalls());
 
         GameController.Instance.OnLevelGenerated();
     }
@@ -252,7 +252,7 @@ public class LevelGenerator : MonoBehaviour
         }
     }
 
-    void MakeCorridors()
+    IEnumerator _MakeCorridors()
     {
         foreach (Room origin in paths) {
             if (origin.connectedTo.Count <= 0) {
@@ -264,6 +264,8 @@ public class LevelGenerator : MonoBehaviour
                 origin.GetPosition().y,
                 0.0f
             );
+
+            yield return 0;
 
             foreach (Room destination in origin.connectedTo) {
                 Vector3 destinationPosition = new Vector3(
@@ -328,7 +330,7 @@ public class LevelGenerator : MonoBehaviour
     /**
      * Add wals to every null tile adjacent to something that isnt a wall
      */
-    void AddWalls()
+    IEnumerator _AddWalls()
     {
         tilemap.CompressBounds();
         
@@ -337,6 +339,8 @@ public class LevelGenerator : MonoBehaviour
 
         for (int x = 0; x < bounds.size.x; x++) {
             for (int y = 0; y < bounds.size.y; y++) {
+                yield return 0;
+
                 TileBase tile = allTiles[x + y * bounds.size.x];
                 if (tile == Utility.GetWall() || tile == null) {
                     continue;
@@ -374,12 +378,14 @@ public class LevelGenerator : MonoBehaviour
     /**
      * Set tiles for every rooms
      */
-    void FillRooms()
+    IEnumerator _FillRooms()
     {
         // Set destination of entry portal
         portalIn.SetDestination(startRoom.GetComponent<Room>().GetPosition());
 
         foreach (Room room in rooms) {
+            yield return 0;
+
             GameObject content = room.Generate(tilemap, dynamicHolder);
 
             // Check for exit portal
