@@ -16,11 +16,20 @@ public class Enemy : MonoBehaviour, IAlive
         get { return aggroZone; }
         set { }
     }
+
     [SerializeField]
     private TriggerZone attackZone = null;
     public TriggerZone AttackZone
     {
         get { return attackZone; }
+        set { }
+    }
+
+    [SerializeField]
+    private TriggerZone loadingZone = null;
+    public TriggerZone LoadingZone
+    {
+        get { return loadingZone; }
         set { }
     }
 
@@ -76,12 +85,17 @@ public class Enemy : MonoBehaviour, IAlive
     void Start()
     {
         Assert.IsNotNull(behaviour);
+        Assert.IsNotNull(loadingZone);
         Assert.IsNotNull(aggroZone);
         Assert.IsNotNull(lostZone);
         Assert.IsNotNull(bloodInstance);
 
         aggroZone.OnZoneEnter += OnGotTarget;
         lostZone.OnZoneExit += OnLostTarget;
+        loadingZone.OnZoneEnter += OnLoad;
+        loadingZone.OnZoneExit += OnUnload;
+
+        OnUnload(null);
     }
 
     void Update()
@@ -101,6 +115,9 @@ public class Enemy : MonoBehaviour, IAlive
     {
         aggroZone.OnZoneEnter -= OnGotTarget;
         lostZone.OnZoneExit -= OnLostTarget;
+
+        loadingZone.OnZoneEnter -= OnLoad;
+        loadingZone.OnZoneExit -= OnUnload;
     }
 
     void OnGotTarget(GameObject other)
@@ -123,6 +140,10 @@ public class Enemy : MonoBehaviour, IAlive
 
     void OnCollisionStay2D(Collision2D other)
     {
+        if (!behaviour.gameObject.activeSelf) {
+            return;
+        }
+
         behaviour.SetBool("collisionOccured", true);
     }
 
@@ -167,5 +188,19 @@ public class Enemy : MonoBehaviour, IAlive
     public void SetAnimation(string animationName)
     {
         GetComponent<Animator>().Play(animationName);
+    }
+
+    public void OnLoad(GameObject other)
+    {
+        enabled = true;
+        behaviour.gameObject.SetActive(true);
+        gameObject.GetComponent<Animator>().enabled = true;
+    }
+
+    public void OnUnload(GameObject other)
+    {
+        enabled = false;
+        behaviour.gameObject.SetActive(false);
+        gameObject.GetComponent<Animator>().enabled = false;
     }
 }
