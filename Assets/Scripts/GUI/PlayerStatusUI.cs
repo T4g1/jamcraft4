@@ -22,6 +22,9 @@ public class PlayerStatusUI : MonoBehaviour
 
         player.OnHitPointsChanged += OnPlayerHitPointsChanged;
         weapon.OnMagazineClipChanged += OnPlayerMagazineClipChanged;
+
+        OnPlayerHitPointsChanged(player.HitPoints);
+        OnPlayerMagazineClipChanged(weapon.MagazineClip);
     }
     
     void OnPlayerHitPointsChanged(int value)

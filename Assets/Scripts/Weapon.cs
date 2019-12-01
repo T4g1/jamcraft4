@@ -39,7 +39,7 @@ public class Weapon : MonoBehaviour
     private bool reloading = false;
     private float reloadTime = 0.0f;    // Time before reload complete
     private uint magazineClip = 0;      // Bullet left
-    private uint MagazineClip {
+    public uint MagazineClip {
         get { return magazineClip; }
         set {
             magazineClip = value;
