@@ -336,10 +336,10 @@ public class LevelGenerator : MonoBehaviour
         
         BoundsInt bounds = tilemap.cellBounds;
         TileBase[] allTiles = tilemap.GetTilesBlock(bounds);
+        yield return 0;
 
         for (int x = 0; x < bounds.size.x; x++) {
             for (int y = 0; y < bounds.size.y; y++) {
-                yield return 0;
 
                 TileBase tile = allTiles[x + y * bounds.size.x];
                 if (tile == Utility.GetWall() || tile == null) {

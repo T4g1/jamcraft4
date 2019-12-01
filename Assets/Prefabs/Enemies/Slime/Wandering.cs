@@ -25,10 +25,7 @@ public class Wandering : StateMachineBehaviour
         Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         cachedAnimator = animator;
-        enemy = animator.gameObject.GetComponentInParent<Enemy>(
-            typeof(Enemy), 
-            true
-        );
+        enemy = animator.gameObject.GetComponentInParent<Enemy>();
 
         directionChangeDelay = 0.0f;
 
@@ -57,7 +54,7 @@ public class Wandering : StateMachineBehaviour
         if (enemy == null) {
             return;
         }
-        
+
         enemy.AggroZone.OnZoneEnter -= OnTargetAquired;
     }
 
