@@ -197,6 +197,8 @@ public class GameController : MonoBehaviour
     IEnumerator _OnPlayerDies()
     {
         yield return new WaitForSeconds(deathTime);
+        
+        levelGenerator.PortalIn.Activate();
 
         Player player = Utility.GetPlayer();
         player.transform.position = levelGenerator.Spawn.position;

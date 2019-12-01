@@ -226,4 +226,12 @@ public class Player : MonoBehaviour, IAlive
     {
         reloadUI.Show();
     }
+
+    void OnTriggerEnter2D(Collider2D other) 
+    {
+        RoomLoader roomLoader = other.gameObject.GetComponent<RoomLoader>();
+        if (roomLoader != null) {
+            roomLoader.LoadRoomContent();
+        }
+    }
 }

@@ -140,7 +140,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &9180534725695259356
 Transform:
   m_ObjectHideFlags: 0
@@ -195,7 +195,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1259880017
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 4166821680782369677, guid: 283a20927d51c5b169fa70d6a488e0c2,
     type: 3}
@@ -226,11 +226,11 @@ MonoBehaviour:
   attackZone: {fileID: 2164728929303064389}
   lostZone: {fileID: 7062443018094338420}
   speed: 1
+  agroSpeed: 1
   behaviour: {fileID: 5345346731414644992}
   hitPoints: 3
   bloodInstance: {fileID: 6716661629832660066, guid: 8a50f28f9c71d461fb94cb13102120a8,
     type: 3}
-  attackDelay: 1
 --- !u!50 &9189348773845476850
 Rigidbody2D:
   serializedVersion: 4
