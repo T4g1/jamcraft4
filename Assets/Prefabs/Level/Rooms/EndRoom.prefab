@@ -79,7 +79,7 @@ PrefabInstance:
     - target: {fileID: 6523152550276114754, guid: 7e5ab56071570ec4ca96a6e3166848cd,
         type: 3}
       propertyPath: m_Name
-      value: PickUp
+      value: Barrel
       objectReference: {fileID: 0}
     - target: {fileID: 5487662749396830640, guid: 7e5ab56071570ec4ca96a6e3166848cd,
         type: 3}
@@ -160,7 +160,7 @@ PrefabInstance:
     - target: {fileID: 6523152550276114754, guid: 7e5ab56071570ec4ca96a6e3166848cd,
         type: 3}
       propertyPath: m_Name
-      value: PickUp (3)
+      value: Handle
       objectReference: {fileID: 0}
     - target: {fileID: 5487662749396830640, guid: 7e5ab56071570ec4ca96a6e3166848cd,
         type: 3}
@@ -241,7 +241,7 @@ PrefabInstance:
     - target: {fileID: 6523152550276114754, guid: 7e5ab56071570ec4ca96a6e3166848cd,
         type: 3}
       propertyPath: m_Name
-      value: PickUp (5)
+      value: Stock
       objectReference: {fileID: 0}
     - target: {fileID: 5487662749396830640, guid: 7e5ab56071570ec4ca96a6e3166848cd,
         type: 3}
@@ -322,7 +322,7 @@ PrefabInstance:
     - target: {fileID: 6523152550276114754, guid: 7e5ab56071570ec4ca96a6e3166848cd,
         type: 3}
       propertyPath: m_Name
-      value: PickUp (2)
+      value: String
       objectReference: {fileID: 0}
     - target: {fileID: 5487662749396830640, guid: 7e5ab56071570ec4ca96a6e3166848cd,
         type: 3}
@@ -383,7 +383,7 @@ PrefabInstance:
         type: 3}
       propertyPath: item
       value: 
-      objectReference: {fileID: 11400000, guid: 4599effb2659b9541b5b5f19571747ba,
+      objectReference: {fileID: 11400000, guid: 6c99faf25c26df44d8b1daecaa73936d,
         type: 2}
     - target: {fileID: 6560789707617364219, guid: 7e5ab56071570ec4ca96a6e3166848cd,
         type: 3}
@@ -403,7 +403,7 @@ PrefabInstance:
     - target: {fileID: 6523152550276114754, guid: 7e5ab56071570ec4ca96a6e3166848cd,
         type: 3}
       propertyPath: m_Name
-      value: PickUp (4)
+      value: Sight
       objectReference: {fileID: 0}
     - target: {fileID: 5487662749396830640, guid: 7e5ab56071570ec4ca96a6e3166848cd,
         type: 3}
@@ -484,7 +484,7 @@ PrefabInstance:
     - target: {fileID: 6523152550276114754, guid: 7e5ab56071570ec4ca96a6e3166848cd,
         type: 3}
       propertyPath: m_Name
-      value: PickUp (1)
+      value: Quiver
       objectReference: {fileID: 0}
     - target: {fileID: 5487662749396830640, guid: 7e5ab56071570ec4ca96a6e3166848cd,
         type: 3}
