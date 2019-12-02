@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
 
+/**
+ * No UI can be opened/closed while pause menu is open
+ */
 public class GameUIController : MonoBehaviour
 {
     #region Singleton
@@ -55,8 +58,8 @@ public class GameUIController : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetButtonDown("Inventory") && !escapeMenu.IsOpen()) {
-            inventory.Toggle();
+        if (Input.GetButtonDown("Inventory")) {
+            ToggleInventory();
         }
         
         if (Input.GetButtonDown("Cancel")) {
@@ -117,5 +120,19 @@ public class GameUIController : MonoBehaviour
         }
 
         crafting.Toggle();
+    }
+
+    public void ToggleInventory()
+    {
+        if (escapeMenu.IsOpen()) {
+            return;
+        }
+
+        // Opening inventory while in crafting will show only inventory
+        if (crafting.IsOpen() && inventory.IsOpen()) {
+            crafting.Close();
+        }
+        
+        inventory.Toggle();
     }
 }

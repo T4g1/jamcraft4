@@ -19,7 +19,7 @@ public class ConfirmButton : MonoBehaviour, IPointerExitHandler
     private string confirmText = "Confirm ?";
     private string normalText = "";
     [SerializeField] 
-    private UnityEvent methods = null;
+    private UnityEvent onButtonConfirmed = null;
 
 
     void Start()
@@ -37,7 +37,7 @@ public class ConfirmButton : MonoBehaviour, IPointerExitHandler
         if (confirmationShown) {
             ShowNormal();
 
-            methods.Invoke();
+            onButtonConfirmed.Invoke();
         }
         else {
             ShowConfirm();
