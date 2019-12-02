@@ -2,18 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.Events;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ConfirmButton : MonoBehaviour
+public class ConfirmButton : MonoBehaviour, IPointerExitHandler
 {
-    public event System.Action OnButtonConfirmed;
-
-    bool confirmationShown = false;
     private Text textObject = null;
-    private string originalValue = "";
+    bool confirmationShown = false;
 
     [SerializeField]
+    private Color normalColor = Color.white;
+    [SerializeField]
+    private Color confirmColor = Color.red;
+    [SerializeField]
     private string confirmText = "Confirm ?";
+    private string normalText = "";
+    [SerializeField] 
+    private UnityEvent methods = null;
 
 
     void Start()
@@ -21,23 +27,41 @@ public class ConfirmButton : MonoBehaviour
         textObject = GetComponentInChildren<Text>();
 
         Assert.IsNotNull(textObject);
+        Assert.IsNotNull(methods);
 
-        originalValue = textObject.text;
+        normalText = textObject.text;
     }
 
     public void OnButton()
     {
         if (confirmationShown) {
-            textObject.text = originalValue;
+            ShowNormal();
 
-            if (OnButtonConfirmed != null) {
-                OnButtonConfirmed();
-            }
+            methods.Invoke();
         }
         else {
-            textObject.text = confirmText;
+            ShowConfirm();
         }
+    }
 
-        confirmationShown = !confirmationShown;
+    public void OnPointerExit(PointerEventData data)
+    {
+        ShowNormal();
+    }
+
+    public void ShowNormal()
+    {
+        GetComponent<Image>().color = normalColor;
+        textObject.text = normalText;
+
+        confirmationShown = false;
+    }
+
+    public void ShowConfirm()
+    {
+        GetComponent<Image>().color = confirmColor;
+        textObject.text = confirmText;
+
+        confirmationShown = true;
     }
 }

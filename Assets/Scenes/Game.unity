@@ -1156,11 +1156,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 934782237}
+      objectReference: {fileID: 717307197}
     - target: {fileID: 179821225114814857, guid: 8f9eafd749cb12941bd788bf164f12b0,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnMenuButton
+      value: OnButton
       objectReference: {fileID: 0}
     - target: {fileID: 179821225114814857, guid: 8f9eafd749cb12941bd788bf164f12b0,
         type: 3}
@@ -4351,6 +4351,41 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 382715593}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &717307196 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3178027569633597618, guid: 8f9eafd749cb12941bd788bf164f12b0,
+    type: 3}
+  m_PrefabInstance: {fileID: 310621103}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &717307197
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 717307196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a8b5e397df31dc4f810f1f31698266c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  normalColor: {r: 1, g: 1, b: 1, a: 1}
+  confirmColor: {r: 1, g: 0, b: 0, a: 1}
+  confirmText: Confirm?
+  methods:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 934782237}
+        m_MethodName: OnMenuButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!224 &717758930 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 810523462649530869, guid: 58c37a54af48c1048a0c03ceaaa86460,
@@ -6221,11 +6256,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 934782237}
+      objectReference: {fileID: 1139134113}
     - target: {fileID: 179821225114814857, guid: 8f9eafd749cb12941bd788bf164f12b0,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnQuitButton
+      value: OnButton
       objectReference: {fileID: 0}
     - target: {fileID: 179821225114814857, guid: 8f9eafd749cb12941bd788bf164f12b0,
         type: 3}
@@ -6245,6 +6280,41 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1139134110}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1139134112 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3178027569633597618, guid: 8f9eafd749cb12941bd788bf164f12b0,
+    type: 3}
+  m_PrefabInstance: {fileID: 1139134110}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1139134113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1139134112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a8b5e397df31dc4f810f1f31698266c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  normalColor: {r: 1, g: 1, b: 1, a: 1}
+  confirmColor: {r: 1, g: 0, b: 0, a: 1}
+  confirmText: Confirm?
+  methods:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 934782237}
+        m_MethodName: OnQuitButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &1144589953
 PrefabInstance:
   m_ObjectHideFlags: 0
