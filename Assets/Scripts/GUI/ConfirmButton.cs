@@ -27,7 +27,7 @@ public class ConfirmButton : MonoBehaviour, IPointerExitHandler
         textObject = GetComponentInChildren<Text>();
 
         Assert.IsNotNull(textObject);
-        Assert.IsNotNull(methods);
+        Assert.IsNotNull(onButtonConfirmed);
 
         normalText = textObject.text;
     }
