@@ -4494,7 +4494,18 @@ MonoBehaviour:
   confirmText: Confirm?
   onButtonConfirmed:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 934782237}
+        m_MethodName: OnMenuButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!224 &717758930 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 810523462649530869, guid: 58c37a54af48c1048a0c03ceaaa86460,
@@ -6535,7 +6546,18 @@ MonoBehaviour:
   confirmText: Confirm?
   onButtonConfirmed:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 934782237}
+        m_MethodName: OnQuitButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &1144589953
 PrefabInstance:
   m_ObjectHideFlags: 0
