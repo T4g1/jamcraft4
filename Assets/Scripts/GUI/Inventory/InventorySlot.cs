@@ -1,8 +1,11 @@
 ﻿using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.Events;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class InventorySlot : MonoBehaviour
+public class InventorySlot : 
+    MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField]
     private Image icon = null;
@@ -10,6 +13,8 @@ public class InventorySlot : MonoBehaviour
     protected Button itemButton = null;
     [SerializeField]
     private Button removeButton = null;
+    [SerializeField]
+    private Tooltip tooltip = null;
 
     private Item item;
     public Item Item {
@@ -20,8 +25,11 @@ public class InventorySlot : MonoBehaviour
     void Start()
     {
         Assert.IsNotNull(icon);
+        Assert.IsNotNull(tooltip);
         Assert.IsNotNull(itemButton);
         Assert.IsNotNull(removeButton);
+
+        tooltip.Hide();
     }
 
     public virtual bool AddItem(Item newItem)
@@ -32,6 +40,8 @@ public class InventorySlot : MonoBehaviour
         icon.enabled = true;
         itemButton.interactable = true;
         removeButton.interactable = true;
+
+        tooltip.TextContent = item.itemName;
 
         return true;
     }
@@ -44,6 +54,8 @@ public class InventorySlot : MonoBehaviour
         icon.enabled = false;
         itemButton.interactable = false;
         removeButton.interactable = false;
+
+        tooltip.Hide();
     }
 
     public void OnRemoveButton()
@@ -65,5 +77,15 @@ public class InventorySlot : MonoBehaviour
     public bool IsFree()
     {
         return item == null;
+    }
+
+    public void OnPointerEnter(PointerEventData data)
+    {
+        tooltip.Show();
+    }
+
+    public void OnPointerExit(PointerEventData data)
+    {
+        tooltip.Hide();
     }
 }

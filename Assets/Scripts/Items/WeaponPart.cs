@@ -4,17 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
 
-public enum PartType
-{
-    NONE = 0,
-    QUIVER,
-    SIGHT,
-    BARREL,
-    STRING,
-    STOCK,
-    HANDLE
-}
-
 [CreateAssetMenu(fileName = "New Part", menuName = "Weapons/New Part")]
 public class WeaponPart : Item
 {
@@ -22,7 +11,7 @@ public class WeaponPart : Item
     public bool isQuiver;
     public uint magazineSize;
     public uint[] magezineSizes = new uint[] {
-        5, 20, 50
+        100, 50, 10
     };
 
     [Header("Barrel")]
@@ -69,6 +58,8 @@ public class WeaponPart : Item
         sprite = GetRandomSprite(GameController.Instance.quiverSprites);
 
         magazineSize = Utility.RandomElement(magezineSizes);
+        
+        GenerateName(GetQualifier(magazineSize, magezineSizes));
     }
 
     public void RandomizeBarrel()
@@ -78,6 +69,8 @@ public class WeaponPart : Item
 
         Bullet[] bullets = Resources.LoadAll<Bullet>("Bullets");
         bulletPrefab = Utility.RandomElement(bullets);
+        
+        GenerateName(GetQualifier(bulletPrefab, bullets));
     }
 
     public void RandomizeStock()
@@ -86,6 +79,8 @@ public class WeaponPart : Item
         sprite = GetRandomSprite(GameController.Instance.stockSprites);
 
         recoil = Utility.RandomElement(recoils);
+        
+        GenerateName(GetQualifier(recoil, recoils));
     }
 
     public void RandomizeSight()
@@ -94,6 +89,8 @@ public class WeaponPart : Item
         sprite = GetRandomSprite(GameController.Instance.sightSprites);
 
         precision = Utility.RandomElement(precisions);
+        
+        GenerateName(GetQualifier(precision, precisions));
     }
 
     public void RandomizeHandle()
@@ -102,6 +99,8 @@ public class WeaponPart : Item
         sprite = GetRandomSprite(GameController.Instance.handleSprites);
 
         reloadTime = Utility.RandomElement(reloadTimes);
+        
+        GenerateName(GetQualifier(reloadTime, reloadTimes));
     }
 
     public void RandomizeString()
@@ -111,6 +110,8 @@ public class WeaponPart : Item
 
         fireRate = Utility.RandomElement(fireRates);
         lifespan = 3.0f;
+
+        GenerateName(GetQualifier(fireRate, fireRates));
     }
 
     private Sprite GetRandomSprite(List<Sprite> sprites)
@@ -160,4 +161,52 @@ public class WeaponPart : Item
     {
         return System.Enum.GetValues(typeof(PartType)).Cast<int>().Max();
     }
+
+    string GetPartName()
+    {
+        string[] partNames = new string[] {
+            "Unknown",
+            "Quiver",
+            "Sight",
+            "Barrel",
+            "String",
+            "Stock",
+            "Handle"
+        };
+
+        return partNames[(int) GetPartType()];
+    }
+
+    /**
+     * Assumes value at the array start are better than value at the array end
+     */
+    string GetQualifier<T>(T value, T[] array)
+    {
+        int index = System.Array.IndexOf(array, value);
+
+        if (index == 0) {
+            return "Godly";
+        }
+        else if (index == array.Length - 1) {
+            return "Awful";
+        }
+
+        return "";
+    }
+    
+    void GenerateName(string qualifier)
+    {
+        itemName = qualifier + " " + GetPartName();
+    }
+}
+
+public enum PartType
+{
+    NONE = 0,
+    QUIVER,
+    SIGHT,
+    BARREL,
+    STRING,
+    STOCK,
+    HANDLE
 }

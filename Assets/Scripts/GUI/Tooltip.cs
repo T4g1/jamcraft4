@@ -64,6 +64,10 @@ public class Tooltip : MonoBehaviour
 
     void UpdatePosition()
     {
+        if (follow == null) {
+            return;
+        }
+        
         Canvas canvas = GetComponentInParent<Canvas>();
         
         // Calculate *screen* position (note, not a canvas/recttransform position)
