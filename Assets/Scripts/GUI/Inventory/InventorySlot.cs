@@ -81,6 +81,10 @@ public class InventorySlot :
 
     public void OnPointerEnter(PointerEventData data)
     {
+        if (item == null) {
+            return;
+        }
+        
         tooltip.Show();
     }
 

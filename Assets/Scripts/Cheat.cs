@@ -16,10 +16,6 @@ public class Cheat : MonoBehaviour
         if (Input.GetButtonDown("Use")) {
             RandomizeWeapon();
         }
-
-        if (Input.GetButtonDown("Use")) {
-            HurtPlayer();
-        }
     }
 
     /**
