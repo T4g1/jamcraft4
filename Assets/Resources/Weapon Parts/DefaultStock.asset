@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17d1b9131e29bd84c8df176623f6ef54, type: 3}
   m_Name: DefaultStock
   m_EditorClassIdentifier: 
+  itemName: Default Stock
   sprite: {fileID: 21300000, guid: 18c229c19dd0ad848a01ec5bd7604277, type: 3}
+  consumable: 0
   isQuiver: 0
   magazineSize: 0
   magezineSizes: 050000001400000032000000

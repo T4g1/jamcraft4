@@ -219,11 +219,11 @@ public class Player : MonoBehaviour, IAlive
 
     public void OnReloading()
     {
-        reloadUI.Hide();
+        //reloadUI.Hide();
     }
 
     public void OnMagazineEmpty()
     {
-        reloadUI.Show();
+        //reloadUI.Show();
     }
 }

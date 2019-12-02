@@ -15,12 +15,12 @@ MonoBehaviour:
   Path: event:/Level1_Song
   guid: 73b530aea6edcc4abfa35ed19bfa7d66
   Banks:
-  - {fileID: -2451115474014792218}
+  - {fileID: 7009957996459788785}
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: -6181899236311459571}
+  - {fileID: 8272166154077707865}
   MinDistance: 0
   MaxDistance: 0
   Length: 41142
@@ -38,8 +38,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: event:/SFX/Shoot
   guid: cc7726f74686e443a71e1e345944677f
-  Banks:
-  - {fileID: -2451115474014792218}
+  Banks: []
   IsStream: 1
   Is3D: 0
   IsOneShot: 1
@@ -64,7 +63,24 @@ MonoBehaviour:
   Min: 0
   Max: 100
   Default: 0
-  Exists: 1
+  Exists: 0
+--- !u!114 &-5409221715829374049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Level1_Song/Intensity
+  m_EditorClassIdentifier: 
+  Name: Intensity
+  Min: 0
+  Max: 100
+  Default: 0
+  Exists: 0
 --- !u!114 &-2451115474014792218
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -82,7 +98,7 @@ MonoBehaviour:
   lastModified: 637107485687294409
   LoadResult: 0
   FileSizes: []
-  Exists: 1
+  Exists: 0
 --- !u!114 &-676244581383050926
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114,17 +130,94 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EditorBanks:
   - {fileID: 8252419120124012212}
-  - {fileID: -2451115474014792218}
+  - {fileID: 7009957996459788785}
   EditorEvents:
   - {fileID: -8699802652090415719}
-  - {fileID: -7534935808261334064}
+  - {fileID: 546069583690530729}
   EditorParameters: []
   MasterBanks:
-  - {fileID: -2451115474014792218}
+  - {fileID: 7009957996459788785}
   StringsBanks:
   - {fileID: 8252419120124012212}
-  stringsBankWriteTime: 637107485670816951
+  stringsBankWriteTime: 637109076572279081
   cacheVersion: 3
+--- !u!114 &437707091365717343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Shoot/IsEmpty
+  m_EditorClassIdentifier: 
+  Name: IsEmpty
+  Min: 0
+  Max: 2
+  Default: 0
+  Exists: 1
+--- !u!114 &546069583690530729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Shoot
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Shoot
+  guid: cc7726f74686e443a71e1e345944677f
+  Banks:
+  - {fileID: 7009957996459788785}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters:
+  - {fileID: 437707091365717343}
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 0
+--- !u!114 &7009957996459788785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Audio/Desktop/Master.bank
+  SubDir: 
+  lastModified: 637109076571382842
+  LoadResult: 0
+  FileSizes: []
+  Exists: 1
+--- !u!114 &7895329808615828618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Audio/Desktop/Master.bank
+  SubDir: 
+  lastModified: 637109075401397521
+  LoadResult: 0
+  FileSizes: []
+  Exists: 0
 --- !u!114 &8252419120124012212
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -139,9 +232,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: Assets/Audio/Desktop/Master.strings.bank
   SubDir: 
-  lastModified: 637107485670816951
+  lastModified: 637109076572279081
   LoadResult: 0
   FileSizes:
   - Name: 
     Value: 888
+  Exists: 1
+--- !u!114 &8272166154077707865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Level1_Song/Intensity
+  m_EditorClassIdentifier: 
+  Name: Intensity
+  Min: 0
+  Max: 100
+  Default: 0
   Exists: 1

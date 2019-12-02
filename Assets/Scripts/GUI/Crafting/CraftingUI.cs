@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
 public class CraftingUI : Popup
 {
@@ -20,6 +22,9 @@ public class CraftingUI : Popup
 
     [SerializeField]
     private GameObject craftingGrid = null;
+    
+    [SerializeField] 
+    private UnityEvent onCrafted = null;
 
     private Inventory inventory;
     private CraftingSlot[] slots;
@@ -81,6 +86,8 @@ public class CraftingUI : Popup
         }
 
         ConsumeItems();
+
+        onCrafted.Invoke();
     }
 
     /**

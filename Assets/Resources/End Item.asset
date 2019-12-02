@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b528076d160d3b04f9eac9e6503946cd, type: 3}
   m_Name: End Item
   m_EditorClassIdentifier: 
+  itemName: Golden Crossbow Of Doom
   sprite: {fileID: 21300000, guid: 499a21ae936037941aa75477b7ff51fa, type: 3}
   consumable: 1

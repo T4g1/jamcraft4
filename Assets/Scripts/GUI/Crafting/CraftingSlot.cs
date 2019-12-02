@@ -18,8 +18,6 @@ public class CraftingSlot : InventorySlot
         };
 
         bool result = base.AddItem(newItem);
-        
-        itemButton.interactable = false;
 
         return result;
     }

@@ -7,6 +7,13 @@ public class Cheat : MonoBehaviour
     [SerializeField]
     private bool cheatEnabled = false;
 
+    void Start()
+    {
+        if (cheatEnabled) {
+            Debug.Log("WARNING: CHEAT MODE ACTIVATED, DEACTIVATE IT FOR PROD");
+        }
+    }
+
     void Update()
     {
         if (!cheatEnabled) {
@@ -15,10 +22,6 @@ public class Cheat : MonoBehaviour
 
         if (Input.GetButtonDown("Use")) {
             RandomizeWeapon();
-        }
-
-        if (Input.GetButtonDown("Use")) {
-            HurtPlayer();
         }
     }
 

@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17d1b9131e29bd84c8df176623f6ef54, type: 3}
   m_Name: DefaultQuiver
   m_EditorClassIdentifier: 
+  itemName: Default Quiver
   sprite: {fileID: 21300000, guid: 087383a6cab574e4d95231d2ccfe4cff, type: 3}
+  consumable: 0
   isQuiver: 1
   magazineSize: 10
   magezineSizes: 050000001400000032000000

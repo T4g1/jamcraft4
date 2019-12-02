@@ -263,6 +263,7 @@ public class Weapon : MonoBehaviour
         if (MagazineClip <= 0) {
             sfxIsEmpty = SFX_SHOOT_EMPTY;
             StartShootSFX();
+            Reload();
 
             if (OnMagazineEmpty != null) {
                 OnMagazineEmpty();
