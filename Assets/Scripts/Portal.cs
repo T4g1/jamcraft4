@@ -10,15 +10,20 @@ public class Portal : MonoBehaviour
     private float teleportTime = 0.5f;
 
     private bool isLevelEnd = false;
+    private bool isActive = false;
     
     [SerializeField]
     private bool defaultActive = true;
     [SerializeField]
     private Vector3 destination = Vector3.zero;
+    [SerializeField]
+    private Animator portalSprite = null;
 
 
     void Start()
     {
+        Assert.IsNotNull(portalSprite);
+
         if (defaultActive) {
             Activate();
         }
@@ -30,6 +35,10 @@ public class Portal : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other) 
     {
+        if (!isActive) {
+            return;
+        }
+
         GameObject collider = other.gameObject;
         if (collider.tag == "Player") {
             StartCoroutine(_Teleport(collider));
@@ -40,7 +49,7 @@ public class Portal : MonoBehaviour
     {
         yield return new WaitForSeconds(teleportTime);
 
-        gameObject.SetActive(false);
+        Deactivate();
         player.transform.position = destination;
 
         if (isLevelEnd) {
@@ -60,11 +69,13 @@ public class Portal : MonoBehaviour
 
     public void Activate()
     {
-        gameObject.SetActive(true);
+        isActive = true;
+        portalSprite.Play("opening");
     }
 
     public void Deactivate()
     {
-        gameObject.SetActive(false);
+        isActive = false;
+        portalSprite.Play("closing");
     }
 }
