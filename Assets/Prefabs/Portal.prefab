@@ -49,6 +49,7 @@ MonoBehaviour:
   teleportTime: 0.3
   defaultActive: 1
   destination: {x: 0, y: 0, z: 0}
+  portalSprite: {fileID: 3988716607877926832}
 --- !u!95 &6965653172146544279
 Animator:
   serializedVersion: 3
