@@ -1082,7 +1082,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: 'Alex
 
-    Rose'
+    RoseTintedDreams'
 --- !u!222 &1217696700
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1355,6 +1355,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   themeName: event:/Level1_Song
+  themIntensity: 100
   credits: {fileID: 1108875783}
   creditsEndPosition: {fileID: 2045843889}
   creditsPositionTween: {fileID: 204138662}
