@@ -135,4 +135,11 @@ public class GameUIController : MonoBehaviour
         
         inventory.Toggle();
     }
+
+    public void ShowNotification(GameObject notification)
+    {
+        GameObject clone = Instantiate(notification);
+        clone.transform.SetParent(notification.transform.parent);
+        clone.GetComponent<Notification>().Show();
+    }
 }

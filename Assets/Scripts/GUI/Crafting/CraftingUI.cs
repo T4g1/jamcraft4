@@ -22,6 +22,8 @@ public class CraftingUI : Popup
 
     [SerializeField]
     private GameObject craftingGrid = null;
+    [SerializeField]
+    private GameObject onCraftedNotification = null;
     
     [SerializeField] 
     private UnityEvent onCrafted = null;
@@ -86,6 +88,8 @@ public class CraftingUI : Popup
         }
 
         ConsumeItems();
+        
+        GameUIController.Instance.ShowNotification(onCraftedNotification);
 
         onCrafted.Invoke();
     }
