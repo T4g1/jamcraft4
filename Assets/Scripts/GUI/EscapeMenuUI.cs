@@ -14,4 +14,16 @@ public class EscapeMenuUI : Popup
     {
         Application.Quit();
     }
+
+    public override void Open()
+    {
+        base.Open();
+        Time.timeScale = 0;
+    }
+
+    public override void Close()
+    {
+        base.Close();
+        Time.timeScale = 1;
+    }
 }
