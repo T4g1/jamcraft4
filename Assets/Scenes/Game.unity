@@ -1335,12 +1335,15 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 087383a6cab574e4d95231d2ccfe4cff, type: 3}
   stockSprites:
   - {fileID: 21300000, guid: 18c229c19dd0ad848a01ec5bd7604277, type: 3}
+  - {fileID: 21300000, guid: 22d38ece31f83624e827e64a258c2af0, type: 3}
   sightSprites:
   - {fileID: 21300000, guid: 30e93214bb3a0294ea2c4831bca89090, type: 3}
   barrelSprites:
   - {fileID: 21300000, guid: ec215751998817f4e953dcdf6605e4b8, type: 3}
+  - {fileID: 21300000, guid: 925a02c1612fb6840b029dc8ae770e61, type: 3}
   stringSprites:
   - {fileID: 21300000, guid: f0f41b8c06f793d4b89c313ca1635511, type: 3}
+  - {fileID: 21300000, guid: 50845de95ffc4974096b04ff213e199f, type: 3}
   themeName: event:/Level1_Song
   intensityTween: {fileID: 2146036818}
   intensityStep: 10
