@@ -2,11 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
 public class Player : MonoBehaviour, IAlive
 {
     public event System.Action OnDeath;
     public event System.Action<int> OnHitPointsChanged;
+    
+    [SerializeField] 
+    private UnityEvent onPlayerLoaded = null;
 
     [SerializeField]
     private Rigidbody2D body = null;
@@ -73,6 +78,8 @@ public class Player : MonoBehaviour, IAlive
         Utility.GetWeapon().OnReloading += OnReloading;
 
         weapon = Utility.GetWeapon();
+
+        onPlayerLoaded.Invoke();
     }
 
     void OnDestroy()

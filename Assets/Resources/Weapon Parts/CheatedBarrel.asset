@@ -10,16 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 17d1b9131e29bd84c8df176623f6ef54, type: 3}
-  m_Name: BadassString
+  m_Name: CheatedBarrel
   m_EditorClassIdentifier: 
-  itemName: Cheated String
-  sprite: {fileID: 21300000, guid: f0f41b8c06f793d4b89c313ca1635511, type: 3}
+  itemName: Cheated Barrel
+  sprite: {fileID: 21300000, guid: 925a02c1612fb6840b029dc8ae770e61, type: 3}
   consumable: 0
   isQuiver: 0
   magazineSize: 0
   magezineSizes: 050000001400000032000000
-  isBarrel: 0
-  bulletPrefab: {fileID: 0}
+  isBarrel: 1
+  bulletPrefab: {fileID: 3662523831406985839, guid: 8c980380b65897942aff26baebde40a6,
+    type: 3}
   isStock: 0
   recoil: 0
   recoils:
@@ -38,9 +39,9 @@ MonoBehaviour:
   - 0
   - 2
   - 5
-  isString: 1
-  fireRate: 0.1
-  lifespan: 10
+  isString: 0
+  fireRate: 0
+  lifespan: 0
   fireRates:
   - 0.1
   - 0.5
