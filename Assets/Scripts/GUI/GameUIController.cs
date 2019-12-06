@@ -40,6 +40,13 @@ public class GameUIController : MonoBehaviour
         set {}
     }
 
+    [SerializeField]
+    private GameObject loadingText = null;
+    public GameObject LoadingText {
+        get { return loadingText; }
+        set {}
+    }
+
 
     private void Awake() {
         InitInstance();

@@ -7,6 +7,8 @@ using UnityEngine.Tilemaps;
 public class LevelGenerator : MonoBehaviour
 {
     [SerializeField]
+    private CustomSlider loadingBar = null;
+    [SerializeField]
     private Tilemap tilemap = null;
 
     [SerializeField]
@@ -60,6 +62,7 @@ public class LevelGenerator : MonoBehaviour
         Assert.IsNotNull(roomCollider);
         Assert.IsNotNull(spawn);
         Assert.IsNotNull(portalIn);
+        Assert.IsNotNull(loadingBar);
 
         Utility.AssertArrayNotNull<GameObject>(roomContents);
 
@@ -75,22 +78,39 @@ public class LevelGenerator : MonoBehaviour
 
     IEnumerator _Generate()
     {
+        loadingBar.Show();
+        loadingBar.SetMaximalValue(8);
+        loadingBar.SetCurrentValue(0);
+
         ClearEverything();
+
         AddRooms();
+        loadingBar.SetCurrentValue(1);
 
         yield return new WaitForSeconds(generationTime);
+        loadingBar.SetCurrentValue(2);
 
         FixRoomPositions();
+        loadingBar.SetCurrentValue(3);
 
-        FindPaths();
+        yield return StartCoroutine(_FindPaths());
+        loadingBar.SetCurrentValue(4);
+
         yield return StartCoroutine(_MakeCorridors());
+        loadingBar.SetCurrentValue(5);
 
         yield return StartCoroutine(_FillRooms());
+        loadingBar.SetCurrentValue(6);
+
         ClearRooms();
+        loadingBar.SetCurrentValue(7);
 
         yield return StartCoroutine(_AddWalls());
+        loadingBar.SetCurrentValue(8);
 
         GameController.Instance.OnLevelGenerated();
+        
+        loadingBar.Hide();
     }
 
     /**
@@ -179,7 +199,7 @@ public class LevelGenerator : MonoBehaviour
     /** 
      * Prim's Algorithm
      */
-    void FindPaths()
+    IEnumerator _FindPaths()
     {
         Assert.IsTrue(rooms.Count > 0);
 
@@ -191,6 +211,8 @@ public class LevelGenerator : MonoBehaviour
         unprocessedRooms.Remove(unprocessedRooms[0]);
 
         while (unprocessedRooms.Count > 0) {
+            yield return 0;
+
             float minimalDistance = Mathf.Infinity;
 
             Room current = null;
@@ -336,9 +358,10 @@ public class LevelGenerator : MonoBehaviour
         
         BoundsInt bounds = tilemap.cellBounds;
         TileBase[] allTiles = tilemap.GetTilesBlock(bounds);
-        yield return 0;
 
         for (int x = 0; x < bounds.size.x; x++) {
+            yield return 0;
+
             for (int y = 0; y < bounds.size.y; y++) {
 
                 TileBase tile = allTiles[x + y * bounds.size.x];
