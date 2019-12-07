@@ -65,11 +65,11 @@ public class GameUIController : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetButtonDown("Inventory")) {
+        if (InputController.Instance.GetButtonDown("inventory")) {
             ToggleInventory();
         }
         
-        if (Input.GetButtonDown("Cancel")) {
+        if (InputController.Instance.GetButtonDown("pause")) {
             // Exit any UI open
             if (IsOpen()) {
                 CloseUI();

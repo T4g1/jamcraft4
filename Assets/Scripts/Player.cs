@@ -94,11 +94,11 @@ public class Player : Alive
 
     void HandleInputs()
     {
-        if (Input.GetButton("Fire1")) {
+        if (InputController.Instance.GetButton("shoot")) {
             weapon.Shoot();
         }
         
-        if (Input.GetButtonDown("Reload")) {
+        if (InputController.Instance.GetButtonDown("reload")) {
             weapon.Reload();
         }
     }
@@ -111,8 +111,8 @@ public class Player : Alive
     void UpdateVelocity()
     {
         moveDirection = new Vector3(
-            Input.GetAxisRaw("Horizontal"), 
-            Input.GetAxisRaw("Vertical"), 
+            InputController.Instance.GetHorizontalAxis(), 
+            InputController.Instance.GetVerticalAxis(), 
             0.0f
         );
         moveDirection.Normalize();

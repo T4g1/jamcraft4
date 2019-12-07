@@ -2,16 +2,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class KeySetting : MonoBehaviour
 {
-    public string action = "Action";
-    public KeyType type = KeyType.KeyDown;
-    public int mouseButton = 0;
-    public KeyCode key = KeyCode.Space;
-
+    [SerializeField]
+    private Action action = null;
     [SerializeField]
     private Color normalColor = Color.white;
     [SerializeField]
@@ -32,12 +30,14 @@ public class KeySetting : MonoBehaviour
 
     void Awake()
     {
+        Assert.IsNotNull(action);
+
         image = GetComponentInChildren<Image>();
         actionText = GetComponentInChildren<Text>();
         button = GetComponentInChildren<Button>();
         buttonText = button.GetComponentInChildren<Text>();
 
-        actionText.text = action;
+        actionText.text = action.description;
 
         OnDeselect();
     }
@@ -49,15 +49,16 @@ public class KeySetting : MonoBehaviour
         button = GetComponentInChildren<Button>();
         buttonText = button.GetComponentInChildren<Text>();
 
-        if (type == KeyType.KeyDown) {
-            buttonText.text = key.ToString();
+        if (action.type == KeyType.KeyDown) {
+            buttonText.text = action.keyCode.ToString();
         }
         else {
-            if (mouseButton < mouseButtons.Length) {
-                buttonText.text = mouseButtons[mouseButton];
+            if (action.mouseButton < mouseButtons.Length) {
+                buttonText.text = mouseButtons[action.mouseButton];
             }
             else {
-                buttonText.text = "Mouse button " + mouseButton.ToString();
+                buttonText.text = 
+                    "Mouse button " + action.mouseButton.ToString();
             }
         }
     }
@@ -70,12 +71,12 @@ public class KeySetting : MonoBehaviour
 
         Event currentEvent = Event.current;
         if (currentEvent.type == EventType.KeyDown) {
-            type = KeyType.KeyDown;
-            key = currentEvent.keyCode;
+            action.type = KeyType.KeyDown;
+            action.keyCode = currentEvent.keyCode;
         }
         else if (currentEvent.type == EventType.MouseDown) {
-            type = KeyType.MouseDown;
-            mouseButton = currentEvent.button;
+            action.type = KeyType.MouseDown;
+            action.mouseButton = currentEvent.button;
         }
         else {
             return;
@@ -115,50 +116,13 @@ public class KeySetting : MonoBehaviour
 
     public void Save()
     {
-        PlayerPrefs.SetString(
-            action, 
-            type.ToString()
-        );
-
-        if (type == KeyType.KeyDown) {
-            PlayerPrefs.SetString(
-                action + "_value", 
-                key.ToString()
-            );
-        }
-        else {
-            PlayerPrefs.SetString(
-                action + "_value", 
-                mouseButton.ToString()
-            );
-        }
-        
+        action.Save();
     }
 
     public void Load()
     {
-        if (!PlayerPrefs.HasKey(action)) {
-            return;
-        }
-
-        type = (KeyType)System.Enum.Parse(
-            typeof(KeyType), PlayerPrefs.GetString(action) 
-        );
-        
-        string value = PlayerPrefs.GetString(action + "_value");
-        if (type == KeyType.KeyDown) {
-            key = (KeyCode)System.Enum.Parse(typeof(KeyCode), value);
-        }
-        else {
-            mouseButton = Int32.Parse(value);
-        }
+        action.Load();
 
         UpdateButtonText();
     }
-}
-
-public enum KeyType
-{
-    KeyDown = EventType.KeyDown,
-    MouseDown = EventType.MouseDown
 }
