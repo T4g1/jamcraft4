@@ -55,7 +55,7 @@ public class WeaponPart : Item
     public void RandomizeQuiver()
     {
         isQuiver = true;
-        sprite = GetRandomSprite(GameController.Instance.quiverSprites);
+        sprite = Utility.RandomElement(GameController.Instance.quiverSprites);
 
         magazineSize = Utility.RandomElement(magezineSizes);
         
@@ -65,7 +65,7 @@ public class WeaponPart : Item
     public void RandomizeBarrel()
     {
         isBarrel = true;
-        sprite = GetRandomSprite(GameController.Instance.barrelSprites);
+        sprite = Utility.RandomElement(GameController.Instance.barrelSprites);
 
         Bullet[] bullets = Resources.LoadAll<Bullet>("Bullets");
         bulletPrefab = Utility.RandomElement(bullets);
@@ -76,7 +76,7 @@ public class WeaponPart : Item
     public void RandomizeStock()
     {
         isStock = true;
-        sprite = GetRandomSprite(GameController.Instance.stockSprites);
+        sprite = Utility.RandomElement(GameController.Instance.stockSprites);
 
         recoil = Utility.RandomElement(recoils);
         
@@ -86,7 +86,7 @@ public class WeaponPart : Item
     public void RandomizeSight()
     {
         isSight = true;
-        sprite = GetRandomSprite(GameController.Instance.sightSprites);
+        sprite = Utility.RandomElement(GameController.Instance.sightSprites);
 
         precision = Utility.RandomElement(precisions);
         
@@ -96,7 +96,7 @@ public class WeaponPart : Item
     public void RandomizeHandle()
     {
         isHandle = true;
-        sprite = GetRandomSprite(GameController.Instance.handleSprites);
+        sprite = Utility.RandomElement(GameController.Instance.handleSprites);
 
         reloadTime = Utility.RandomElement(reloadTimes);
         
@@ -106,17 +106,12 @@ public class WeaponPart : Item
     public void RandomizeString()
     {
         isString = true;
-        sprite = GetRandomSprite(GameController.Instance.stringSprites);
+        sprite = Utility.RandomElement(GameController.Instance.stringSprites);
 
         fireRate = Utility.RandomElement(fireRates);
         lifespan = 3.0f;
 
         GenerateName(GetQualifier(fireRate, fireRates));
-    }
-
-    private Sprite GetRandomSprite(List<Sprite> sprites)
-    {
-        return sprites[Random.Range(0, sprites.Count)];
     }
 
     public override PartType GetPartType()

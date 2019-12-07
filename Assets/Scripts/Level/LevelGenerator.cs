@@ -79,7 +79,7 @@ public class LevelGenerator : MonoBehaviour
     IEnumerator _Generate()
     {
         loadingBar.Show();
-        loadingBar.SetMaximalValue(8);
+        loadingBar.SetMaximalValue(9);
         loadingBar.SetCurrentValue(0);
 
         ClearEverything();
@@ -107,6 +107,9 @@ public class LevelGenerator : MonoBehaviour
 
         yield return StartCoroutine(_AddWalls());
         loadingBar.SetCurrentValue(8);
+
+        yield return StartCoroutine(_TriggerSpawners());
+        loadingBar.SetCurrentValue(9);
 
         GameController.Instance.OnLevelGenerated();
         
@@ -419,6 +422,17 @@ public class LevelGenerator : MonoBehaviour
             portalOut = content.transform.GetComponentInChildren<Portal>();
             portalOut.SetDestination(spawn.position);
             portalOut.SetLevelEnd(true);
+        }
+    }
+    
+    IEnumerator _TriggerSpawners()
+    {
+        Spawner[] spawners = 
+            dynamicHolder.GetComponentsInChildren<Spawner>(true);
+        foreach (Spawner spawner in spawners) {
+            yield return 0;
+
+            spawner.Spawn();
         }
     }
 }
