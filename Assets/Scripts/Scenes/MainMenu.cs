@@ -41,6 +41,11 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene("Game", LoadSceneMode.Single);
     }
 
+    public void OnSettingsButton()
+    {
+        SceneManager.LoadScene("Settings", LoadSceneMode.Additive);
+    }
+
     public void OnQuitButton()
     {
         Application.Quit();
