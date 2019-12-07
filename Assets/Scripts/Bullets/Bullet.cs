@@ -60,16 +60,13 @@ public class Bullet : MonoBehaviour
         Vector3 collisionPosition = other.GetContact(0).point;
         OnCollision(collisionPosition);
 
-        MonoBehaviour[] behaviours =
-            other.gameObject.GetComponents<MonoBehaviour>();
+        Alive[] alives =
+            other.gameObject.GetComponents<Alive>();
         
         bool hitTarget = false;
-        foreach(MonoBehaviour behaviour in behaviours) {
-            if (behaviour is IAlive) {
-                IAlive killable = (IAlive) behaviour;
-                killable.TakeDamage(damage);
-                hitTarget = true;
-            }
+        foreach(Alive alive in alives) {
+            alive.TakeDamage(damage);
+            hitTarget = true;
         }
 
         if (hitTarget) {

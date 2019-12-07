@@ -5,11 +5,8 @@ using UnityEngine.Assertions;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-public class Player : MonoBehaviour, IAlive
+public class Player : Alive
 {
-    public event System.Action OnDeath;
-    public event System.Action<int> OnHitPointsChanged;
-    
     [SerializeField] 
     private UnityEvent onPlayerLoaded = null;
 
@@ -31,33 +28,7 @@ public class Player : MonoBehaviour, IAlive
     Vector3 moveDirection = Vector3.zero;
     string lastAnimation = "";
 
-    // Alive interface
-    [SerializeField]
-    private int maxHitPoints = 3;
-    private int hitPoints = 0;
-    public int HitPoints {
-        get { return hitPoints; }
-        set {
-            bool wasAlive = IsAlive;
-            hitPoints = value;
-
-            if (OnHitPointsChanged != null) {
-                OnHitPointsChanged(hitPoints);
-            }
-
-            // Player just died
-            if (wasAlive && !IsAlive) {
-                Die();
-            }
-        }
-    }
-
     private Weapon weapon;
-    
-    public bool IsAlive {
-        get { return HitPoints > 0; }
-        set {}
-    }
     
     [SerializeField]
     private Tooltip reloadUI = null;
@@ -71,8 +42,7 @@ public class Player : MonoBehaviour, IAlive
         Assert.IsNotNull(cameraContainer);
         
         SetAnimation("idle_down");
-
-        HitPoints = maxHitPoints;
+        Heal();
         
         Utility.GetWeapon().OnMagazineEmpty += OnMagazineEmpty;
         Utility.GetWeapon().OnReloading += OnReloading;
@@ -194,13 +164,8 @@ public class Player : MonoBehaviour, IAlive
         animator.Play(stateName);
         lastAnimation = stateName;
     }
-    
-    public void TakeDamage(int amount)
-    {
-        HitPoints -= amount;
-    }
 
-    public void Heal()
+    public override void Heal()
     {
         if (!IsAlive) {
             SetAnimation("idle_down");
@@ -209,14 +174,12 @@ public class Player : MonoBehaviour, IAlive
         HitPoints = maxHitPoints;
     }
 
-    public void Die()
+    public override void Die()
     {
-        body.velocity = Vector3.zero;
+        StopMovement();
         SetAnimation("die");
-
-        if (OnDeath != null) {
-            OnDeath();
-        }
+        
+        base.Die();
     }
 
     public Camera GetCamera()
