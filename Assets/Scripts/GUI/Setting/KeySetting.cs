@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -6,14 +7,11 @@ using UnityEngine.UI;
 
 public class KeySetting : MonoBehaviour
 {
-    [SerializeField]
-    private string action = "Action";
-    [SerializeField]
-    private KeyType type = KeyType.KeyDown;
-    [SerializeField]
-    private int mouseButton = 0;
-    [SerializeField]
-    private KeyCode key = KeyCode.Space;
+    public string action = "Action";
+    public KeyType type = KeyType.KeyDown;
+    public int mouseButton = 0;
+    public KeyCode key = KeyCode.Space;
+
     [SerializeField]
     private Color normalColor = Color.white;
     [SerializeField]
@@ -46,6 +44,11 @@ public class KeySetting : MonoBehaviour
 
     public void UpdateButtonText()
     {
+        image = GetComponentInChildren<Image>();
+        actionText = GetComponentInChildren<Text>();
+        button = GetComponentInChildren<Button>();
+        buttonText = button.GetComponentInChildren<Text>();
+
         if (type == KeyType.KeyDown) {
             buttonText.text = key.ToString();
         }
@@ -79,6 +82,8 @@ public class KeySetting : MonoBehaviour
         }
 
         OnDeselect();
+
+        Save();
     }
 
     public void OnClick()
@@ -95,7 +100,7 @@ public class KeySetting : MonoBehaviour
         if (image == null) {
             return;
         }
-        
+
         image.color = normalColor;
         UpdateButtonText();
         isSelected = false;
@@ -106,6 +111,49 @@ public class KeySetting : MonoBehaviour
         image.color = selectedColor;
         buttonText.text = "Press a key";
         isSelected = true;
+    }
+
+    public void Save()
+    {
+        PlayerPrefs.SetString(
+            action, 
+            type.ToString()
+        );
+
+        if (type == KeyType.KeyDown) {
+            PlayerPrefs.SetString(
+                action + "_value", 
+                key.ToString()
+            );
+        }
+        else {
+            PlayerPrefs.SetString(
+                action + "_value", 
+                mouseButton.ToString()
+            );
+        }
+        
+    }
+
+    public void Load()
+    {
+        if (!PlayerPrefs.HasKey(action)) {
+            return;
+        }
+
+        type = (KeyType)System.Enum.Parse(
+            typeof(KeyType), PlayerPrefs.GetString(action) 
+        );
+        
+        string value = PlayerPrefs.GetString(action + "_value");
+        if (type == KeyType.KeyDown) {
+            key = (KeyCode)System.Enum.Parse(typeof(KeyCode), value);
+        }
+        else {
+            mouseButton = Int32.Parse(value);
+        }
+
+        UpdateButtonText();
     }
 }
 

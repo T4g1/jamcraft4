@@ -2,7 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.SceneManagement;
 
+/**
+ * Hacked away a semi-real Input manager as Unity is pure garbage
+ * Stores a tuple for each action with type and value mapped to it
+ */
 public class SettingsController : MonoBehaviour
 {
     #region Singleton
@@ -34,11 +39,16 @@ public class SettingsController : MonoBehaviour
 
         keySettings = 
             keySettingContainer.GetComponentsInChildren<KeySetting>(true);
+
+        foreach (KeySetting keySetting in keySettings) {
+            keySetting.Load();
+            keySetting.Save();
+        }
     }
 
     public void SettingSelected(KeySetting setting)
     {
-        foreach(KeySetting keySetting in keySettings) {
+        foreach (KeySetting keySetting in keySettings) {
             keySetting.OnDeselect();
         }
 
