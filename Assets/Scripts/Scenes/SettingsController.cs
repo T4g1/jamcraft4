@@ -54,4 +54,9 @@ public class SettingsController : MonoBehaviour
 
         setting.OnSelect();
     }
+
+    public void OnReturn()
+    {
+        SceneManager.UnloadSceneAsync("Settings");
+    }
 }
