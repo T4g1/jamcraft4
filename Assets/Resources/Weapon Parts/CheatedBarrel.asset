@@ -19,7 +19,7 @@ MonoBehaviour:
   magazineSize: 0
   magezineSizes: 050000001400000032000000
   isBarrel: 1
-  bulletPrefab: {fileID: 3662523831406985839, guid: 8c980380b65897942aff26baebde40a6,
+  bulletPrefab: {fileID: 8671561740055763282, guid: 1edcebffc4a67c44e8d28d24ebbfdd7f,
     type: 3}
   isStock: 0
   recoil: 0

@@ -39,7 +39,18 @@ public class Bullet : MonoBehaviour
 
     void Explode()
     {
-        Destroy(gameObject);
+        body.velocity *= 0;
+        GetComponent<CapsuleCollider2D>().enabled = false;
+        GetComponent<SpriteRenderer>().enabled = false;
+        enabled = false;
+
+        ParticleSystem particles = GetComponent<ParticleSystem>();
+        if (particles) {
+            Destroy(gameObject, particles.main.duration);
+        } 
+        else {
+            Destroy(gameObject);
+        }
     }
 
     /**
