@@ -60,6 +60,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 277c1f46348b0799b93a202974a2e227, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onZoneEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  onZoneExit:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1138273637919758953
 GameObject:
   m_ObjectHideFlags: 0
@@ -120,6 +126,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 277c1f46348b0799b93a202974a2e227, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onZoneEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  onZoneExit:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &2046182116081956378
 GameObject:
   m_ObjectHideFlags: 0
@@ -180,6 +192,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 277c1f46348b0799b93a202974a2e227, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onZoneEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  onZoneExit:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &2500378062470952989
 GameObject:
   m_ObjectHideFlags: 0
@@ -282,6 +300,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32bee3a23f63545bc9fe0e5bd680d735, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHitPoints: 1
   dropRate: 0.7
   aggroZone: {fileID: 1161148983929493434}
   attackZone: {fileID: 2164728929303064389}
@@ -290,7 +309,6 @@ MonoBehaviour:
   speed: 1
   agroSpeed: 1
   behaviour: {fileID: 5345346731414644992}
-  hitPoints: 3
   bloodInstance: {fileID: 6716661629832660066, guid: 8a50f28f9c71d461fb94cb13102120a8,
     type: 3}
 --- !u!50 &9189348773845476850
@@ -322,7 +340,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2500378062470952989}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 20005508ea37d1f48a7594c05e148390, type: 2}
   m_CullingMode: 0
@@ -365,7 +383,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &5586307864479381420
 Transform:
   m_ObjectHideFlags: 0
@@ -388,7 +406,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5627167216542477096}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 0}
   m_CullingMode: 0
@@ -459,3 +477,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 277c1f46348b0799b93a202974a2e227, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onZoneEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  onZoneExit:
+    m_PersistentCalls:
+      m_Calls: []

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfcb044a63ea9405da8e0cb7c03ac620, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHitPoints: 1
   dropRate: 0.5
   aggroZone: {fileID: 6196314451790662426}
   attackZone: {fileID: 6623150795236357093}
@@ -20,7 +21,6 @@ MonoBehaviour:
   speed: 1
   agroSpeed: 2
   behaviour: {fileID: 1139126462083085728}
-  hitPoints: 0
   bloodInstance: {fileID: 6716661629832660066, guid: 8a50f28f9c71d461fb94cb13102120a8,
     type: 3}
 --- !u!1001 &5035167265586568352
@@ -130,6 +130,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_RootOrder
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3755885276011753549, guid: be4ae40b898abc371a9eea4c816b5149,
+        type: 3}
+      propertyPath: onZoneExit.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 5888309840488080994}
+    - target: {fileID: 3755885276011753549, guid: be4ae40b898abc371a9eea4c816b5149,
+        type: 3}
+      propertyPath: onZoneExit.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: DeactivateBehaviour
+      objectReference: {fileID: 0}
+    - target: {fileID: 3755885276011753549, guid: be4ae40b898abc371a9eea4c816b5149,
+        type: 3}
+      propertyPath: onZoneEnter.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 5888309840488080994}
+    - target: {fileID: 3755885276011753549, guid: be4ae40b898abc371a9eea4c816b5149,
+        type: 3}
+      propertyPath: onZoneEnter.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ActivateBehaviour
       objectReference: {fileID: 0}
     - target: {fileID: 5627167216542477096, guid: be4ae40b898abc371a9eea4c816b5149,
         type: 3}
