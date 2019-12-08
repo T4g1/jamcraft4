@@ -51,8 +51,6 @@ public class Alive : MonoBehaviour
 
     public virtual void Heal()
     {
-        Debug.Log(gameObject.name + HitPoints);
         HitPoints = maxHitPoints;
-        Debug.Log(HitPoints);
     }
 }
