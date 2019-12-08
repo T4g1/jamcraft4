@@ -27,7 +27,7 @@ public class Alive : MonoBehaviour
         }
     }
 
-    void Start()
+    protected virtual void Start()
     {
         Heal();
     }
@@ -51,6 +51,8 @@ public class Alive : MonoBehaviour
 
     public virtual void Heal()
     {
+        Debug.Log(gameObject.name + HitPoints);
         HitPoints = maxHitPoints;
+        Debug.Log(HitPoints);
     }
 }

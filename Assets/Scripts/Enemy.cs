@@ -66,7 +66,7 @@ public class Enemy : Alive
     private GameObject bloodInstance = null;
 
 
-    void Start()
+    protected override void Start()
     {
         Assert.IsNotNull(behaviour);
         Assert.IsNotNull(loadingZone);
@@ -79,8 +79,9 @@ public class Enemy : Alive
         loadingZone.OnZoneEnter += ActivateBehaviour;
         loadingZone.OnZoneExit += DeactivateBehaviour;
 
-        Heal();
         DeactivateBehaviour();
+
+        base.Start();
     }
 
     void Update()

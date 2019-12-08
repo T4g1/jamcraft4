@@ -34,7 +34,7 @@ public class Player : Alive
     private Tooltip reloadUI = null;
 
 
-    void Start() 
+    protected override void Start()
     {
         Assert.IsNotNull(reloadUI);
         Assert.IsNotNull(body);
@@ -42,7 +42,6 @@ public class Player : Alive
         Assert.IsNotNull(cameraContainer);
         
         SetAnimation("idle_down");
-        Heal();
         
         Utility.GetWeapon().OnMagazineEmpty += OnMagazineEmpty;
         Utility.GetWeapon().OnReloading += OnReloading;
@@ -50,6 +49,8 @@ public class Player : Alive
         weapon = Utility.GetWeapon();
 
         onPlayerLoaded.Invoke();
+
+        base.Start();
     }
 
     void OnDestroy()

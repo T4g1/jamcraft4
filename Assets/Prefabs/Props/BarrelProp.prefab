@@ -134,3 +134,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHitPoints: 1
+  brokenEffect: {fileID: 6716661629832660066, guid: 07d1676e5582fd844b086074f28019e7,
+    type: 3}
