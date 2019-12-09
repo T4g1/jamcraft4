@@ -7,7 +7,8 @@ using UnityEngine.Tilemaps;
 public class Room : MonoBehaviour
 {
     private GameObject roomContent = null;
-    private Tilemap contentTilemap;
+    private Tilemap floorsTilemap;
+    private Tilemap wallsTilemap;
     private GameObject contentContainer;
 
     public List<Room> connectedTo = new List<Room>();
@@ -19,22 +20,34 @@ public class Room : MonoBehaviour
 
         transform.localScale = roomContent.transform.Find("Size").localScale;
 
-        Transform tilemapTransform = roomContent.transform.Find("Grid/Tilemap");
-        contentTilemap = tilemapTransform.gameObject.GetComponent<Tilemap>();
+        Transform floorsTransform = roomContent.transform.Find("Grid/Floors");
+        Transform wallsTransform = roomContent.transform.Find("Grid/Walls");
 
+        floorsTilemap = floorsTransform.gameObject.GetComponent<Tilemap>();
+        wallsTilemap = wallsTransform.gameObject.GetComponent<Tilemap>();
 
         contentContainer = content.transform.Find("Content").gameObject;
     }
 
-    public GameObject Generate(Tilemap tilemap, GameObject dynamicHolder)
+    public void GenerateWalls(Tilemap walls)
+    {
+        _Generate(wallsTilemap, walls);
+    }
+
+    public void GenerateFloors(Tilemap floors)
+    {
+        _Generate(floorsTilemap, floors);
+    }
+
+    private void _Generate(Tilemap source, Tilemap destination)
     {
         // Place tiles
-        contentTilemap.CompressBounds();
+        source.CompressBounds();
 
-        Vector3Int startCell = tilemap.WorldToCell(GetBottomLeft());
+        Vector3Int startCell = destination.WorldToCell(GetBottomLeft());
 
-        BoundsInt bounds = contentTilemap.cellBounds;
-        TileBase[] allTiles = contentTilemap.GetTilesBlock(bounds);
+        BoundsInt bounds = source.cellBounds;
+        TileBase[] allTiles = source.GetTilesBlock(bounds);
 
         List<TileBase> overrideTiles = new List<TileBase>();
         overrideTiles.Add(null);
@@ -49,17 +62,20 @@ public class Room : MonoBehaviour
                     x >= bounds.size.x || 
                     y >= bounds.size.y
                 ) {
-                    TileBase currentTile = tilemap.GetTile(cellPosition);
+                    TileBase currentTile = destination.GetTile(cellPosition);
                     if (overrideTiles.Contains(currentTile)) {
-                        tilemap.SetTile(cellPosition, Utility.GetWall());
+                        //destination.SetTile(cellPosition, Utility.GetWall());
                     } 
                 } else {
                     TileBase tile = allTiles[x + y * bounds.size.x];
-                    tilemap.SetTile(cellPosition, tile);
+                    destination.SetTile(bounds.position + cellPosition, tile);
                 }
             }
         }
+    }
 
+    public GameObject GenerateContent(GameObject dynamicHolder)
+    {
         // Place dynamic content
         GameObject roomContent = Instantiate(contentContainer);
         roomContent.transform.parent = dynamicHolder.transform;
