@@ -21,6 +21,7 @@ public class InputController : MonoBehaviour
     private void Awake() 
     {
         InitInstance();
+        LoadInputs();
     }
     #endregion
 
