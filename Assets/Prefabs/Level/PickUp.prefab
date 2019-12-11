@@ -84,6 +84,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 1
+  pickupSFX: event:/SFX/player/pickup_item
   item: {fileID: 0}
 --- !u!212 &6560789707617364219
 SpriteRenderer:
@@ -121,7 +122,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 341093259
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: d1c33be9558277f48928a6a4a54bfaba, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

@@ -1,8 +1,12 @@
 using UnityEngine;
+using UnityEngine.Assertions;
 
 [ExecuteInEditMode]
 public class ItemPickup : Interactable 
 {
+    [FMODUnity.EventRef]
+    public string pickupSFX = "";
+
     [SerializeField]
     private Item item;
     public Item Item {
@@ -12,6 +16,11 @@ public class ItemPickup : Interactable
             item = value;
             GetComponent<SpriteRenderer>().sprite = item.sprite;
         }
+    }
+
+    void Start()
+    {
+        Assert.IsTrue(pickupSFX != "");
     }
 
     void OnValidate()
@@ -32,6 +41,8 @@ public class ItemPickup : Interactable
     void PickUp()
     {
         if (item.consumable || Inventory.Instance.Add(item)) {
+            Utility.PlaySFX(pickupSFX);
+
             item.OnPickedUp();
             
             Destroy(gameObject);
