@@ -91,4 +91,12 @@ public class Utility
         
         return null;
     }
+
+    public static void PlaySFX(string name)
+    {
+        FMOD.Studio.EventInstance instance =
+            FMODUnity.RuntimeManager.CreateInstance(name);
+        
+        instance.start();
+    }
 }

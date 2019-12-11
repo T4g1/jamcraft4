@@ -32,6 +32,9 @@ public class Player : Alive
     
     [SerializeField]
     private Tooltip reloadUI = null;
+    
+    [FMODUnity.EventRef]
+    public string walkSFX = "";
 
 
     protected override void Start()
@@ -40,6 +43,8 @@ public class Player : Alive
         Assert.IsNotNull(body);
         Assert.IsNotNull(sprite);
         Assert.IsNotNull(cameraContainer);
+
+        Assert.IsTrue(walkSFX != "");
         
         SetAnimation("idle_down");
         

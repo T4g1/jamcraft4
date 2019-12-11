@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfcb044a63ea9405da8e0cb7c03ac620, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dieSFX: event:/SFX/creature/creature_dies
+  hurtSFX: event:/SFX/creature/creature_noise
   maxHitPoints: 1
   dropRate: 0.5
   aggroZone: {fileID: 6196314451790662426}

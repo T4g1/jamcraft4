@@ -147,6 +147,8 @@ public class Enemy : Alive
                 transform.position
             );
         }
+        
+        Utility.PlaySFX(dieSFX);
 
         GameObject blood = GameController.Instance.Instantiate(
             bloodInstance, 

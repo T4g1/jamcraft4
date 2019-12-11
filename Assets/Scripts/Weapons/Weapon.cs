@@ -57,13 +57,12 @@ public class Weapon : MonoBehaviour
     private WeaponPartHolder handleHolder;
     private WeaponPartHolder quiverHolder;
 
-    [SerializeField]
-    private float SFX_SHOOT_FULL = 0.0f;
-    [SerializeField]
-    private float SFX_SHOOT_EMPTY = 1.0f;
     [FMODUnity.EventRef]
-    public string shootSFXName = "";
-    private float sfxIsEmpty;
+    public string shootSFX = "";
+    [FMODUnity.EventRef]
+    public string emptySFX = "";
+    [FMODUnity.EventRef]
+    public string reloadSFX = "";
 
 
     void Start()
@@ -83,6 +82,10 @@ public class Weapon : MonoBehaviour
         handleHolder = GetHolder(PartType.HANDLE);
         quiverHolder = GetHolder(PartType.QUIVER);
 
+        Assert.IsTrue(shootSFX != "");
+        Assert.IsTrue(emptySFX != "");
+        Assert.IsTrue(reloadSFX != "");
+        
         Assert.IsNotNull(barrelHolder);
         Assert.IsNotNull(stockHolder);
         Assert.IsNotNull(sightHolder);
@@ -91,8 +94,6 @@ public class Weapon : MonoBehaviour
         Assert.IsNotNull(quiverHolder);
         
         MagazineClip = GetMagazineSize();
-        
-        sfxIsEmpty = SFX_SHOOT_FULL;
 
         playerCamera = Camera.main;
 
@@ -175,8 +176,6 @@ public class Weapon : MonoBehaviour
         reloadTime = Mathf.Max(0, reloadTime -Time.deltaTime);
 
         if (reloading && reloadTime <= 0) {
-            sfxIsEmpty = SFX_SHOOT_FULL;
-
             reloading = false;
             MagazineClip = GetMagazineSize();
         }
@@ -243,6 +242,7 @@ public class Weapon : MonoBehaviour
         }
 
         if (MagazineClip <= 0) {
+            Utility.PlaySFX(emptySFX);
             return;
         }
 
@@ -260,17 +260,15 @@ public class Weapon : MonoBehaviour
         visor.transform.position += recoil;
 
         MagazineClip -= 1;
+        Utility.PlaySFX(shootSFX);
+        
         if (MagazineClip <= 0) {
-            sfxIsEmpty = SFX_SHOOT_EMPTY;
-            StartShootSFX();
             Reload();
 
             if (OnMagazineEmpty != null) {
                 OnMagazineEmpty();
             }
         }
-
-        StartShootSFX();
 
         if (OnShoot != null) {
             OnShoot();
@@ -282,6 +280,8 @@ public class Weapon : MonoBehaviour
         if (reloading) {
             return;
         }
+        
+        Utility.PlaySFX(reloadSFX);
 
         reloading = true;
         reloadTime = GetReloadTime();
@@ -398,14 +398,5 @@ public class Weapon : MonoBehaviour
         // one PartType holder (or something requested a NONE part holder)
         Assert.IsTrue(false);
         return null;
-    }
-
-    void StartShootSFX()
-    {
-        FMOD.Studio.EventInstance instance =
-            FMODUnity.RuntimeManager.CreateInstance(shootSFXName);
-
-        instance.setParameterByName("IsEmpty", sfxIsEmpty);
-        instance.start();
     }
 }

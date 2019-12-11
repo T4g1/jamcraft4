@@ -300,6 +300,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32bee3a23f63545bc9fe0e5bd680d735, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dieSFX: event:/SFX/creature/creature_dies
+  hurtSFX: event:/SFX/creature/creature_noise
   maxHitPoints: 1
   dropRate: 0.7
   aggroZone: {fileID: 1161148983929493434}
@@ -311,6 +313,8 @@ MonoBehaviour:
   behaviour: {fileID: 5345346731414644992}
   bloodInstance: {fileID: 6716661629832660066, guid: 8a50f28f9c71d461fb94cb13102120a8,
     type: 3}
+  dieSFX: event:/SFX/creature/creature_dies
+  hurtSFX: 
 --- !u!50 &9189348773845476850
 Rigidbody2D:
   serializedVersion: 4

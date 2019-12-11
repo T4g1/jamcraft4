@@ -1,11 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 public class Alive : MonoBehaviour
 {
+    public event System.Action OnTakeDamage;
     public event System.Action OnDeath;
     public event System.Action<int> OnHitPointsChanged;
+    
+    [FMODUnity.EventRef]
+    public string dieSFX = "";
+    [FMODUnity.EventRef]
+    public string hurtSFX = "";
 
     [SerializeField]
     protected int maxHitPoints = 1;
@@ -40,10 +47,22 @@ public class Alive : MonoBehaviour
     public virtual void TakeDamage(int amount)
     {
         HitPoints -= amount;
+        
+        if (hurtSFX != "") {
+            Utility.PlaySFX(hurtSFX);
+        }
+
+        if (OnTakeDamage != null) {
+            OnTakeDamage();
+        }
     }
 
     public virtual void Die()
     {
+        if (dieSFX != "") {
+            Utility.PlaySFX(dieSFX);
+        }
+
         if (OnDeath != null) {
             OnDeath();
         }
