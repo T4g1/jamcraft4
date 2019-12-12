@@ -21,10 +21,10 @@ TagManager:
   - enemy
   - item
   - bullet
-  - loader
-  - trigger
   - 
-  - 
+  - player trigger
+  - bullet trigger
+  - block player not bullet
   - 
   - 
   - 

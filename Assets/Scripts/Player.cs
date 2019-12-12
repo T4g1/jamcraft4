@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
-public class Player : MonoBehaviour, IAlive
+public class Player : Alive
 {
-    public event System.Action OnDeath;
-    public event System.Action<int> OnHitPointsChanged;
+    [SerializeField] 
+    private UnityEvent onPlayerLoaded = null;
 
     [SerializeField]
     private Rigidbody2D body = null;
@@ -26,53 +28,42 @@ public class Player : MonoBehaviour, IAlive
     Vector3 moveDirection = Vector3.zero;
     string lastAnimation = "";
 
-    // Alive interface
-    [SerializeField]
-    private int maxHitPoints = 3;
-    private int hitPoints = 0;
-    public int HitPoints {
-        get { return hitPoints; }
-        set {
-            bool wasAlive = IsAlive;
-            hitPoints = value;
-
-            if (OnHitPointsChanged != null) {
-                OnHitPointsChanged(hitPoints);
-            }
-
-            // Player just died
-            if (wasAlive && !IsAlive) {
-                Die();
-            }
-        }
-    }
-
     private Weapon weapon;
-    
-    public bool IsAlive {
-        get { return HitPoints > 0; }
-        set {}
-    }
     
     [SerializeField]
     private Tooltip reloadUI = null;
+    
+    [FMODUnity.EventRef]
+    public string walkSFX = "";
+
+    [Range(0f, 1f)]
+    [SerializeField] 
+    private float invulnerabilityOpacity = 0.5f;
+    [SerializeField] 
+    private float invulnerabilityTime = 2.0f;
+    private bool invulnerable;
+    private float invulnerabilityTimer = 0.0f;
 
 
-    void Start() 
+    protected override void Start()
     {
         Assert.IsNotNull(reloadUI);
         Assert.IsNotNull(body);
         Assert.IsNotNull(sprite);
         Assert.IsNotNull(cameraContainer);
+
+        Assert.IsTrue(walkSFX != "");
         
         SetAnimation("idle_down");
-
-        HitPoints = maxHitPoints;
         
         Utility.GetWeapon().OnMagazineEmpty += OnMagazineEmpty;
         Utility.GetWeapon().OnReloading += OnReloading;
 
         weapon = Utility.GetWeapon();
+
+        onPlayerLoaded.Invoke();
+
+        base.Start();
     }
 
     void OnDestroy()
@@ -96,6 +87,8 @@ public class Player : MonoBehaviour, IAlive
         if (InputEnabled()) {
             UpdateAnimator();
 
+            UpdateInvulnerability();
+
             weapon.UpdateVisor();
             weapon.UpdateRotation();
 
@@ -117,12 +110,28 @@ public class Player : MonoBehaviour, IAlive
 
     void HandleInputs()
     {
-        if (Input.GetButton("Fire1")) {
+        if (InputController.Instance.GetButton("shoot")) {
             weapon.Shoot();
         }
         
-        if (Input.GetButtonDown("Reload")) {
+        if (InputController.Instance.GetButtonDown("reload")) {
             weapon.Reload();
+        }
+    }
+
+    public void UpdateInvulnerability()
+    {
+        if (!invulnerable) {
+            return;
+        }
+
+        invulnerabilityTimer = Mathf.Max(
+            0, 
+            invulnerabilityTimer -Time.deltaTime
+        );
+        
+        if (invulnerabilityTimer <= 0.0f) {
+            DisableInvulnerability();
         }
     }
 
@@ -134,8 +143,8 @@ public class Player : MonoBehaviour, IAlive
     void UpdateVelocity()
     {
         moveDirection = new Vector3(
-            Input.GetAxisRaw("Horizontal"), 
-            Input.GetAxisRaw("Vertical"), 
+            InputController.Instance.GetHorizontalAxis(), 
+            InputController.Instance.GetVerticalAxis(), 
             0.0f
         );
         moveDirection.Normalize();
@@ -187,13 +196,8 @@ public class Player : MonoBehaviour, IAlive
         animator.Play(stateName);
         lastAnimation = stateName;
     }
-    
-    public void TakeDamage(int amount)
-    {
-        HitPoints -= amount;
-    }
 
-    public void Heal()
+    public override void Heal()
     {
         if (!IsAlive) {
             SetAnimation("idle_down");
@@ -202,14 +206,24 @@ public class Player : MonoBehaviour, IAlive
         HitPoints = maxHitPoints;
     }
 
-    public void Die()
+    public override void TakeDamage(int amount)
     {
-        body.velocity = Vector3.zero;
-        SetAnimation("die");
-
-        if (OnDeath != null) {
-            OnDeath();
+        if (invulnerable) {
+            return;
         }
+
+        ActivateInvulnerability();
+
+        base.TakeDamage(amount);
+    }
+
+    public override void Die()
+    {
+        StopMovement();
+        SetAnimation("die");
+        DisableInvulnerability();
+        
+        base.Die();
     }
 
     public Camera GetCamera()
@@ -225,5 +239,28 @@ public class Player : MonoBehaviour, IAlive
     public void OnMagazineEmpty()
     {
         //reloadUI.Show();
+    }
+
+    void ActivateInvulnerability()
+    {
+        if (!IsAlive) {
+            return;
+        }
+
+        invulnerable = true;
+        invulnerabilityTimer = invulnerabilityTime;
+
+        Color color = sprite.color;
+        color.a = invulnerabilityOpacity;
+        sprite.color = color;
+    }
+
+    void DisableInvulnerability()
+    {
+        invulnerable = false;
+        
+        Color color = sprite.color;
+        color.a = 1.0f;
+        sprite.color = color;
     }
 }

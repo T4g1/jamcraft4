@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
 
-public class Enemy : MonoBehaviour, IAlive
+public class Enemy : Alive
 {
     [Range(0f, 1f)]
     [SerializeField]
@@ -62,28 +62,17 @@ public class Enemy : MonoBehaviour, IAlive
 
     private Vector3 direction = Vector3.zero;
 
-    // Alive interface
-    [SerializeField]
-    private int hitPoints;
-
     [SerializeField]
     private GameObject bloodInstance = null;
 
-    public int HitPoints
-    {
-        get { return hitPoints; }
-        set { hitPoints = value; }
-    }
-
-    public bool IsAlive
-    {
-        get { return hitPoints > 0; }
-        set { }
-    }
+    private CustomSlider lifeSlider; 
 
 
-    void Start()
+    protected override void Start()
     {
+        lifeSlider = GetComponentInChildren<CustomSlider>();
+
+        Assert.IsNotNull(lifeSlider);
         Assert.IsNotNull(behaviour);
         Assert.IsNotNull(loadingZone);
         Assert.IsNotNull(aggroZone);
@@ -96,6 +85,10 @@ public class Enemy : MonoBehaviour, IAlive
         loadingZone.OnZoneExit += DeactivateBehaviour;
 
         DeactivateBehaviour();
+
+        base.Start();
+
+        UpdateLifeSlider();
     }
 
     void Update()
@@ -146,25 +139,37 @@ public class Enemy : MonoBehaviour, IAlive
         direction = value;
     }
 
-    public void TakeDamage(int amount)
+    public override void TakeDamage(int amount)
     {
-        hitPoints -= amount;
-
         SetAnimation("hurt");
         GetComponent<Rigidbody2D>().velocity = Vector2.zero;
 
-        if (!IsAlive) {
-            Die();
+        base.TakeDamage(amount);
+
+        UpdateLifeSlider();
+    }
+
+    public void UpdateLifeSlider()
+    {
+        lifeSlider.SetMaximalValue(maxHitPoints);
+        lifeSlider.SetCurrentValue(hitPoints);
+
+        if (hitPoints < maxHitPoints) {
+            lifeSlider.Show();
+        } else {
+            lifeSlider.Hide();
         }
     }
 
-    public void Die()
+    public override void Die()
     {
         if (Random.Range(0f, 1f) <= dropRate) {
             GameController.Instance.CreateRandomWeaponPartPickUp(
                 transform.position
             );
         }
+        
+        Utility.PlaySFX(dieSFX);
 
         GameObject blood = GameController.Instance.Instantiate(
             bloodInstance, 
@@ -172,6 +177,8 @@ public class Enemy : MonoBehaviour, IAlive
         );
 
         Destroy(gameObject);
+
+        base.Die();
     }
 
     public virtual void Attack()

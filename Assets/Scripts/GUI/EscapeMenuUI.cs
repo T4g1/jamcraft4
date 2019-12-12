@@ -10,6 +10,16 @@ public class EscapeMenuUI : Popup
         SceneManager.LoadScene("Menu", LoadSceneMode.Single);
     }
 
+    public void OnSettingsButton()
+    {
+        SceneManager.LoadScene("Settings", LoadSceneMode.Additive);
+    }
+
+    public void OnResumeButton()
+    {
+        GameUIController.Instance.CloseUI();
+    }
+
     public void OnQuitButton()
     {
         Application.Quit();

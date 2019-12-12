@@ -19,8 +19,6 @@ public class Attacking : StateMachineBehaviour
         enemy.SetAnimation("attack");
         enemy.SetDirection(Vector3.zero);
 
-        Utility.GetPlayer().TakeDamage(1);
-
         attackCooldown = attackDelay;
     }
 

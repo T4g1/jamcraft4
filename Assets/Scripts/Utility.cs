@@ -11,6 +11,11 @@ public class Utility
     {
         return array[UnityEngine.Random.Range(0, array.Length)];
     }
+    
+    public static T RandomElement<T>(List<T> list)
+    {
+        return list[UnityEngine.Random.Range(0, list.Count)];
+    }
 
     public static void AssertArrayNotNull<T>(List<T> array) where T : class
     {
@@ -85,5 +90,13 @@ public class Utility
         }
         
         return null;
+    }
+
+    public static void PlaySFX(string name)
+    {
+        FMOD.Studio.EventInstance instance =
+            FMODUnity.RuntimeManager.CreateInstance(name);
+        
+        instance.start();
     }
 }

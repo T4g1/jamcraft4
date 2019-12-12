@@ -299,7 +299,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a83bca84429e35046a93f2737593e611, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -344,13 +344,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17ca8d4b6cd401267accdf2efc145960, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHitPoints: 3
+  onPlayerLoaded:
+    m_PersistentCalls:
+      m_Calls: []
   body: {fileID: 3754272989295686216}
   sprite: {fileID: 2352802003615633258}
   cameraContainer: {fileID: 8710513883601704295}
   animator: {fileID: 1341694006770321310}
   speed: 200
-  maxHitPoints: 3
   reloadUI: {fileID: 4956622789899826250}
+  dieSFX: event:/SFX/player/player_dies
+  hurtSFX: event:/SFX/player/player_hit
+  walkSFX: event:/SFX/player/footsteps
 --- !u!95 &1341694006770321310
 Animator:
   serializedVersion: 3
@@ -628,6 +634,26 @@ PrefabInstance:
         type: 3}
       propertyPath: defaultScale.y
       value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 5162149960894103124, guid: 8ee14e7a454b6cb40b073dc981a1c0ce,
+        type: 3}
+      propertyPath: shootSFXName
+      value: event:/SFX/player/shoot
+      objectReference: {fileID: 0}
+    - target: {fileID: 5162149960894103124, guid: 8ee14e7a454b6cb40b073dc981a1c0ce,
+        type: 3}
+      propertyPath: shootSFX
+      value: event:/SFX/player/shoot
+      objectReference: {fileID: 0}
+    - target: {fileID: 5162149960894103124, guid: 8ee14e7a454b6cb40b073dc981a1c0ce,
+        type: 3}
+      propertyPath: emptySFX
+      value: event:/SFX/player/quiver_empty
+      objectReference: {fileID: 0}
+    - target: {fileID: 5162149960894103124, guid: 8ee14e7a454b6cb40b073dc981a1c0ce,
+        type: 3}
+      propertyPath: reloadSFX
+      value: event:/SFX/player/reload
       objectReference: {fileID: 0}
     - target: {fileID: 7838562730136664413, guid: 8ee14e7a454b6cb40b073dc981a1c0ce,
         type: 3}
@@ -920,11 +946,6 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 209936953282630920, guid: 6088b77b9d16f4a4c9a60935af54dfb8,
-        type: 3}
-      propertyPath: m_Color.a
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4474098794640344307, guid: 6088b77b9d16f4a4c9a60935af54dfb8,
         type: 3}
       propertyPath: textContent
@@ -940,6 +961,11 @@ PrefabInstance:
       propertyPath: follow
       value: 
       objectReference: {fileID: 4401080608842598192}
+    - target: {fileID: 209936953282630920, guid: 6088b77b9d16f4a4c9a60935af54dfb8,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4815157631127888770, guid: 6088b77b9d16f4a4c9a60935af54dfb8,
         type: 3}
       propertyPath: m_Text

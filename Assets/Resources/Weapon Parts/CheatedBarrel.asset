@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17d1b9131e29bd84c8df176623f6ef54, type: 3}
+  m_Name: CheatedBarrel
+  m_EditorClassIdentifier: 
+  itemName: Cheated Barrel
+  sprite: {fileID: 21300000, guid: 925a02c1612fb6840b029dc8ae770e61, type: 3}
+  consumable: 0
+  isQuiver: 0
+  magazineSize: 0
+  magezineSizes: 050000001400000032000000
+  isBarrel: 1
+  bulletPrefab: {fileID: 8671561740055763282, guid: 1edcebffc4a67c44e8d28d24ebbfdd7f,
+    type: 3}
+  isStock: 0
+  recoil: 0
+  recoils:
+  - 0
+  - 1
+  - 5
+  isSight: 0
+  precision: 0
+  precisions:
+  - 0
+  - 0.05
+  - 0.5
+  isHandle: 0
+  reloadTime: 0
+  reloadTimes:
+  - 0
+  - 2
+  - 5
+  isString: 0
+  fireRate: 0
+  lifespan: 0
+  fireRates:
+  - 0.1
+  - 0.5
+  - 1

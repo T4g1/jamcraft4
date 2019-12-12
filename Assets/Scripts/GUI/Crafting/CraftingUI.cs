@@ -28,6 +28,9 @@ public class CraftingUI : Popup
     [SerializeField] 
     private UnityEvent onCrafted = null;
 
+    [FMODUnity.EventRef]
+    public string craftingSFX = "";
+
     private Inventory inventory;
     private CraftingSlot[] slots;
 
@@ -35,6 +38,8 @@ public class CraftingUI : Popup
     void Awake()
     {
         Assert.IsNotNull(craftingGrid);
+        
+        Assert.IsTrue(craftingSFX != "");
         
         InitInstance();
 
@@ -86,6 +91,8 @@ public class CraftingUI : Popup
         foreach (CraftingSlot slot in slots) {
             Utility.GetWeapon().SetPart((WeaponPart) slot.Item);
         }
+
+        Utility.PlaySFX(craftingSFX);
 
         ConsumeItems();
         

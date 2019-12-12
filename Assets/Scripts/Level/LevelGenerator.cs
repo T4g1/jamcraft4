@@ -7,7 +7,11 @@ using UnityEngine.Tilemaps;
 public class LevelGenerator : MonoBehaviour
 {
     [SerializeField]
-    private Tilemap tilemap = null;
+    private CustomSlider loadingBar = null;
+    [SerializeField]
+    private Tilemap floorsTilemap = null;
+    [SerializeField]
+    private Tilemap wallsTilemap = null;
 
     [SerializeField]
     private uint generationTime = 5;
@@ -54,12 +58,14 @@ public class LevelGenerator : MonoBehaviour
 
     void Start()
     {
-        Assert.IsNotNull(tilemap);
+        Assert.IsNotNull(floorsTilemap);
+        Assert.IsNotNull(wallsTilemap);
         Assert.IsNotNull(startRoomContent);
         Assert.IsNotNull(endRoomContent);
         Assert.IsNotNull(roomCollider);
         Assert.IsNotNull(spawn);
         Assert.IsNotNull(portalIn);
+        Assert.IsNotNull(loadingBar);
 
         Utility.AssertArrayNotNull<GameObject>(roomContents);
 
@@ -75,22 +81,42 @@ public class LevelGenerator : MonoBehaviour
 
     IEnumerator _Generate()
     {
+        loadingBar.Show();
+        loadingBar.SetMaximalValue(9);
+        loadingBar.SetCurrentValue(0);
+
         ClearEverything();
+
         AddRooms();
+        loadingBar.SetCurrentValue(1);
 
         yield return new WaitForSeconds(generationTime);
+        loadingBar.SetCurrentValue(2);
 
         FixRoomPositions();
+        loadingBar.SetCurrentValue(3);
 
-        FindPaths();
+        yield return StartCoroutine(_FindPaths());
+        loadingBar.SetCurrentValue(4);
+
         yield return StartCoroutine(_MakeCorridors());
+        loadingBar.SetCurrentValue(5);
 
         yield return StartCoroutine(_FillRooms());
+        loadingBar.SetCurrentValue(6);
+
         ClearRooms();
+        loadingBar.SetCurrentValue(7);
 
         yield return StartCoroutine(_AddWalls());
+        loadingBar.SetCurrentValue(8);
+
+        yield return StartCoroutine(_TriggerSpawners());
+        loadingBar.SetCurrentValue(9);
 
         GameController.Instance.OnLevelGenerated();
+        
+        loadingBar.Hide();
     }
 
     /**
@@ -111,7 +137,8 @@ public class LevelGenerator : MonoBehaviour
 
     void ClearTilemap()
     {
-        tilemap.ClearAllTiles();
+        wallsTilemap.ClearAllTiles();
+        floorsTilemap.ClearAllTiles();
     }
 
     void ClearRooms()
@@ -179,7 +206,7 @@ public class LevelGenerator : MonoBehaviour
     /** 
      * Prim's Algorithm
      */
-    void FindPaths()
+    IEnumerator _FindPaths()
     {
         Assert.IsTrue(rooms.Count > 0);
 
@@ -191,6 +218,8 @@ public class LevelGenerator : MonoBehaviour
         unprocessedRooms.Remove(unprocessedRooms[0]);
 
         while (unprocessedRooms.Count > 0) {
+            yield return 0;
+
             float minimalDistance = Mathf.Infinity;
 
             Room current = null;
@@ -281,8 +310,8 @@ public class LevelGenerator : MonoBehaviour
 
     void MakeCorridor(Vector3 origin, Vector3 destination)
     {
-        Vector3Int originCell = tilemap.WorldToCell(origin);
-        Vector3Int destinationCell = tilemap.WorldToCell(destination);
+        Vector3Int originCell = floorsTilemap.WorldToCell(origin);
+        Vector3Int destinationCell = floorsTilemap.WorldToCell(destination);
 
         Vector3Int delta = destinationCell - originCell;
         delta.x = System.Math.Sign(delta.x);
@@ -323,8 +352,8 @@ public class LevelGenerator : MonoBehaviour
     void PlaceCorridorSection(
         Vector3Int position, Vector3Int delta)
     {
-        tilemap.SetTile(position, Utility.GetFloor());
-        tilemap.SetTile(position + delta, Utility.GetFloor());
+        floorsTilemap.SetTile(position, Utility.GetFloor());
+        floorsTilemap.SetTile(position + delta, Utility.GetFloor());
     }
 
     /**
@@ -332,17 +361,21 @@ public class LevelGenerator : MonoBehaviour
      */
     IEnumerator _AddWalls()
     {
-        tilemap.CompressBounds();
+        floorsTilemap.CompressBounds();
+        wallsTilemap.CompressBounds();
         
-        BoundsInt bounds = tilemap.cellBounds;
-        TileBase[] allTiles = tilemap.GetTilesBlock(bounds);
-        yield return 0;
+        BoundsInt bounds = floorsTilemap.cellBounds;
+        TileBase[] allFloorsTiles = floorsTilemap.GetTilesBlock(bounds);
+        TileBase[] allWallsTiles = wallsTilemap.GetTilesBlock(bounds);
 
         for (int x = 0; x < bounds.size.x; x++) {
+            yield return 0;
+
             for (int y = 0; y < bounds.size.y; y++) {
 
-                TileBase tile = allTiles[x + y * bounds.size.x];
-                if (tile == Utility.GetWall() || tile == null) {
+                TileBase wallTile = allWallsTiles[x + y * bounds.size.x];
+                TileBase floorTile = allFloorsTiles[x + y * bounds.size.x];
+                if (wallTile == Utility.GetWall() || floorTile == null) {
                     continue;
                 }
                 
@@ -363,9 +396,9 @@ public class LevelGenerator : MonoBehaviour
                         neighbour.y < 0 || 
                         neighbour.x >= bounds.size.x || 
                         neighbour.y >= bounds.size.y ||
-                        allTiles[index] == null
+                        allFloorsTiles[index] == null
                     ) {
-                        tilemap.SetTile(
+                        wallsTilemap.SetTile(
                             bounds.position + neighbour, 
                             Utility.GetWall()
                         );
@@ -386,7 +419,12 @@ public class LevelGenerator : MonoBehaviour
         foreach (Room room in rooms) {
             yield return 0;
 
-            GameObject content = room.Generate(tilemap, dynamicHolder);
+            room.GenerateFloors(floorsTilemap);
+            room.GenerateWalls(wallsTilemap);
+
+            yield return 0;
+
+            GameObject content = room.GenerateContent(dynamicHolder);
 
             // Check for exit portal
             if (content.transform.Find("Portal") == null) {
@@ -396,6 +434,17 @@ public class LevelGenerator : MonoBehaviour
             portalOut = content.transform.GetComponentInChildren<Portal>();
             portalOut.SetDestination(spawn.position);
             portalOut.SetLevelEnd(true);
+        }
+    }
+    
+    IEnumerator _TriggerSpawners()
+    {
+        Spawner[] spawners = 
+            dynamicHolder.GetComponentsInChildren<Spawner>(true);
+        foreach (Spawner spawner in spawners) {
+            yield return 0;
+
+            spawner.Spawn();
         }
     }
 }

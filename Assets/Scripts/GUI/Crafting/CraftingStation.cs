@@ -36,7 +36,7 @@ public class CraftingStation : Interactable
 
     void Update()
     {
-        if (Input.GetButtonDown("Use") && isInRange) {
+        if (InputController.Instance.GetButtonDown("use") && isInRange) {
             GameUIController.Instance.ToggleCrafting();
         }
     }

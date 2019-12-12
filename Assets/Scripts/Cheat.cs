@@ -1,9 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 public class Cheat : MonoBehaviour
 {
+    [SerializeField]
+    private GameObject debugRoomSpawn = null;
     [SerializeField]
     private bool cheatEnabled = false;
 
@@ -11,7 +14,11 @@ public class Cheat : MonoBehaviour
     {
         if (cheatEnabled) {
             Debug.Log("WARNING: CHEAT MODE ACTIVATED, DEACTIVATE IT FOR PROD");
+        } else {
+            return;
         }
+        
+        Assert.IsNotNull(debugRoomSpawn);
     }
 
     void Update()
@@ -20,9 +27,9 @@ public class Cheat : MonoBehaviour
             return;
         }
 
-        if (Input.GetButtonDown("Use")) {
+        /*if (Input.GetButtonDown("Use")) {
             RandomizeWeapon();
-        }
+        }*/
     }
 
     /**
@@ -44,5 +51,15 @@ public class Cheat : MonoBehaviour
     void HurtPlayer()
     {
         Utility.GetPlayer().TakeDamage(1);
+    }
+
+    public void TeleportToDebugRoom()
+    {
+        if (!cheatEnabled) {
+            return;
+        }
+
+        Utility.GetPlayer().transform.position = 
+            debugRoomSpawn.transform.position;
     }
 }
