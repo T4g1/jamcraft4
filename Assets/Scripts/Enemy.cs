@@ -65,9 +65,14 @@ public class Enemy : Alive
     [SerializeField]
     private GameObject bloodInstance = null;
 
+    private CustomSlider lifeSlider; 
+
 
     protected override void Start()
     {
+        lifeSlider = GetComponentInChildren<CustomSlider>();
+
+        Assert.IsNotNull(lifeSlider);
         Assert.IsNotNull(behaviour);
         Assert.IsNotNull(loadingZone);
         Assert.IsNotNull(aggroZone);
@@ -82,6 +87,8 @@ public class Enemy : Alive
         DeactivateBehaviour();
 
         base.Start();
+
+        UpdateLifeSlider();
     }
 
     void Update()
@@ -138,6 +145,20 @@ public class Enemy : Alive
         GetComponent<Rigidbody2D>().velocity = Vector2.zero;
 
         base.TakeDamage(amount);
+
+        UpdateLifeSlider();
+    }
+
+    public void UpdateLifeSlider()
+    {
+        lifeSlider.SetMaximalValue(maxHitPoints);
+        lifeSlider.SetCurrentValue(hitPoints);
+
+        if (hitPoints < maxHitPoints) {
+            lifeSlider.Show();
+        } else {
+            lifeSlider.Hide();
+        }
     }
 
     public override void Die()

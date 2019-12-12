@@ -6,15 +6,16 @@ using UnityEngine.UI;
 
 public class CustomSlider : MonoBehaviour
 {
-    private Slider slider;
+    [SerializeField]
     private float maximalValue = 1.0f;
+    [SerializeField]
     private float currentValue = 0.0f;
+    [SerializeField]
+    private Slider slider;
 
 
     void Awake()
     {
-        slider = GetComponentInChildren<Slider>();
-
         Assert.IsNotNull(slider);
     }
 

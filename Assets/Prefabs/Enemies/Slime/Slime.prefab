@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dieSFX: event:/SFX/creature/creature_dies
   hurtSFX: event:/SFX/creature/creature_noise
-  maxHitPoints: 1
+  maxHitPoints: 2
   dropRate: 0.5
   aggroZone: {fileID: 6196314451790662426}
   attackZone: {fileID: 6623150795236357093}
@@ -177,6 +177,56 @@ PrefabInstance:
         type: 3}
       propertyPath: hitPoints
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3866449829808071812, guid: be4ae40b898abc371a9eea4c816b5149,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3866449829808071812, guid: be4ae40b898abc371a9eea4c816b5149,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3866449830798077269, guid: be4ae40b898abc371a9eea4c816b5149,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3866449830798077269, guid: be4ae40b898abc371a9eea4c816b5149,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3866449830798077269, guid: be4ae40b898abc371a9eea4c816b5149,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7692946734776826279, guid: be4ae40b898abc371a9eea4c816b5149,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7692946734776826279, guid: be4ae40b898abc371a9eea4c816b5149,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5070067826346608091, guid: be4ae40b898abc371a9eea4c816b5149,
+        type: 3}
+      propertyPath: offset.y
+      value: -0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 24069827476960122, guid: be4ae40b898abc371a9eea4c816b5149,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4222598195717333674, guid: be4ae40b898abc371a9eea4c816b5149,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7249763757001272905, guid: be4ae40b898abc371a9eea4c816b5149, type: 3}
