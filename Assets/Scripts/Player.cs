@@ -36,6 +36,14 @@ public class Player : Alive
     [FMODUnity.EventRef]
     public string walkSFX = "";
 
+    [Range(0f, 1f)]
+    [SerializeField] 
+    private float invulnerabilityOpacity = 0.5f;
+    [SerializeField] 
+    private float invulnerabilityTime = 2.0f;
+    private bool invulnerable;
+    private float invulnerabilityTimer = 0.0f;
+
 
     protected override void Start()
     {
@@ -79,6 +87,8 @@ public class Player : Alive
         if (InputEnabled()) {
             UpdateAnimator();
 
+            UpdateInvulnerability();
+
             weapon.UpdateVisor();
             weapon.UpdateRotation();
 
@@ -106,6 +116,22 @@ public class Player : Alive
         
         if (InputController.Instance.GetButtonDown("reload")) {
             weapon.Reload();
+        }
+    }
+
+    public void UpdateInvulnerability()
+    {
+        if (!invulnerable) {
+            return;
+        }
+
+        invulnerabilityTimer = Mathf.Max(
+            0, 
+            invulnerabilityTimer -Time.deltaTime
+        );
+        
+        if (invulnerabilityTimer <= 0.0f) {
+            DisableInvulnerability();
         }
     }
 
@@ -180,10 +206,22 @@ public class Player : Alive
         HitPoints = maxHitPoints;
     }
 
+    public override void TakeDamage(int amount)
+    {
+        if (invulnerable) {
+            return;
+        }
+
+        ActivateInvulnerability();
+
+        base.TakeDamage(amount);
+    }
+
     public override void Die()
     {
         StopMovement();
         SetAnimation("die");
+        DisableInvulnerability();
         
         base.Die();
     }
@@ -201,5 +239,28 @@ public class Player : Alive
     public void OnMagazineEmpty()
     {
         //reloadUI.Show();
+    }
+
+    void ActivateInvulnerability()
+    {
+        if (!IsAlive) {
+            return;
+        }
+
+        invulnerable = true;
+        invulnerabilityTimer = invulnerabilityTime;
+
+        Color color = sprite.color;
+        color.a = invulnerabilityOpacity;
+        sprite.color = color;
+    }
+
+    void DisableInvulnerability()
+    {
+        invulnerable = false;
+        
+        Color color = sprite.color;
+        color.a = 1.0f;
+        sprite.color = color;
     }
 }
