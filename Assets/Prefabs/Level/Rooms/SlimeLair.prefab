@@ -1199,7 +1199,7 @@ PrefabInstance:
     - target: {fileID: 3178480471979991924, guid: d0c1f271183e5994293574a90a49ea83,
         type: 3}
       propertyPath: m_Name
-      value: MediumHardRoom
+      value: SlimeLair
       objectReference: {fileID: 0}
     - target: {fileID: 2467100725347928456, guid: d0c1f271183e5994293574a90a49ea83,
         type: 3}
