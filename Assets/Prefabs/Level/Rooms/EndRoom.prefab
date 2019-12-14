@@ -12,11 +12,6 @@ PrefabInstance:
       propertyPath: endPortal
       value: 
       objectReference: {fileID: 1872199535478722773}
-    - target: {fileID: 2396883425172951781, guid: 3911f1c87767dfa4e826a4b4552bbb14,
-        type: 3}
-      propertyPath: maxHitPoints
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 3650695426199680266, guid: 3911f1c87767dfa4e826a4b4552bbb14,
         type: 3}
       propertyPath: m_Name
