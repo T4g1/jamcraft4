@@ -18,14 +18,12 @@ public class TriggerZone : MonoBehaviour
     [SerializeField] 
     private ZoneEvent onZoneExit = null;
 
-    private CircleCollider2D collider;
+    private CircleCollider2D circleCollider;
 
 
     void Awake()
     {
-        collider = GetComponent<CircleCollider2D>();
-
-        Assert.IsNotNull(collider);
+        circleCollider = GetComponent<CircleCollider2D>();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -46,9 +44,16 @@ public class TriggerZone : MonoBehaviour
         }
     }
 
+    /**
+     * Works only if the collider used is a CircleCollider2D
+     */
     public float GetRadius()
     {
-        return collider.radius;
+        if (circleCollider != null) {
+            return circleCollider.radius;
+        }
+
+        return 0.0f;
     }
 }
 

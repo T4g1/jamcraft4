@@ -66,12 +66,11 @@ public class Enemy : Alive
     private GameObject bloodInstance = null;
 
     private CustomSlider lifeSlider; 
-    private bool animationOver = false;
 
 
     protected override void Start()
     {
-        lifeSlider = GetComponentInChildren<CustomSlider>();
+        lifeSlider = GetComponentInChildren<CustomSlider>(true);
 
         Assert.IsNotNull(lifeSlider);
         Assert.IsNotNull(behaviour);
@@ -190,7 +189,6 @@ public class Enemy : Alive
     public void SetAnimation(string animationName)
     {
         GetComponent<Animator>().Play(animationName);
-        animationOver = false;
     }
 
     void ActivateBehaviour(GameObject other = null)

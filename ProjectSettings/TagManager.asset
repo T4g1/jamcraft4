@@ -21,7 +21,7 @@ TagManager:
   - enemy
   - item
   - bullet
-  - 
+  - enemy bullet
   - player trigger
   - bullet trigger
   - block player not bullet

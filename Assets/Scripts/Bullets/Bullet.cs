@@ -15,6 +15,9 @@ public class Bullet : MonoBehaviour
     [SerializeField]
     private GameObject destroyEffect = null;
 
+    [SerializeField]
+    private string ignoredTag = "";
+
 
     void Start()
     {
@@ -57,6 +60,10 @@ public class Bullet : MonoBehaviour
      * Damage every killable thing that it this
      */
     void OnCollisionEnter2D(Collision2D other) {
+        if (other.gameObject.tag == ignoredTag) {
+            return;
+        }
+
         Vector3 collisionPosition = other.GetContact(0).point;
         OnCollision(collisionPosition);
 
