@@ -215,7 +215,6 @@ public class GameController : MonoBehaviour
         }
         
         levelGenerator.PortalIn.Activate();
-        levelGenerator.PortalOut.Activate();    // TODO: Do this when boss dies
     }
 
     /**
