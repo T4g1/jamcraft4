@@ -5,12 +5,10 @@ using UnityEngine;
 public class Following : StateMachineBehaviour
 {
     private Player player;
-    private Enemy enemy;
+    private Slime enemy;
     private Animator cachedAnimator = null;
 
     private float oldSpeed;
-    private float attackThreshold = 1.2f;
-
 
     public void OnTargetLost(GameObject other)
     {
@@ -24,7 +22,7 @@ public class Following : StateMachineBehaviour
         Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         cachedAnimator = animator;
-        enemy = animator.gameObject.GetComponentInParent<Enemy>();
+        enemy = animator.gameObject.GetComponentInParent<Slime>();
 
         enemy.SetAnimation("walk");
 
@@ -46,7 +44,7 @@ public class Following : StateMachineBehaviour
             player.transform.position
         );
 
-        cachedAnimator.SetBool("attacking", distance < attackThreshold);
+        cachedAnimator.SetBool("attacking", distance <= enemy.AttackRange);
     }
 
     override public void OnStateExit(

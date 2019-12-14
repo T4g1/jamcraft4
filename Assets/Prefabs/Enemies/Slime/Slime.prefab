@@ -25,6 +25,7 @@ MonoBehaviour:
   behaviour: {fileID: 1139126462083085728}
   bloodInstance: {fileID: 6716661629832660066, guid: 8a50f28f9c71d461fb94cb13102120a8,
     type: 3}
+  attackRange: 1.5
 --- !u!1001 &5035167265586568352
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -158,6 +159,16 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7692946734776826279, guid: be4ae40b898abc371a9eea4c816b5149,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7692946734776826279, guid: be4ae40b898abc371a9eea4c816b5149,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2772276691637220937, guid: be4ae40b898abc371a9eea4c816b5149,
         type: 3}
       propertyPath: m_Radius
@@ -172,6 +183,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Radius
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5070067826346608091, guid: be4ae40b898abc371a9eea4c816b5149,
+        type: 3}
+      propertyPath: offset.y
+      value: -0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 24069827476960122, guid: be4ae40b898abc371a9eea4c816b5149,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4222598195717333674, guid: be4ae40b898abc371a9eea4c816b5149,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7249763757001272905, guid: be4ae40b898abc371a9eea4c816b5149,
         type: 3}
@@ -201,31 +227,6 @@ PrefabInstance:
     - target: {fileID: 3866449830798077269, guid: be4ae40b898abc371a9eea4c816b5149,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7692946734776826279, guid: be4ae40b898abc371a9eea4c816b5149,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7692946734776826279, guid: be4ae40b898abc371a9eea4c816b5149,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5070067826346608091, guid: be4ae40b898abc371a9eea4c816b5149,
-        type: 3}
-      propertyPath: offset.y
-      value: -0.75
-      objectReference: {fileID: 0}
-    - target: {fileID: 24069827476960122, guid: be4ae40b898abc371a9eea4c816b5149,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4222598195717333674, guid: be4ae40b898abc371a9eea4c816b5149,
-        type: 3}
-      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
