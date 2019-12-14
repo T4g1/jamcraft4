@@ -4,13 +4,6 @@ using UnityEngine;
 
 public class Slime : Enemy
 {
-    [SerializeField]
-    private float attackRange = 1.0f;
-    public float AttackRange {
-        get { return attackRange; }
-        set {}
-    }
-
     public override void Attack()
     {
         Player player = Utility.GetPlayer();
@@ -20,7 +13,7 @@ public class Slime : Enemy
         );
 
         // Check player is in range
-        if (distance > attackRange) {
+        if (distance > GetAttackRange()) {
             return;
         }
 

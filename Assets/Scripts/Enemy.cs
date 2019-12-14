@@ -66,6 +66,7 @@ public class Enemy : Alive
     private GameObject bloodInstance = null;
 
     private CustomSlider lifeSlider; 
+    private bool animationOver = false;
 
 
     protected override void Start()
@@ -189,6 +190,7 @@ public class Enemy : Alive
     public void SetAnimation(string animationName)
     {
         GetComponent<Animator>().Play(animationName);
+        animationOver = false;
     }
 
     void ActivateBehaviour(GameObject other = null)
@@ -207,5 +209,15 @@ public class Enemy : Alive
         gameObject.GetComponent<Animator>().enabled = false;
 
         GameController.Instance.OnEnemyUnloaded(this);
+    }
+
+    public float GetAttackRange()
+    {
+        return AttackZone.GetRadius();
+    }
+
+    public void OnAttackOver()
+    {
+        behaviour.GetComponent<Animator>().SetBool("attacking", false);
     }
 }

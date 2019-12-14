@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
@@ -17,6 +18,15 @@ public class TriggerZone : MonoBehaviour
     [SerializeField] 
     private ZoneEvent onZoneExit = null;
 
+    private CircleCollider2D collider;
+
+
+    void Awake()
+    {
+        collider = GetComponent<CircleCollider2D>();
+
+        Assert.IsNotNull(collider);
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -34,6 +44,11 @@ public class TriggerZone : MonoBehaviour
         if (OnZoneExit != null) {
             OnZoneExit(other.transform.gameObject);
         }
+    }
+
+    public float GetRadius()
+    {
+        return collider.radius;
     }
 }
 

@@ -5,7 +5,7 @@ using UnityEngine;
 public class Following : StateMachineBehaviour
 {
     private Player player;
-    private Slime enemy;
+    private Enemy enemy;
     private Animator cachedAnimator = null;
 
     private float oldSpeed;
@@ -22,7 +22,7 @@ public class Following : StateMachineBehaviour
         Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         cachedAnimator = animator;
-        enemy = animator.gameObject.GetComponentInParent<Slime>();
+        enemy = animator.gameObject.GetComponentInParent<Enemy>();
 
         enemy.SetAnimation("walk");
 
@@ -44,7 +44,7 @@ public class Following : StateMachineBehaviour
             player.transform.position
         );
 
-        cachedAnimator.SetBool("attacking", distance <= enemy.AttackRange);
+        cachedAnimator.SetBool("attacking", distance <= enemy.GetAttackRange());
     }
 
     override public void OnStateExit(
