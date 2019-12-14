@@ -440,7 +440,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   customSpawn: {fileID: 1362144263}
-  cheatEnabled: 1
+  cheatEnabled: 0
 --- !u!1001 &101097578
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11582,6 +11582,41 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -7821362276558408742, guid: 1888bd355a9244847bafec9d07b80e84,
         type: 3}
+    - target: {fileID: 7706969912101136981, guid: d7b6ba47a8407ef44b867fc8200dfa5e,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7706969912101136981, guid: d7b6ba47a8407ef44b867fc8200dfa5e,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3863558122045996711, guid: d7b6ba47a8407ef44b867fc8200dfa5e,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3863558122045996711, guid: d7b6ba47a8407ef44b867fc8200dfa5e,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3863558122045996711, guid: d7b6ba47a8407ef44b867fc8200dfa5e,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3863558121022732150, guid: d7b6ba47a8407ef44b867fc8200dfa5e,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3863558121022732150, guid: d7b6ba47a8407ef44b867fc8200dfa5e,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d7b6ba47a8407ef44b867fc8200dfa5e, type: 3}
 --- !u!1001 &2056396511
