@@ -12,11 +12,15 @@ public class KingSlime : Slime
 
     public void GotDamaged()
     {
-        // TODO: Random spawn offset 
         // Spawn a subslime on damage
+        float offset = 1.0f;
         GameObject spawnedSlime = GameController.Instance.Instantiate(
             subSlime,
-            gameObject.transform.position
+            gameObject.transform.position + new Vector3(
+                Random.Range(-offset, offset),
+                Random.Range(-offset, offset),
+                0.0f
+            )
         );
     }
 
