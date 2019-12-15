@@ -14,6 +14,15 @@ public class PlayerCamera : MonoBehaviour
     private float marginLeft;
     private float marginRight;
 
+    [SerializeField]
+    private float shakeDuration = 0.5f;
+    [SerializeField]
+    private float shakeMagnitude = 0.4f;
+    [SerializeField]
+    private float dampingSpeed = 1.0f;
+
+    private float shakeTimer = 0.0f;
+
 
     void Start()
     {
@@ -30,7 +39,7 @@ public class PlayerCamera : MonoBehaviour
         if (!player.InputEnabled()) {
             return;
         }
-        
+
         // Confines the mouse in the screen coordinates
         Vector3 screenPosition = Input.mousePosition;
         if (screenPosition.x < marginRight) {
@@ -54,9 +63,20 @@ public class PlayerCamera : MonoBehaviour
         cameraPosition.z = -10.0f;
 
         transform.position =  Vector3.Lerp(
-            transform.position, 
-            cameraPosition, 
+            transform.position,
+            cameraPosition,
             Time.deltaTime * moveSpeed
         );
+
+        if (shakeTimer > 0.0f) {
+            transform.position += Random.insideUnitSphere * shakeMagnitude;
+
+            shakeTimer -= Time.deltaTime * dampingSpeed;
+        }
+    }
+
+    public void TriggerShake()
+    {
+        shakeTimer = shakeDuration;
     }
 }

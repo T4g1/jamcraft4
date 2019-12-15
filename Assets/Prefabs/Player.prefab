@@ -344,6 +344,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17ca8d4b6cd401267accdf2efc145960, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dieSFX: event:/SFX/player/player_dies
+  hurtSFX: event:/SFX/player/player_hit
   maxHitPoints: 3
   onPlayerLoaded:
     m_PersistentCalls:
@@ -354,9 +356,9 @@ MonoBehaviour:
   animator: {fileID: 1341694006770321310}
   speed: 200
   reloadUI: {fileID: 4956622789899826250}
-  dieSFX: event:/SFX/player/player_dies
-  hurtSFX: event:/SFX/player/player_hit
   walkSFX: event:/SFX/player/footsteps
+  invulnerabilityOpacity: 0.5
+  invulnerabilityTime: 2
 --- !u!95 &1341694006770321310
 Animator:
   serializedVersion: 3
@@ -508,6 +510,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 3
+  shakeDuration: 0.2
+  shakeMagnitude: 0.1
+  dampingSpeed: 1
 --- !u!1001 &7523753020974414327
 PrefabInstance:
   m_ObjectHideFlags: 0

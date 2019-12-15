@@ -43,7 +43,7 @@ public class Enemy : Alive
 
     [SerializeField]
     private float speed = 1.0f;
-    
+
     public float Speed
     {
         get { return speed; }
@@ -65,7 +65,7 @@ public class Enemy : Alive
     [SerializeField]
     private GameObject bloodInstance = null;
 
-    private CustomSlider lifeSlider; 
+    private CustomSlider lifeSlider;
 
 
     protected override void Start()
@@ -168,15 +168,16 @@ public class Enemy : Alive
                 transform.position
             );
         }
-        
+
         Utility.PlaySFX(dieSFX);
 
         GameObject blood = GameController.Instance.Instantiate(
-            bloodInstance, 
+            bloodInstance,
             gameObject.transform.position
         );
 
         Destroy(gameObject);
+        Utility.GetCamera().TriggerShake();
 
         base.Die();
     }
