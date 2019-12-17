@@ -38,13 +38,20 @@ public class GameController : MonoBehaviour
     public string themeName;
 
     [SerializeField]
+    private float shakingStockProbability = 0.01f;
+    public float ShakingStockProbability {
+        get { return shakingStockProbability; }
+        set {}
+    }
+
+    [SerializeField]
     private Tween intensityTween = null;
     [SerializeField]
     private float intensityStep = 5.0f;
 
     [SerializeField]
     private GameObject pickUpPrefab = null;
-    
+
     [SerializeField]
     private Transform lastRoomEntry = null;
 
@@ -88,7 +95,7 @@ public class GameController : MonoBehaviour
     void Start()
     {
         Cursor.lockState = CursorLockMode.Confined;
-        
+
         Assert.IsNotNull(wall);
         Assert.IsNotNull(floor);
         Assert.IsNotNull(intensityTween);
@@ -191,7 +198,7 @@ public class GameController : MonoBehaviour
     IEnumerator _OnPlayerDies()
     {
         yield return new WaitForSeconds(deathTime);
-        
+
         levelGenerator.PortalIn.Activate();
 
         Player player = Utility.GetPlayer();
@@ -213,7 +220,7 @@ public class GameController : MonoBehaviour
                 lastRoomEntry.position
             );
         }
-        
+
         levelGenerator.PortalIn.Activate();
     }
 
@@ -232,7 +239,7 @@ public class GameController : MonoBehaviour
     public void OnDestroy()
     {
         theme.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-        
+
         Player player = Utility.GetPlayer();
         if (player) {
             player.OnDeath -= OnPlayerDies;
@@ -252,7 +259,7 @@ public class GameController : MonoBehaviour
     {
         if (activatedEnemies.Contains(enemy)) {
             activatedEnemies.Remove(enemy);
-            
+
             UpdateThemeIntensity();
         }
     }

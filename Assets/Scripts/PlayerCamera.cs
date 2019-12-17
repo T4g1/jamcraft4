@@ -17,16 +17,21 @@ public class PlayerCamera : MonoBehaviour
     [SerializeField]
     private float shakeDuration = 0.5f;
     [SerializeField]
-    private float shakeMagnitude = 0.4f;
+    private float defaultShakeMagnitude = 0.4f;
+    [SerializeField]
+    private float intenseShakeMagnitude = 0.6f;
     [SerializeField]
     private float dampingSpeed = 1.0f;
 
     private float shakeTimer = 0.0f;
+    private float shakeMagnitude = 0.4f;
 
 
     void Start()
     {
         player = GameObject.FindWithTag("Player").GetComponent<Player>();
+
+        shakeMagnitude = defaultShakeMagnitude;
 
         marginTop = Screen.height / 3;
         marginBottom = Screen.height / 3;
@@ -77,6 +82,13 @@ public class PlayerCamera : MonoBehaviour
 
     public void TriggerShake()
     {
+        shakeMagnitude = defaultShakeMagnitude;
+        shakeTimer = shakeDuration;
+    }
+
+    public void TriggerIntenseShake()
+    {
+        shakeMagnitude = intenseShakeMagnitude;
         shakeTimer = shakeDuration;
     }
 }

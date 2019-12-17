@@ -26,6 +26,7 @@ MonoBehaviour:
   - 0
   - 1
   - 5
+  shakeScreenOnShot: 0
   isSight: 0
   precision: 0
   precisions:

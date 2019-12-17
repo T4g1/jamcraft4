@@ -11,7 +11,7 @@ public class WeaponPart : Item
     public bool isQuiver;
     public uint magazineSize;
     public uint[] magezineSizes = new uint[] {
-        100, 50, 10
+        1000, 100, 50, 25, 10
     };
 
     [Header("Barrel")]
@@ -23,33 +23,34 @@ public class WeaponPart : Item
     // Max movement added to the visor on shoot
     public float recoil;
     public float[] recoils = new float[] {
-        0f, 1f, 5f
+        0f, 0.5f, 1f, 2.5f, 5f
     };
+    public bool shakeScreenOnShot;
 
     [Header("Sight")]
     public bool isSight;
     [Range (0f, 1f)]
     // 0 means no pertubation added to shoots
     // 1 means maximalPertubation is added to shoots
-    public float precision; 
+    public float precision;
     public float[] precisions = new float[] {
-        0f, 0.05f, 0.5f
+        0f, 0.01f, 0.025f, 0.05f, 0.5f
     };
 
     [Header("Handle")]
     public bool isHandle;
     public float reloadTime;
     public float[] reloadTimes = new float[] {
-        0f, 2f, 5f
+        0f, 1f, 2f, 3f, 4f, 5f
     };
 
     [Header("String")]
     public bool isString;
     public float fireRate;  // Time between every shot
     public float lifespan;  // Time before decaying
-    
+
     public float[] fireRates = new float[] {
-        0.1f, 0.5f, 1f
+        0.1f, 0.25f, 0.5f, 0.75f, 1f
     };
 
     public void RandomizeQuiver()
@@ -58,7 +59,7 @@ public class WeaponPart : Item
         sprite = Utility.RandomElement(GameController.Instance.quiverSprites);
 
         magazineSize = Utility.RandomElement(magezineSizes);
-        
+
         GenerateName(GetQualifier(magazineSize, magezineSizes));
     }
 
@@ -69,7 +70,7 @@ public class WeaponPart : Item
 
         Bullet[] bullets = Resources.LoadAll<Bullet>("Bullets");
         bulletPrefab = Utility.RandomElement(bullets);
-        
+
         GenerateName(GetQualifier(bulletPrefab, bullets));
     }
 
@@ -79,7 +80,9 @@ public class WeaponPart : Item
         sprite = Utility.RandomElement(GameController.Instance.stockSprites);
 
         recoil = Utility.RandomElement(recoils);
-        
+        shakeScreenOnShot =
+            Random.value < GameController.Instance.ShakingStockProbability;
+
         GenerateName(GetQualifier(recoil, recoils));
     }
 
@@ -89,7 +92,7 @@ public class WeaponPart : Item
         sprite = Utility.RandomElement(GameController.Instance.sightSprites);
 
         precision = Utility.RandomElement(precisions);
-        
+
         GenerateName(GetQualifier(precision, precisions));
     }
 
@@ -99,7 +102,7 @@ public class WeaponPart : Item
         sprite = Utility.RandomElement(GameController.Instance.handleSprites);
 
         reloadTime = Utility.RandomElement(reloadTimes);
-        
+
         GenerateName(GetQualifier(reloadTime, reloadTimes));
     }
 
@@ -188,7 +191,7 @@ public class WeaponPart : Item
 
         return "";
     }
-    
+
     void GenerateName(string qualifier)
     {
         itemName = qualifier + " " + GetPartName();
