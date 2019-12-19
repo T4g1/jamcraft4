@@ -158,6 +158,8 @@ MonoBehaviour:
   removeButton: {fileID: 8468286915044026774}
   tooltip: {fileID: 7411365399149995822}
   type: 0
+  addItemSFX: event:/SFX/crafting/craft_place_item
+  removeItemSFX: event:/SFX/crafting/craft_remove_item
 --- !u!1001 &9131867238205667872
 PrefabInstance:
   m_ObjectHideFlags: 0

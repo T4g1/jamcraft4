@@ -30,7 +30,7 @@ public class KingSlime : Slime
 
         OnTakeDamage += GotDamaged;
     }
-    
+
     void OnDestroy() {
         OnTakeDamage -= GotDamaged;
     }
@@ -38,7 +38,7 @@ public class KingSlime : Slime
     public override void Die()
     {
         if (endPortal != null) {
-            endPortal.Activate();
+            endPortal.ManualActivate();
         }
 
         base.Die();

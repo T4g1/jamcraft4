@@ -221,7 +221,7 @@ public class GameController : MonoBehaviour
             );
         }
 
-        levelGenerator.PortalIn.Activate();
+        levelGenerator.PortalIn.ManualActivate();
     }
 
     /**

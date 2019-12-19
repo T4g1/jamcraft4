@@ -11,6 +11,12 @@ public class CraftingSlot : InventorySlot
         get { return type; }
     }
 
+    [FMODUnity.EventRef]
+    public string addItemSFX = "";
+    [FMODUnity.EventRef]
+    public string removeItemSFX = "";
+
+
     public override bool AddItem(Item newItem)
     {
         if (!IsFree()) {
@@ -19,6 +25,10 @@ public class CraftingSlot : InventorySlot
 
         bool result = base.AddItem(newItem);
 
+        if (result) {
+            Utility.PlaySFX(addItemSFX);
+        }
+
         return result;
     }
 
@@ -26,6 +36,8 @@ public class CraftingSlot : InventorySlot
     {
         Assert.IsFalse(Inventory.Instance.IsFull());
         Inventory.Instance.Add(Item);
+
+        Utility.PlaySFX(removeItemSFX);
 
         ClearSlot();
     }

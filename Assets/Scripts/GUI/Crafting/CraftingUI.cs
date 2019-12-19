@@ -24,23 +24,26 @@ public class CraftingUI : Popup
     private GameObject craftingGrid = null;
     [SerializeField]
     private GameObject onCraftedNotification = null;
-    
-    [SerializeField] 
+
+    [SerializeField]
     private UnityEvent onCrafted = null;
 
     [FMODUnity.EventRef]
     public string craftingSFX = "";
+    [FMODUnity.EventRef]
+    public string craftingErrorSFX = "";
 
     private Inventory inventory;
     private CraftingSlot[] slots;
 
-    
+
     void Awake()
     {
         Assert.IsNotNull(craftingGrid);
-        
+
         Assert.IsTrue(craftingSFX != "");
-        
+        Assert.IsTrue(craftingErrorSFX != "");
+
         InitInstance();
 
         inventory = Inventory.Instance;
@@ -73,7 +76,7 @@ public class CraftingUI : Popup
             if (slot.IsFree()) {
                 continue;
             }
-            
+
             slot.ClearSlot();
         }
     }
@@ -83,11 +86,12 @@ public class CraftingUI : Popup
         // Check the grid is complete
         foreach (CraftingSlot slot in slots) {
             if (slot.IsFree()) {
+                Utility.PlaySFX(craftingErrorSFX);
                 return;
             }
         }
 
-        // Check the grid is complete
+        // Assign weapon parts
         foreach (CraftingSlot slot in slots) {
             Utility.GetWeapon().SetPart((WeaponPart) slot.Item);
         }
@@ -95,7 +99,7 @@ public class CraftingUI : Popup
         Utility.PlaySFX(craftingSFX);
 
         ConsumeItems();
-        
+
         GameUIController.Instance.ShowNotification(onCraftedNotification);
 
         onCrafted.Invoke();
