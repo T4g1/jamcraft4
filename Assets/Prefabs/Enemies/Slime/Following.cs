@@ -9,8 +9,6 @@ public class Following : StateMachineBehaviour
     private Animator cachedAnimator = null;
 
     private float oldSpeed;
-    private float attackThreshold = 1.2f;
-
 
     public void OnTargetLost(GameObject other)
     {
@@ -46,7 +44,7 @@ public class Following : StateMachineBehaviour
             player.transform.position
         );
 
-        cachedAnimator.SetBool("attacking", distance < attackThreshold);
+        cachedAnimator.SetBool("attacking", distance <= enemy.GetAttackRange());
     }
 
     override public void OnStateExit(

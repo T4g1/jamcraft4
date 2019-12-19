@@ -11,7 +11,7 @@ public class Portal : MonoBehaviour
 
     private bool isLevelEnd = false;
     private bool isActive = false;
-    
+
     [SerializeField]
     private bool defaultActive = true;
     [SerializeField]
@@ -19,10 +19,18 @@ public class Portal : MonoBehaviour
     [SerializeField]
     private Animator portalSprite = null;
 
+    [FMODUnity.EventRef]
+    public string useSFX = "";
+    [FMODUnity.EventRef]
+    public string activationSFX = "";
+
 
     void Start()
     {
         Assert.IsNotNull(portalSprite);
+
+        Assert.IsTrue(activationSFX != "");
+        Assert.IsTrue(useSFX != "");
 
         if (defaultActive) {
             Activate();
@@ -33,7 +41,7 @@ public class Portal : MonoBehaviour
     }
 
 
-    void OnTriggerEnter2D(Collider2D other) 
+    void OnTriggerEnter2D(Collider2D other)
     {
         if (!isActive) {
             return;
@@ -47,6 +55,8 @@ public class Portal : MonoBehaviour
 
     IEnumerator _Teleport(GameObject player)
     {
+        Utility.PlaySFX(useSFX);
+
         yield return new WaitForSeconds(teleportTime);
 
         Deactivate();
@@ -67,10 +77,17 @@ public class Portal : MonoBehaviour
         isLevelEnd = value;
     }
 
+    public void ManualActivate()
+    {
+        Activate();
+        Utility.PlaySFX(activationSFX);
+    }
+
     public void Activate()
     {
         isActive = true;
         portalSprite.Play("opening");
+
     }
 
     public void Deactivate()

@@ -7,11 +7,11 @@ using UnityEngine.UI;
 public class CustomSlider : MonoBehaviour
 {
     [SerializeField]
-    private float maximalValue = 1.0f;
+    private float maximalValue = 1.5f;
     [SerializeField]
     private float currentValue = 0.0f;
     [SerializeField]
-    private Slider slider;
+    private Slider slider = null;
 
 
     void Awake()

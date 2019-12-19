@@ -46,10 +46,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc9a1ae9443b44ae8b638387a5d1f97c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  teleportTime: 0.3
+  teleportTime: 0.5
   defaultActive: 1
   destination: {x: 0, y: 0, z: 0}
   portalSprite: {fileID: 3988716607877926832}
+  useSFX: event:/SFX/misc/portal_teleport
+  activationSFX: event:/SFX/misc/portal_activated
 --- !u!95 &6965653172146544279
 Animator:
   serializedVersion: 3

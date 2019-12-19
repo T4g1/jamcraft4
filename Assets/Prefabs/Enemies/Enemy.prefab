@@ -717,6 +717,21 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 8445769033048542315, guid: 5f1500dc0f2c3544ba406cac37395c2d,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8445769033048542315, guid: 5f1500dc0f2c3544ba406cac37395c2d,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8445769033048542315, guid: 5f1500dc0f2c3544ba406cac37395c2d,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8445769032712623167, guid: 5f1500dc0f2c3544ba406cac37395c2d,
         type: 3}
       propertyPath: m_Value
@@ -747,21 +762,6 @@ PrefabInstance:
       propertyPath: m_Color.b
       value: 0.1273585
       objectReference: {fileID: 0}
-    - target: {fileID: 8445769033048542315, guid: 5f1500dc0f2c3544ba406cac37395c2d,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8445769033048542315, guid: 5f1500dc0f2c3544ba406cac37395c2d,
-        type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8445769033048542315, guid: 5f1500dc0f2c3544ba406cac37395c2d,
-        type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5f1500dc0f2c3544ba406cac37395c2d, type: 3}
 --- !u!1 &3866449831133738247 stripped
@@ -789,6 +789,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4733053869221708459}
     m_Modifications:
+    - target: {fileID: 4474098794640344307, guid: 6088b77b9d16f4a4c9a60935af54dfb8,
+        type: 3}
+      propertyPath: follow
+      value: 
+      objectReference: {fileID: 2500378062470952989}
+    - target: {fileID: 4474098794640344307, guid: 6088b77b9d16f4a4c9a60935af54dfb8,
+        type: 3}
+      propertyPath: offset.y
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4474098794640344307, guid: 6088b77b9d16f4a4c9a60935af54dfb8,
+        type: 3}
+      propertyPath: defaultActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7598308737244282326, guid: 6088b77b9d16f4a4c9a60935af54dfb8,
         type: 3}
       propertyPath: m_Name
@@ -902,26 +917,16 @@ PrefabInstance:
     - target: {fileID: 1335766708892465295, guid: 6088b77b9d16f4a4c9a60935af54dfb8,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 12
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1335766708892465295, guid: 6088b77b9d16f4a4c9a60935af54dfb8,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 16
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4474098794640344307, guid: 6088b77b9d16f4a4c9a60935af54dfb8,
+    - target: {fileID: 8655581570140074578, guid: 6088b77b9d16f4a4c9a60935af54dfb8,
         type: 3}
-      propertyPath: follow
-      value: 
-      objectReference: {fileID: 2500378062470952989}
-    - target: {fileID: 4474098794640344307, guid: 6088b77b9d16f4a4c9a60935af54dfb8,
-        type: 3}
-      propertyPath: offset.y
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4474098794640344307, guid: 6088b77b9d16f4a4c9a60935af54dfb8,
-        type: 3}
-      propertyPath: defaultActive
+      propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 209936953282630920, guid: 6088b77b9d16f4a4c9a60935af54dfb8,
@@ -929,9 +934,9 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8655581570140074578, guid: 6088b77b9d16f4a4c9a60935af54dfb8,
+    - target: {fileID: 4815157631127888770, guid: 6088b77b9d16f4a4c9a60935af54dfb8,
         type: 3}
-      propertyPath: m_IsActive
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

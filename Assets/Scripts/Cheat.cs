@@ -6,7 +6,7 @@ using UnityEngine.Assertions;
 public class Cheat : MonoBehaviour
 {
     [SerializeField]
-    private GameObject debugRoomSpawn = null;
+    private GameObject customSpawn = null;
     [SerializeField]
     private bool cheatEnabled = false;
 
@@ -18,7 +18,7 @@ public class Cheat : MonoBehaviour
             return;
         }
         
-        Assert.IsNotNull(debugRoomSpawn);
+        Assert.IsNotNull(customSpawn);
     }
 
     void Update()
@@ -59,7 +59,6 @@ public class Cheat : MonoBehaviour
             return;
         }
 
-        Utility.GetPlayer().transform.position = 
-            debugRoomSpawn.transform.position;
+        Utility.GetPlayer().transform.position = customSpawn.transform.position;
     }
 }

@@ -11,7 +11,7 @@ public class Utility
     {
         return array[UnityEngine.Random.Range(0, array.Length)];
     }
-    
+
     public static T RandomElement<T>(List<T> list)
     {
         return list[UnityEngine.Random.Range(0, list.Count)];
@@ -78,7 +78,17 @@ public class Utility
         if (player != null) {
             return player.GetComponent<Player>();
         }
-        
+
+        return null;
+    }
+
+    public static PlayerCamera GetCamera()
+    {
+        GameObject camera = GameObject.FindWithTag("MainCamera");
+        if (camera != null) {
+            return camera.GetComponent<PlayerCamera>();
+        }
+
         return null;
     }
 
@@ -88,7 +98,7 @@ public class Utility
         if (player != null) {
             return player.transform.GetComponentInChildren<Weapon>();
         }
-        
+
         return null;
     }
 
@@ -96,7 +106,7 @@ public class Utility
     {
         FMOD.Studio.EventInstance instance =
             FMODUnity.RuntimeManager.CreateInstance(name);
-        
+
         instance.start();
     }
 }

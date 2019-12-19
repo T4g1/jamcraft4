@@ -49,7 +49,7 @@ public class Weapon : MonoBehaviour
             }
         }
     }
-    
+
     private WeaponPartHolder barrelHolder;
     private WeaponPartHolder stockHolder;
     private WeaponPartHolder sightHolder;
@@ -71,7 +71,7 @@ public class Weapon : MonoBehaviour
         Assert.IsNotNull(muzzle);
 
         partHolders = gameObject.GetComponentsInChildren<WeaponPartHolder>();
-        
+
         Assert.IsNotNull(partHolders);
         Assert.IsTrue(partHolders.Length == WeaponPart.GetPartTypeCount());
 
@@ -85,14 +85,14 @@ public class Weapon : MonoBehaviour
         Assert.IsTrue(shootSFX != "");
         Assert.IsTrue(emptySFX != "");
         Assert.IsTrue(reloadSFX != "");
-        
+
         Assert.IsNotNull(barrelHolder);
         Assert.IsNotNull(stockHolder);
         Assert.IsNotNull(sightHolder);
         Assert.IsNotNull(stringHolder);
         Assert.IsNotNull(handleHolder);
         Assert.IsNotNull(quiverHolder);
-        
+
         MagazineClip = GetMagazineSize();
 
         playerCamera = Camera.main;
@@ -185,8 +185,8 @@ public class Weapon : MonoBehaviour
     {
         visor.transform.rotation = Quaternion.identity;
         visor.transform.position =  Vector3.Lerp(
-            visor.transform.position, 
-            Utility.GetMouseWorldPosition(), 
+            visor.transform.position,
+            Utility.GetMouseWorldPosition(),
             Time.deltaTime * visorSpeed
         );
     }
@@ -214,8 +214,8 @@ public class Weapon : MonoBehaviour
         rotationRaw *= (180.0f / Mathf.PI);
 
         transform.rotation = Quaternion.Euler(
-            0.0f, 
-            0.0f, 
+            0.0f,
+            0.0f,
             GetCurrentRotation()
         );
 
@@ -252,8 +252,8 @@ public class Weapon : MonoBehaviour
         bullet.lifespan = GetBulletLifeSpan();
 
         Vector3 recoil = new Vector3(
-            Random.Range(0f, GetRecoil()), 
-            Random.Range(0f, GetRecoil()), 
+            Random.Range(0f, GetRecoil()),
+            Random.Range(0f, GetRecoil()),
             0f
         );
 
@@ -261,7 +261,11 @@ public class Weapon : MonoBehaviour
 
         MagazineClip -= 1;
         Utility.PlaySFX(shootSFX);
-        
+
+        if (IsShakingWeapon()) {
+            Utility.GetCamera().TriggerIntenseShake();
+        }
+
         if (MagazineClip <= 0) {
             Reload();
 
@@ -280,7 +284,7 @@ public class Weapon : MonoBehaviour
         if (reloading) {
             return;
         }
-        
+
         Utility.PlaySFX(reloadSFX);
 
         reloading = true;
@@ -295,7 +299,7 @@ public class Weapon : MonoBehaviour
     {
         float perturbation = maximalPerturbation * GetPrecision();
         perturbation = Random.Range(
-            -perturbation/2, 
+            -perturbation/2,
             perturbation/2
         );
 
@@ -384,6 +388,11 @@ public class Weapon : MonoBehaviour
         holder.Part = part;
 
         UpdateLayout();
+    }
+
+    public bool IsShakingWeapon()
+    {
+        return stockHolder.Part.shakeScreenOnShot;
     }
 
     WeaponPartHolder GetHolder(PartType type)

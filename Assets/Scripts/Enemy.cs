@@ -43,7 +43,7 @@ public class Enemy : Alive
 
     [SerializeField]
     private float speed = 1.0f;
-    
+
     public float Speed
     {
         get { return speed; }
@@ -65,12 +65,12 @@ public class Enemy : Alive
     [SerializeField]
     private GameObject bloodInstance = null;
 
-    private CustomSlider lifeSlider; 
+    private CustomSlider lifeSlider;
 
 
     protected override void Start()
     {
-        lifeSlider = GetComponentInChildren<CustomSlider>();
+        lifeSlider = GetComponentInChildren<CustomSlider>(true);
 
         Assert.IsNotNull(lifeSlider);
         Assert.IsNotNull(behaviour);
@@ -168,15 +168,16 @@ public class Enemy : Alive
                 transform.position
             );
         }
-        
+
         Utility.PlaySFX(dieSFX);
 
         GameObject blood = GameController.Instance.Instantiate(
-            bloodInstance, 
+            bloodInstance,
             gameObject.transform.position
         );
 
         Destroy(gameObject);
+        Utility.GetCamera().TriggerShake();
 
         base.Die();
     }
@@ -207,5 +208,15 @@ public class Enemy : Alive
         gameObject.GetComponent<Animator>().enabled = false;
 
         GameController.Instance.OnEnemyUnloaded(this);
+    }
+
+    public float GetAttackRange()
+    {
+        return AttackZone.GetRadius();
+    }
+
+    public void OnAttackOver()
+    {
+        behaviour.GetComponent<Animator>().SetBool("attacking", false);
     }
 }
