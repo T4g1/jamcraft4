@@ -440,7 +440,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   customSpawn: {fileID: 501043397}
-  cheatEnabled: 1
+  cheatEnabled: 0
 --- !u!1001 &101097578
 PrefabInstance:
   m_ObjectHideFlags: 0
