@@ -440,7 +440,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   customSpawn: {fileID: 501043397}
-  cheatEnabled: 0
+  cheatEnabled: 1
 --- !u!1001 &101097578
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1325,13 +1325,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   handleSprites:
   - {fileID: 21300000, guid: 9d1287314396ad4459e47f42c2991a1c, type: 3}
+  - {fileID: 21300000, guid: a8ba6b9579b296e42a3919a443fe254a, type: 3}
   quiverSprites:
   - {fileID: 21300000, guid: 087383a6cab574e4d95231d2ccfe4cff, type: 3}
+  - {fileID: 21300000, guid: ddfac53ecc0f8e649b0a0b5dba2dca56, type: 3}
   stockSprites:
   - {fileID: 21300000, guid: 18c229c19dd0ad848a01ec5bd7604277, type: 3}
   - {fileID: 21300000, guid: 22d38ece31f83624e827e64a258c2af0, type: 3}
   sightSprites:
   - {fileID: 21300000, guid: 30e93214bb3a0294ea2c4831bca89090, type: 3}
+  - {fileID: 21300000, guid: 9e47fd18795d4c243a322b18a52be5fd, type: 3}
   barrelSprites:
   - {fileID: 21300000, guid: ec215751998817f4e953dcdf6605e4b8, type: 3}
   - {fileID: 21300000, guid: 925a02c1612fb6840b029dc8ae770e61, type: 3}
@@ -5401,6 +5404,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -2336241473827627306, guid: 1888bd355a9244847bafec9d07b80e84,
         type: 3}
+    - target: {fileID: 5801266779450527745, guid: c0921bb54acc8d84fa068f9486611948,
+        type: 3}
+      propertyPath: defaultShakeMagnitude
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5801266779450527745, guid: c0921bb54acc8d84fa068f9486611948,
+        type: 3}
+      propertyPath: intenseShakeMagnitude
+      value: 0.4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c0921bb54acc8d84fa068f9486611948, type: 3}
 --- !u!1 &882763264

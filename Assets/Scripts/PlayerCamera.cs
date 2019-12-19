@@ -17,9 +17,9 @@ public class PlayerCamera : MonoBehaviour
     [SerializeField]
     private float shakeDuration = 0.5f;
     [SerializeField]
-    private float defaultShakeMagnitude = 0.4f;
+    private float defaultShakeMagnitude = 0.2f;
     [SerializeField]
-    private float intenseShakeMagnitude = 0.6f;
+    private float intenseShakeMagnitude = 0.4f;
     [SerializeField]
     private float dampingSpeed = 1.0f;
 

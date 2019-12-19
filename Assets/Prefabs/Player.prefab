@@ -511,7 +511,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 3
   shakeDuration: 0.2
-  shakeMagnitude: 0.1
+  defaultShakeMagnitude: 0.3
+  intenseShakeMagnitude: 0.6
   dampingSpeed: 1
 --- !u!1001 &7523753020974414327
 PrefabInstance:
